@@ -52,7 +52,11 @@
                                         @case('textarea')
                                             {!! renderSystemTextarea($name, $systems) !!}
                                             @break
+                                        @case('datetime')
+                                            {!! renderSystemDateTime($name, $systems) !!}
+                                            @break
                                         @case('select')
+
                                             {!! renderSystemSelect($item, $name, $systems) !!}
                                             @break
                                         @case('editor')

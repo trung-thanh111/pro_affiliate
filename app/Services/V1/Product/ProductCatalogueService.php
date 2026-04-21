@@ -326,4 +326,18 @@ class ProductCatalogueService extends BaseService
         return recursive($originalCategory);
     }
 
+    public function getFeaturedCatalogues($languageId, $limit = 8){
+        return $this->productCatalogueRepository->findByCondition(
+            [
+                ['publish', '=', 2]
+            ],
+            true,
+            [
+                'languages' => function($query) use ($languageId){
+                    $query->where('language_id', $languageId);
+                }
+            ],
+            ['order', 'desc']
+        )->take($limit);
+    }
 }

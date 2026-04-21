@@ -7,15 +7,32 @@
     {{-- Top Bar --}}
     <div class="top-bar">
         <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="contact-info d-flex gap-4">
-                    <span><i class="bi bi-envelope-fill me-2"></i> {{ $system['contact_email'] }}</span>
-                    <span><i class="bi bi-telephone-fill me-2"></i> {{ $system['contact_hotline'] }}</span>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-3">
+                    <a href="#" class="text-decoration-none">Kênh Người Bán</a>
+                    <div class="divider"></div>
+                    <a href="#" class="text-decoration-none">Trở thành Người bán Shopee</a>
+                    <div class="divider"></div>
+                    <a href="#" class="text-decoration-none">Tải ứng dụng</a>
+                    <div class="divider"></div>
+                    <span class="d-flex align-items-center gap-2">Kết nối <i class="bi bi-facebook"></i> <i class="bi bi-instagram"></i></span>
                 </div>
-                <div class="social-links">
-                    <a href="#"><i class="bi bi-facebook"></i></a>
-                    <a href="#"><i class="bi bi-youtube"></i></a>
-                    <a href="#"><i class="bi bi-instagram"></i></a>
+                <div class="d-flex align-items-center gap-3">
+                    <a href="#" class="text-decoration-none"><i class="bi bi-bell"></i> Thông Báo</a>
+                    <a href="#" class="text-decoration-none"><i class="bi bi-question-circle"></i> Hỗ Trợ</a>
+                    <a href="#" class="text-decoration-none"><i class="bi bi-globe"></i> Tiếng Việt <i class="bi bi-chevron-down"></i></a>
+                    <div class="divider"></div>
+                    @guest('customer')
+                        <a href="{{ route('customer.login') }}" class="text-decoration-none">Đăng Ký</a>
+                        <div class="divider"></div>
+                        <a href="{{ route('customer.login') }}" class="text-decoration-none">Đăng Nhập</a>
+                    @endguest
+                    @auth('customer')
+                        <a href="{{ route('customer.account') }}" class="user-info text-decoration-none d-flex align-items-center gap-1">
+                            <i class="bi bi-person-circle"></i>
+                            {{ auth('customer')->user()->name }}
+                        </a>
+                    @endauth
                 </div>
             </div>
         </div>
@@ -24,54 +41,41 @@
     {{-- Main Header --}}
     <div class="main-header">
         <div class="container">
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-start gap-4">
                 {{-- Logo --}}
-                <div class="logo me-4">
+                <div class="logo flex-shrink-0 mt-1">
                     <a href="/"><img src="{{ $system['homepage_logo'] }}" alt="Logo"></a>
                 </div>
 
-                {{-- Category --}}
-                <div class="category-dropdown">
-                    <button class="btn-category">
-                        <i class="bi bi-list"></i> Danh mục
-                    </button>
-                    <ul class="dropdown-menu">
-                        {!! $menu['main-menu'] ?? '' !!}
-                    </ul>
-                </div>
-
-                {{-- Search --}}
-                <div class="header-search">
-                    <form action="{{ route('product.catalogue.search') }}" method="GET" class="search-form">
-                        <input type="text" name="keyword" class="input-search" placeholder="Tìm kiếm mã, tên sản phẩm có nhu cầu" autocomplete="off">
-                        <button type="submit" class="btn-search">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </form>
-                    <div class="search-suggestions">
-                        {{-- Results will be appended here via AJAX --}}
+                {{-- Search Area --}}
+                <div class="header-center">
+                    <div class="header-search">
+                        <form action="{{ route('product.catalogue.search') }}" method="GET" class="search-form">
+                            <input type="text" name="keyword" class="input-search" placeholder="Shopee bao lễ - Gì cũng rẻ" autocomplete="off">
+                            <button type="submit" class="btn-search">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </form>
+                        <div class="search-suggestions">
+                            {{-- Results via AJAX --}}
+                        </div>
                     </div>
+                    
+                    {{-- Category/Tags below search --}}
+                    @if(isset($headerTags) && count($headerTags))
+                        <div class="header-tags">
+                            @foreach($headerTags as $tag)
+                                @php
+                                    $tagName = $tag->languages->first()->pivot->name ?? '';
+                                    $tagUrl = $tag->languages->first()->pivot->canonical ?? '#';
+                                @endphp
+                                @if($tagName)
+                                    <a href="{{ route('product.catalogue.index', ['canonical' => $tagUrl]) }}">{{ $tagName }}</a>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
-
-                {{-- Account --}}
-                @guest('customer')
-                    <a href="{{ route('customer.login') }}" class="user-account">
-                        <div class="icon-user"><i class="bi bi-person-circle"></i></div>
-                        <div class="text">
-                            Đăng nhập
-                            <span>Tài khoản</span>
-                        </div>
-                    </a>
-                @endguest
-                @auth('customer')
-                    <a href="{{ route('customer.account') }}" class="user-account">
-                        <div class="icon-user"><i class="bi bi-person-circle"></i></div>
-                        <div class="text">
-                            Xin chào,
-                            <span>{{ auth('customer')->user()->name }}</span>
-                        </div>
-                    </a>
-                @endauth
 
                 {{-- Cart --}}
                 <div class="cart-wrapper">
@@ -89,7 +93,8 @@
         <div class="header-top-row d-flex align-items-center justify-content-between py-2">
             {{-- Left: Logo --}}
             <div class="mobile-logo">
-                <a href="/"><img src="{{ $system['homepage_logo'] }}" alt="Logo" class="img-fluid" style="max-height: 45px;"></a>
+                <a href="/"><img src="{{ $system['homepage_logo'] }}" alt="Logo" class="img-fluid"
+                        style="max-height: 45px;"></a>
             </div>
 
             {{-- Center: Search (Visible only on Tablet) --}}
@@ -97,7 +102,8 @@
                 <div class="mobile-search-bar">
                     <form action="{{ route('product.catalogue.search') }}" method="GET" class="search-form-mobile">
                         <div class="input-group">
-                            <input type="text" name="keyword" class="form-control" placeholder="Bạn muốn tìm gì hôm nay?" autocomplete="off">
+                            <input type="text" name="keyword" class="form-control"
+                                placeholder="Bạn muốn tìm gì hôm nay?" autocomplete="off">
                             <button class="btn btn-search-mobile" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>
@@ -125,7 +131,8 @@
             <div class="mobile-search-bar">
                 <form action="{{ route('product.catalogue.search') }}" method="GET" class="search-form-mobile">
                     <div class="input-group">
-                        <input type="text" name="keyword" class="form-control" placeholder="Bạn muốn tìm gì hôm nay?" autocomplete="off">
+                        <input type="text" name="keyword" class="form-control" placeholder="Bạn muốn tìm gì hôm nay?"
+                            autocomplete="off">
                         <button class="btn btn-search-mobile" type="submit">
                             <i class="bi bi-search"></i>
                         </button>
@@ -142,7 +149,7 @@
         <button class="uk-offcanvas-close mobile-menu-close" type="button">
             <i class="fa fa-times"></i>
         </button>
-        
+
         <div class="mobile-menu-header">
             <div class="mobile-menu-logo">
                 <a href="/" title="Logo">
@@ -205,4 +212,3 @@
         </div>
     </div>
 </div>
-<!-- End Mobile Menu -->

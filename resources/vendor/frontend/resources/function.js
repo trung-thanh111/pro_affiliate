@@ -136,36 +136,80 @@
     HT.categorySlider = () => {
         var swiper = new Swiper(".panel-category-slider .swiper-category", {
             loop: false,
-            spaceBetween: 20,
-            slidesPerView: 4,
+            spaceBetween: 0,
+            slidesPerView: 10,
+            observer: true,
+            observeParents: true,
             breakpoints: {
                 320: {
-                    slidesPerView: 1.2,
-                    spaceBetween: 10
+                    slidesPerView: 3,
                 },
                 480: {
-                    slidesPerView: 2,
-                    spaceBetween: 15
+                    slidesPerView: 4,
                 },
                 768: {
-                    slidesPerView: 3,
-                    spaceBetween: 20
+                    slidesPerView: 6,
+                },
+                1024: {
+                    slidesPerView: 8,
                 },
                 1200: {
-                    slidesPerView: 4,
-                    spaceBetween: 20
-                },
-                1400: {
-                    slidesPerView: 5,
-                    spaceBetween: 20
+                    slidesPerView: 10,
                 }
             },
             navigation: {
-                nextEl: '.panel-category-slider .swiper-button-next',
-                prevEl: '.panel-category-slider .swiper-button-prev',
+                nextEl: '.category-nav-next',
+                prevEl: '.category-nav-prev',
             },
         });
+
     }
+
+    HT.flashSaleCountdown = () => {
+        const $countdown = $('.flash-sale-countdown');
+        if (!$countdown.length) return;
+
+        const endTimeStr = $countdown.data('time');
+        if (!endTimeStr) return;
+
+        // Parse DD/MM/YYYY HH:mm to Date object
+        const parts = endTimeStr.split(/[\/\s:]/);
+        const endTime = new Date(parts[2], parts[1] - 1, parts[0], parts[3] || 0, parts[4] || 0).getTime();
+
+
+        const updateTimer = () => {
+            const now = new Date().getTime();
+            const distance = endTime - now;
+
+            if (distance < 0) {
+                $countdown.find('.days').hide();
+                $countdown.find('.hours').text('00');
+                $countdown.find('.minutes').text('00');
+                $countdown.find('.seconds').text('00');
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (days > 0) {
+                $countdown.find('.days').text(days + 'n').show();
+            } else {
+                $countdown.find('.days').hide();
+            }
+
+            $countdown.find('.hours').text(hours < 10 ? '0' + hours : hours);
+            $countdown.find('.minutes').text(minutes < 10 ? '0' + minutes : minutes);
+            $countdown.find('.seconds').text(seconds < 10 ? '0' + seconds : seconds);
+        };
+
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    }
+
 
 
 
@@ -791,6 +835,8 @@
         HT.categorySlider()
         HT.product()
         HT.feedback()
+        HT.flashSaleCountdown()
+
 
         // $(window).on('load', function() {
         //     HT.swiper();

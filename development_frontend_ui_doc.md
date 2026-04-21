@@ -15,7 +15,7 @@
         - Các hiệu ứng phức tạp (VD: `&:hover` với transform/shadow, active states đặc thù).
         - Các giá trị pixel chính xác 100% không nằm trong scale mặc định của Bootstrap.
     - Mục tiêu: Giảm thiểu kích thước file `app.scss`, tận dụng tối đa sức mạnh của framework có sẵn.
-5. tự hiểu là có reponsive (mobile, tablet -> thật chính xác nhé) cả khi không yêu cầu nhé (ưu tiên class bootstrap 5.3 > scss (không style inline nhé tuyệt đối))
+5. tự hiểu là có reponsive (mobile, tablet -> thật chính xác nhé) cả khi không yêu cầu nhé (ưu tiên class uikit v2 > scss (không style inline nhé tuyệt đối))
 6. làm đơn giản hiệu quả cao đạt đúng yêu cầu mong muốn (không rườm rà nhé, không bị duplicate code nhé)
 7. khi làm tuân thủ dùng lại các biến có sẵn thay vì tự set nhé như --s,..... trong app.scss nhé
 8. khi làm ưu tiên mock data từ db ra nhé tùy theo bảng phù hợp nhé và làm đúng flow admin (repository, service, controller, view,... chứ không phải cứ muốn call ở đâu cũng được nhé -> tôi cần bài bản bảo mật chính sác theo flow codebase đang dùng nhé ), còn nếu mock ra mà null phải có fallback đúng case đó content đúng nhé tùy vào trường hợp yêu cầu đó là gì nữa nhé

@@ -157,16 +157,19 @@
 
     .badge-discount {
         position: absolute;
-        top: 8px;
-        right: 8px;
-        background: var(--secondary-gradient);
+        top: 10px;
+        right: 10px;
+        background: linear-gradient(135deg, #ff9d00 0%, #ee4d2d 100%);
         color: #fff;
-        padding: 2px 10px;
-        font-size: 11px;
+        padding: 4px 10px;
+        font-size: 13px;
         border-radius: 4px;
-        font-weight: 600;
+        font-weight: 800;
         z-index: 10;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 10px rgba(238, 77, 45, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        animation: pulse-red 2s infinite;
     }
 
     .info-box {

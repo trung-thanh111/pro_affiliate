@@ -29,6 +29,8 @@ class StoreProductRequest extends FormRequest
             'canonical' => 'required|unique:routers',
             'product_catalogue_id' => 'gt:0',
             'stock' => 'nullable|integer|min:0',
+            'link' => 'nullable',
+            'source' => 'nullable',
         ];
     }
 

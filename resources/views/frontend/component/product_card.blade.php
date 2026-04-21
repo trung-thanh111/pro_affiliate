@@ -32,12 +32,17 @@
                     <span class="price-old">{{ convert_price($price['price'], true) }}₫</span>
                 @endif
             </div>
-            <a href="javascript:void(0)" class="btn-cart">
+            <a href="{{ $canonical }}?redirect=1" class="btn-cart" title="Mua ngay">
                 <i class="fa fa-shopping-cart"></i>
             </a>
         </div>
+
         <div class="footer-meta">
-            <span class="status">Còn hàng</span>
+            @if(!empty($product->source))
+                <span class="status" style="color: #ee4d2d"><i class="fa fa-shopping-bag" style="font-size: 10px; margin-right: 3px;"></i>{{ $product->source }}</span>
+            @else
+                <span class="status">Còn hàng</span>
+            @endif
             <span class="sold">Đã bán: {{ $sold_text }}</span>
         </div>
     </div>

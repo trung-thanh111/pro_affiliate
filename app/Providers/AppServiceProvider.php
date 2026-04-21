@@ -75,6 +75,7 @@ class AppServiceProvider extends ServiceProvider
             $composerClasses = [
                 MenuComposer::class,
                 CartComposer::class,
+                \App\Http\ViewComposers\HeaderComposer::class,
             ];
 
             foreach($composerClasses as $key => $val){

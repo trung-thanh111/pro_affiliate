@@ -153,8 +153,18 @@
         </div>
         <div class="form-row mb15">
             <label for="">Mã Nhúng Video Demo</label>
-            <textarea type="text" name="iframe" class="form-control" style="height:168px;"
+            <textarea type="text" name="iframe" class="form-control" style="height:100px;"
                 placeholder="Nhập mã nhúng iframe của video">{{ old('iframe', $product->iframe ?? '') }}</textarea>
+        </div>
+        <div class="form-row mb15">
+            <label for="">Đường dẫn Redirect (Affiliate Link)</label>
+            <textarea type="text" name="link" class="form-control" style="height:100px;"
+                placeholder="Nhập đường dẫn chuyển hướng khi nhấn Mua ngay">{{ old('link', $product->link ?? '') }}</textarea>
+        </div>
+        <div class="form-row mb15">
+            <label for="">Nguồn Affiliate (VD: Shopee, Lazada...)</label>
+            <input type="text" name="source" value="{{ old('source', $product->source ?? '') }}"
+                class="form-control" placeholder="Nhập tên nguồn affiliate">
         </div>
         <div class="form-row hidden">
             <label for="">Nội dung khóa học</label>

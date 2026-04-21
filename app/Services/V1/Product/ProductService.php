@@ -409,6 +409,8 @@ class ProductService extends BaseService
             'attribute',
             'variant',
             'iframe',
+            'link',
+            'source',
         ];
     }
 
@@ -430,19 +432,22 @@ class ProductService extends BaseService
 
         $promotions = $this->promotionRepository->findByProduct($productId);
 
-        if ($promotions) {
-
+        if ($promotions && count($promotions) > 0) {
             if ($flag == true) {
-                $products->promotions = ($promotions[0]) ?? [];
+                $products->promotions = $promotions[0];
                 return $products;
             }
-
             foreach ($products as $index => $product) {
                 foreach ($promotions as $key => $promotion) {
                     if ($promotion->product_id == $product->id) {
                         $products[$index]->promotions = $promotion;
                     }
                 }
+            }
+        } else {
+            if ($flag == true) {
+                $products->promotions = null;
+                return $products;
             }
         }
 

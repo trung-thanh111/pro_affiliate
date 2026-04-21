@@ -4,12 +4,22 @@
             <div class="panel-head">
                 <div class="uk-flex uk-flex-middle uk-flex-space-between header-flex">
                     <div class="head-left">
-                        <h2 class="heading-best-seller">BÁN CHẠY</h2>
+                        <div class="uk-flex uk-flex-middle gap-3">
+                            <h2 class="heading-best-seller">BÁN CHẠY</h2>
+                            <div class="flash-sale-countdown" data-time="{{ $system['homepage_best_seller_countdown'] ?? '' }}">
+                                <div class="timer-box days" style="display: none;">00</div>
+                                <div class="timer-box hours">00</div>
+                                <div class="timer-box minutes">00</div>
+                                <div class="timer-box seconds">00</div>
+                            </div>
+
+                        </div>
                         <div class="description">
                             Khám phá những sản phẩm dẫn đầu xu hướng và được hàng nghìn khách hàng tin dùng. Chất lượng vượt
                             trội, giá cả ưu đãi chỉ có tại hệ thống của chúng tôi.
                         </div>
                     </div>
+
                     <div class="head-right">
                         <a href="{{ route('product.index') }}" class="view-all-white">
                             Xem tất cả <i class="fa fa-angle-right"></i>

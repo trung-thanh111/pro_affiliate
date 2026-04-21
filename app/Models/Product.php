@@ -33,6 +33,8 @@ class Product extends Model
         'check',
         'seller_id',
         'iframe',
+        'link',
+        'source',
     ];
 
     protected $casts = [

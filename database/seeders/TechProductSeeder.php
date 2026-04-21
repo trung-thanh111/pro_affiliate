@@ -24,32 +24,33 @@ class TechProductSeeder extends Seeder
         DB::table('product_variant_language')->truncate();
         DB::table('promotions')->truncate();
         DB::table('promotion_product_variant')->truncate();
+        DB::table('routers')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $categories = [
-            ['name' => 'Laptop', 'canonical' => 'laptop', 'image' => 'https://picsum.photos/400/400?random=1'],
-            ['name' => 'Smartphone', 'canonical' => 'smartphone', 'image' => 'https://picsum.photos/400/400?random=2'],
-            ['name' => 'Tablet', 'canonical' => 'tablet', 'image' => 'https://picsum.photos/400/400?random=3'],
-            ['name' => 'Smartwatch', 'canonical' => 'smartwatch', 'image' => 'https://picsum.photos/400/400?random=4'],
-            ['name' => 'Camera', 'canonical' => 'camera', 'image' => 'https://picsum.photos/400/400?random=5'],
-            ['name' => 'Âm thanh', 'canonical' => 'am-thanh', 'image' => 'https://picsum.photos/400/400?random=6'],
-            ['name' => 'Gaming Gear', 'canonical' => 'gaming-gear', 'image' => 'https://picsum.photos/400/400?random=7'],
-            ['name' => 'Phụ kiện', 'canonical' => 'phu-kien', 'image' => 'https://picsum.photos/400/400?random=8'],
-            ['name' => 'Màn hình', 'canonical' => 'man-hinh', 'image' => 'https://picsum.photos/400/400?random=9'],
-            ['name' => 'Networking', 'canonical' => 'networking', 'image' => 'https://picsum.photos/400/400?random=10'],
-            ['name' => 'Đồ gia dụng', 'canonical' => 'do-gia-dung', 'image' => 'https://picsum.photos/400/400?random=11'],
-            ['name' => 'Smart Home', 'canonical' => 'smart-home', 'image' => 'https://picsum.photos/400/400?random=12'],
-            ['name' => 'PC Desktop', 'canonical' => 'pc-desktop', 'image' => 'https://picsum.photos/400/400?random=13'],
-            ['name' => 'Lưu trữ SSD', 'canonical' => 'luu-tru', 'image' => 'https://picsum.photos/400/400?random=14'],
-            ['name' => 'Máy in văn phòng', 'canonical' => 'may-in', 'image' => 'https://picsum.photos/400/400?random=15'],
+            ['name' => 'Laptop & Gaming', 'canonical' => 'laptop-gaming', 'image' => 'https://res.cloudinary.com/drt6v9atp/image/upload/v1713697000/categories/laptop.png'],
+            ['name' => 'Điện Thoại & Phụ Kiện', 'canonical' => 'smartphone-accessory', 'image' => 'https://res.cloudinary.com/drt6v9atp/image/upload/v1713697000/categories/smartphone.png'],
+            ['name' => 'Âm Thanh & Giải Trí', 'canonical' => 'audio-entertainment', 'image' => 'https://res.cloudinary.com/drt6v9atp/image/upload/v1713697000/categories/audio.png'],
+            ['name' => 'Nhà Thông Minh', 'canonical' => 'smart-home', 'image' => 'https://res.cloudinary.com/drt6v9atp/image/upload/v1713697000/categories/home.png'],
+            ['name' => 'Thời Trang Công Nghệ', 'canonical' => 'tech-fashion', 'image' => 'https://res.cloudinary.com/drt6v9atp/image/upload/v1713697000/categories/fashion.png'],
         ];
 
         $techSpecs = [
-            'mạnh mẽ hiệu năng cao vượt trội', 'thiết kế sang trọng tinh tế đẳng cấp', 'màn hình siêu nét chuẩn màu điện ảnh',
-            'pin bền bỉ cả ngày dài sử dụng', 'hỗ trợ sạc nhanh siêu tốc an toàn', 'bảo hành chính hãng 24 tháng tận nơi',
-            'tặng kèm bộ quà tặng giá trị cực khủng', 'phiên bản giới hạn đặc biệt duy nhất', 'nhập khẩu nguyên chiếc từ châu Âu',
-            'công nghệ tiên tiến nhất năm 2024 mới', 'độ bền đạt chuẩn quân đội chống va đập', 'kết nối không dây ổn định mượt mà',
-            'âm thanh sống động chân thực đỉnh cao', 'camera độ phân giải cực cao lấy nét nhanh', 'hệ điều hành mới nhất tối ưu nhất'
+            'mạnh mẽ hiệu năng cao vượt trội',
+            'thiết kế sang trọng tinh tế đẳng cấp',
+            'màn hình siêu nét chuẩn màu điện ảnh 4K OLED',
+            'pin bền bỉ cả ngày dài sử dụng liên tục',
+            'hỗ trợ sạc nhanh siêu tốc 120W an toàn',
+            'bảo hành chính hãng 24 tháng tận nơi trên toàn quốc',
+            'tặng kèm bộ quà tặng trị giá 2 triệu đồng cực khủng',
+            'phiên bản giới hạn đặc biệt duy nhất tại Việt Nam',
+            'nhập khẩu nguyên chiếc từ thị trường quốc tế',
+            'công nghệ tiên tiến nhất năm 2026 xu hướng mới',
+            'độ bền đạt chuẩn quân đội MIL-STD 810H chống va đập',
+            'kết nối không dây Wi-Fi 7 ổn định mượt mà',
+            'âm thanh sống động chân thực chuẩn Hi-Res Audio',
+            'camera độ phân giải 200MP cực cao lấy nét theo pha',
+            'hệ điều hành tối ưu hóa mượt mà nhất hiện nay'
         ];
 
         foreach ($categories as $index => $catData) {
@@ -67,40 +68,69 @@ class TechProductSeeder extends Seeder
                 'language_id' => 1,
                 'name' => $catData['name'],
                 'canonical' => $catData['canonical'],
-                'description' => 'Danh mục ' . $catData['name'] . ' chất lượng cao với nhiều ưu đãi hấp dẫn.',
+                'description' => 'Danh mục ' . $catData['name'] . ' chất lượng cao với nhiều ưu đãi hấp dẫn từ đối tác.',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
 
-            // Create 3-5 products per category
-            $productCount = rand(3, 5);
-            for ($i = 1; $i <= $productCount; $i++) {
-                $price = rand(10, 100) * 500000;
+            DB::table('routers')->insert([
+                'canonical' => $catData['canonical'],
+                'module_id' => $cat->id,
+                'controllers' => 'App\Http\Controllers\Frontend\ProductCatalogueController',
+                'language_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            // Create 5 premium products per category
+            for ($i = 1; $i <= 5; $i++) {
+                $price = rand(2, 40) * 1000000;
                 
-                // Build a long name (16-20 words)
+                // Build a very long, SEO-optimized title (Shopee style)
                 $randomSpecs = array_rand(array_flip($techSpecs), rand(6, 8));
-                $longName = 'Sản phẩm ' . $catData['name'] . ' mã hiệu ' . Str::random(5) . ' thế hệ mới ' . implode(' và ', $randomSpecs) . ' là sự lựa chọn hoàn hảo nhất cho người dùng công nghệ chuyên nghiệp hiện nay';
-                $longName = Str::limit($longName, 250, ''); 
+                $longName = '[Mới 2026] ' . $catData['name'] . ' ' . Str::random(5) . ' ' . implode(' - ', $randomSpecs);
+                $longName = Str::limit($longName, 250, '');
+                
+                $canonical = $catData['canonical'] . '-p-' . ($index * 10 + $i) . '-' . time();
+                
+                // Professional Album with 5 images
+                $album = [
+                    'https://picsum.photos/600/600?random=' . rand(100, 999),
+                    'https://picsum.photos/600/600?random=' . rand(100, 999),
+                    'https://picsum.photos/600/600?random=' . rand(100, 999),
+                    'https://picsum.photos/600/600?random=' . rand(100, 999),
+                ];
 
                 $product = Product::create([
                     'product_catalogue_id' => $cat->id,
-                    'image' => 'https://picsum.photos/400/400?random=' . ($cat->id * 100 + $i),
+                    'image' => 'https://picsum.photos/600/600?random=' . ($cat->id * 100 + $i),
+                    'album' => json_encode($album),
                     'publish' => 2,
                     'price' => $price,
-                    'stock' => rand(10, 100),
-                    'sold' => rand(50, 5000),
-                    'code' => strtoupper(Str::random(8)),
+                    'stock' => rand(20, 200),
+                    'sold' => rand(100, 9999),
+                    'code' => 'SKU-' . strtoupper(Str::random(6)),
                     'user_id' => 1,
-                    'variant' => '{"size":["S","M","L"],"color":["Đen","Trắng","Bạc"]}'
+                    'link' => 'https://shopee.vn/search?keyword=' . urlencode($longName),
+                    'source' => collect(['Shopee', 'Lazada', 'Tiki', 'Amazon'])->random(),
                 ]);
 
                 DB::table('product_language')->insert([
                     'product_id' => $product->id,
                     'language_id' => 1,
                     'name' => $longName,
-                    'canonical' => $catData['canonical'] . '-p-' . $product->id . '-' . time(),
-                    'description' => 'Mô tả ngắn cho sản phẩm ' . $longName,
-                    'content' => 'Nội dung chi tiết cho sản phẩm ' . $longName,
+                    'canonical' => $canonical,
+                    'description' => 'Sản phẩm ' . $longName . ' chính hãng, giá tốt nhất thị trường.',
+                    'content' => '<p><strong>Thông tin chi tiết:</strong></p><ul><li>Thương hiệu uy tín hàng đầu toàn cầu</li><li>Công nghệ ' . $randomSpecs[0] . ' tiên tiến</li><li>Hiệu năng ' . $randomSpecs[1] . ' cực đỉnh</li></ul><p>Đặc biệt, khi mua ngay hôm nay bạn sẽ nhận được ưu đãi vận chuyển hỏa tốc trong 2h và bảo hành 1 đổi 1 trong 30 ngày nếu có lỗi từ nhà sản xuất. Đây là phiên bản nâng cấp hoàn hảo nhất của năm 2026 với nhiều cải tiến đáng kể về cả thiết kế lẫn tính năng bên trong.</p><img src="https://picsum.photos/800/400?random=' . $product->id . '" alt="Banner" style="width:100%; border-radius: 8px; margin: 20px 0;">',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+
+                DB::table('routers')->insert([
+                    'canonical' => $canonical,
+                    'module_id' => $product->id,
+                    'controllers' => 'App\Http\Controllers\Frontend\ProductController',
+                    'language_id' => 1,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -109,43 +139,27 @@ class TechProductSeeder extends Seeder
                     'product_id' => $product->id,
                     'product_catalogue_id' => $cat->id,
                 ]);
-
-                // Create 2 variants per product
-                for ($v = 1; $v <= 2; $v++) {
-                    $variant = ProductVariant::create([
-                        'product_id' => $product->id,
-                        'uuid' => Str::uuid(),
-                        'code' => $product->code . '-V' . $v,
-                        'quantity' => rand(5, 50),
-                        'price' => $product->price + (rand(-5, 5) * 100000),
-                        'publish' => 2,
-                        'user_id' => 1,
-                    ]);
-
-                    DB::table('product_variant_language')->insert([
-                        'product_variant_id' => $variant->id,
-                        'language_id' => 1,
-                        'name' => 'Phiên bản ' . ($v == 1 ? 'Màu Đen - Ram 16GB - SSD 512GB (Chính hãng)' : 'Màu Trắng Bạc - Ram 32GB - SSD 1TB (Cao cấp)'),
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ]);
-                }
             }
         }
 
-        // Create 2 Promotions
-        for ($p = 1; $p <= 2; $p++) {
-            $discountValue = rand(10, 30);
+        // Create 3 specific Promotions
+        $promoData = [
+            ['name' => 'FLASH SALE 25/04 - GIẢM SỐC 30%', 'val' => 30, 'type' => 'percent'],
+            ['name' => 'ƯU ĐÃI ĐẶC QUYỀN VIP - GIẢM 15%', 'val' => 15, 'type' => 'percent'],
+            ['name' => 'MÃ GIẢM GIÁ TRỰC TIẾP 500K', 'val' => 500000, 'type' => 'cash'],
+        ];
+
+        foreach ($promoData as $idx => $pd) {
             $promo = Promotion::create([
-                'name' => ($p == 1 ? 'CHƯƠNG TRÌNH KHUYẾN MÃI LỚN NHẤT NĂM' : 'Ưu đãi Tech ' . $p),
+                'name' => $pd['name'],
                 'method' => 'product_and_variant',
-                'code' => 'TECH' . $p,
-                'discountValue' => $discountValue,
-                'discountType' => 'percent',
+                'code' => 'PROMO' . ($idx + 1),
+                'discountValue' => $pd['val'],
+                'discountType' => $pd['type'],
                 'publish' => 2,
-                'is_primary' => ($p == 1 ? 1 : 0),
-                'startDate' => now()->subDays(5),
-                'endDate' => now()->addDays(30),
+                'is_primary' => ($idx == 0 ? 1 : 0),
+                'startDate' => now()->subDays(2),
+                'endDate' => now()->addDays(28),
                 'neverEndDate' => 'accept',
                 'discountInformation' => [
                     'info' => [
@@ -154,9 +168,8 @@ class TechProductSeeder extends Seeder
                 ]
             ]);
 
-            // Assign to 8 random products for the primary one, 3 for the other
-            $assignCount = ($p == 1 ? 8 : 3);
-            $randomProducts = Product::inRandomOrder()->take($assignCount)->get();
+            // Assign to 10 random products
+            $randomProducts = Product::inRandomOrder()->take(10)->get();
             foreach ($randomProducts as $rp) {
                 DB::table('promotion_product_variant')->insert([
                     'promotion_id' => $promo->id,

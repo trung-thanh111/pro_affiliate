@@ -16,6 +16,9 @@ class System{
                 'favicon' => ['type' => 'images', 'label' => 'Favicon', 'title' => 'Click vào ô phía dưới để tải logo'],
                 'copyright' => ['type' => 'text', 'label' => 'Copyright'],
                 'flashSale' => ['type' => 'text', 'label' => 'Khuyến mãi'],
+                'best_seller_countdown' => ['type' => 'datetime', 'label' => 'Thời gian kết thúc bán chạy'],
+
+
                 'website' => [
                     'type' => 'select', 
                     'label' => 'Tình trạng website',

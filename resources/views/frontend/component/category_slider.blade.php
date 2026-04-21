@@ -1,64 +1,52 @@
-@if(isset($widgets['category']))
 @php
-    $categories = $widgets['category']->object;
-    $columns = [];
-    $catIndex = 0;
-    $pattern = [1, 2, 2, 2, 1];
-    $patternIndex = 0;
+    $currentLanguage = $currentLanguage ?? \App\Models\Language::where('canonical', app()->getLocale())->first()->id ?? 1;
+    $categories = \App\Models\ProductCatalogue::where('publish', 2)
+        ->with([
+            'languages' => function ($query) use ($currentLanguage) {
+                $query->where('language_id', $currentLanguage);
+            }
+        ])
+        ->get();
 
-    while($catIndex < count($categories)) {
-        $needed = $pattern[$patternIndex % count($pattern)];
-        $columnItems = [];
-        for($j = 0; $j < $needed && $catIndex < count($categories); $j++) {
-            $columnItems[] = $categories[$catIndex++];
-        }
-        $columns[] = [
-            'type' => $needed == 1 ? 'big' : 'small',
-            'items' => $columnItems
-        ];
-        $patternIndex++;
-    }
 @endphp
 
 <div class="panel-category-slider wow animate__animated animate__fadeIn">
-    <div class="uk-container uk-container-center">
-        <div class="panel-body">
-            <div class="swiper-container swiper-category">
-                <div class="swiper-wrapper">
-                    @foreach($columns as $column)
-                        <div class="swiper-slide column-{{ $column['type'] }}">
-                            @foreach($column['items'] as $cat)
-                                @php
-                                    $name = $cat->languages->name;
-                                    $canonical = write_url($cat->languages->canonical);
-                                    $image = $cat->image;
-                                    $count = $cat->products_count ?? 0;
-                                @endphp
-                                <a href="{{ $canonical }}" 
-                                   class="category-card card-{{ $column['type'] }}"
-                                   @if($column['type'] == 'small') 
-                                       style="background-image: url('{{ $image }}');" 
-                                   @endif
-                                >
-                                    <div class="info">
-                                        <h3 class="title">{{ $name }}</h3>
-                                        <span class="count">({{ $count }})</span>
-                                    </div>
-                                    @if($column['type'] == 'big')
-                                        <div class="image">
-                                            <img src="{{ $image }}" alt="{{ $name }}">
+    <div class="container">
+        <div class="panel-container">
+            <div class="panel-head m-0">
+                <h2 class="panel-title">
+                    DANH MỤC
+                </h2>
+            </div>
+            <div class="panel-body">
+                <div class="swiper-container swiper-category">
+                    <div class="swiper-wrapper">
+                        @foreach($categories->chunk(2) as $chunk)
+                            <div class="swiper-slide">
+                                @foreach($chunk as $category)
+                                    @php
+                                        $name = $category->languages->first()->pivot->name ?? '';
+                                        $canonical = $category->languages->first()->pivot->canonical ?? '#';
+                                        $image = $category->image ?? 'https://placehold.co/80x80?text=No+Image';
+                                    @endphp
+                                    <a href="{{ route('router.index', ['canonical' => $canonical]) }}" class="category-item">
+                                        <div class="category-image-wrapper">
+                                            <img src="{{ $image }}" alt="{{ $name }}" class="category-image"
+                                                onerror="this.src='https://placehold.co/80x80?text=Category'">
                                         </div>
-                                    @endif
-                                </a>
-                            @endforeach
-                        </div>
-                    @endforeach
+
+                                        <div class="category-name">{{ $name }}</div>
+                                    </a>
+                                @endforeach
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
                 <!-- Navigation -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev category-nav-prev"></div>
+                <div class="swiper-button-next category-nav-next"></div>
             </div>
+
         </div>
     </div>
 </div>
-@endif

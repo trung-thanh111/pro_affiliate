@@ -30,6 +30,8 @@ class UpdateProductRequest extends FormRequest
             'canonical' => 'required|unique:routers,canonical, ' . $this->id . ',module_id',
             'product_catalogue_id' => 'gt:0',
             'stock' => 'nullable|integer|min:0',
+            'link' => 'nullable',
+            'source' => 'nullable',
         ];
     }
 

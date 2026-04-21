@@ -137,10 +137,16 @@ if(!function_exists('getPrice')){
         }
 
         // Xử lý khuyến mãi
-        if(isset($product->promotions) && isset($product->promotions->discountType)){
-            $result['percent'] = getPercent($product, $product->promotions->discount);
+        if(isset($product->promotions) && is_object($product->promotions) && isset($product->promotions->discountType)){
+            // Nếu là loại phần trăm, ưu tiên lấy discountValue gốc để hiển thị chính xác
+            if($product->promotions->discountType == 'percent'){
+                $result['percent'] = $product->promotions->discountValue;
+            } else {
+                $result['percent'] = getPercent($product, $product->promotions->discount ?? 0);
+            }
+
             if($product->promotions->discountValue > 0){
-                $result['priceSale'] = getPromotionPrice($product->price, $product->promotions->discount);
+                $result['priceSale'] = getPromotionPrice($product->price, $product->promotions->discount ?? 0);
             }
         }
 
@@ -279,6 +285,21 @@ if(!function_exists('renderSystemInput')){
         >';
     }
 }
+
+if(!function_exists('renderSystemDateTime')){
+    function renderSystemDateTime(string $name = '', $systems = null){
+        return '<input 
+            type="text"
+            name="config['.$name.']"
+            value="'.old($name, ($systems[$name]) ?? '').'"
+            class="form-control datepicker"
+            placeholder="Chọn ngày giờ"
+            autocomplete="off"
+        >';
+    }
+
+}
+
 
 
 if(!function_exists('renderSystemImages')){
