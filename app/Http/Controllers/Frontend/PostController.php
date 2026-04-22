@@ -46,11 +46,18 @@ class PostController extends FrontendController
         if(is_null($post)){
             abort(404);
         }
-        $post->load(['product.languages' => function($query){
-            $query->where('language_id', $this->language);
-        }, 'related_posts.languages' => function($query){
-            $query->where('language_id', $this->language);
-        }]);
+        $post->load([
+            'product.languages' => function($query){
+                $query->where('language_id', $this->language);
+            }, 
+            'related_posts.languages' => function($query){
+                $query->where('language_id', $this->language);
+            },
+            'post_products.product.languages' => function($query) {
+                $query->where('language_id', $this->language);
+            },
+            'comparison_sections.rows.cells'
+        ]);
         $viewed = $post->viewed;
         $updateViewed = Post::where('id', $id)->update(['viewed' => $viewed + 1]); 
         $postCatalogue = $this->postCatalogueRepository->getPostCatalogueById($post->post_catalogue_id, $this->language);

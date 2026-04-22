@@ -24,6 +24,7 @@
                         @include('backend.dashboard.component.content', ['model' => ($post) ?? null])
                     </div>
                 </div>
+                @include('backend.post.post.component.compare_builder')
                @include('backend.dashboard.component.album')
                @include('backend.dashboard.component.seo', ['model' => ($post) ?? null])
             </div>

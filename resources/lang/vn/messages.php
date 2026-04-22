@@ -554,6 +554,8 @@ return [
     'post_type' => [
         'normal' => 'Cơ bản',
         'post' => 'Nổi bật',
+        'compare' => 'So sánh',
+        'review' => 'Review',
     ],
     'status' => [
         '0' => 'Chưa phê duyệt',

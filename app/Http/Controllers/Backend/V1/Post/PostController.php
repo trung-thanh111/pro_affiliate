@@ -75,7 +75,7 @@ class PostController extends Controller
         $config['seo'] = __('messages.post');
         $config['method'] = 'create';
         $dropdown  = $this->nestedset->Dropdown();
-        $products = $this->productRepository->all($this->language);
+        $products = $this->productRepository->all(['languages']);
         $posts = $this->postRepository->all(['languages']);
         $template = 'backend.post.post.store';
         return view('backend.dashboard.layout', compact(
@@ -108,7 +108,7 @@ class PostController extends Controller
         $config['method'] = 'edit';
         $dropdown  = $this->nestedset->Dropdown();
         $album = json_decode($post->album);
-        $products = $this->productRepository->all($this->language);
+        $products = $this->productRepository->all(['languages']);
         $posts = $this->postRepository->all(['languages']);
         $template = 'backend.post.post.store';
         return view('backend.dashboard.layout', compact(

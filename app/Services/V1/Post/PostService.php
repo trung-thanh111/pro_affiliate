@@ -104,6 +104,9 @@ class PostService extends BaseService
                 $this->updateCatalogueForPost($post, $request);
                 $this->syncRelatedPosts($post, $request);
                 $this->createRouter($post, $request, $this->controllerName, $languageId);
+                
+                // Save comparison data
+                resolve(\App\Services\V1\Post\CompareService::class)->save($post, $request);
             }
             DB::commit();
             return true;
@@ -126,6 +129,9 @@ class PostService extends BaseService
                 $this->updateRouter(
                     $post, $request, $this->controllerName, $languageId
                 );
+
+                // Save comparison data
+                resolve(\App\Services\V1\Post\CompareService::class)->save($post, $request);
             }
             DB::commit();
             return true;

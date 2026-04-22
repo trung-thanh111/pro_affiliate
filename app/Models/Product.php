@@ -108,4 +108,9 @@ class Product extends Model
     {
         return $this->belongsTo(Lecturer::class, 'lecturer_id', 'id');
     }
+
+    public function post_products()
+    {
+        return $this->hasMany(PostProduct::class, 'product_id', 'id');
+    }
 }

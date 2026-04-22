@@ -73,5 +73,15 @@ class Post extends Model
         'released_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    public function post_products()
+    {
+        return $this->hasMany(PostProduct::class, 'post_id', 'id')->orderBy('sort_order');
+    }
+
+    public function comparison_sections()
+    {
+        return $this->hasMany(ComparisonSection::class, 'post_id', 'id')->orderBy('sort_order');
+    }
+
 
 }
