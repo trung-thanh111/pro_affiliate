@@ -60,8 +60,8 @@
                 }
             },
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: '.panel-slide .swiper-button-next',
+                prevEl: '.panel-slide .swiper-button-prev',
             },
             
         });
@@ -93,8 +93,8 @@
                 }
             },
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: '.panel-web .swiper-button-next',
+                prevEl: '.panel-web .swiper-button-prev',
             },
             
         });
@@ -126,8 +126,8 @@
                 }
             },
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: '.panel-category .swiper-button-next',
+                prevEl: '.panel-category .swiper-button-prev',
             },
             
         });
@@ -432,8 +432,8 @@
                     el: '.swiper-pagination',
                 },
                 navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                    nextEl: popup.querySelector('.swiper-button-next'),
+                    prevEl: popup.querySelector('.swiper-button-prev'),
                 },
                 thumbs: {
                     swiper: {
@@ -471,8 +471,8 @@
                 }
             },
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: '.panel-product .swiper-button-next',
+                prevEl: '.panel-product .swiper-button-prev',
             },
             
         });
@@ -501,8 +501,8 @@
                 }
             },
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: '.panel-feedback .swiper-button-next',
+                prevEl: '.panel-feedback .swiper-button-prev',
             },
             
         });
@@ -533,8 +533,8 @@
                 }
             },
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: '.panel-partner .swiper-button-next',
+                prevEl: '.panel-partner .swiper-button-prev',
             },
             
         });

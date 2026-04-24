@@ -18,8 +18,8 @@
 					el: '.swiper-pagination',
 				},
 				navigation: {
-					nextEl: '.swiper-button-next',
-					prevEl: '.swiper-button-prev',
+					nextEl: product.querySelector('.swiper-button-next'),
+					prevEl: product.querySelector('.swiper-button-prev'),
 				},
 				thumbs: {
 					swiper: {
