@@ -1,74 +1,74 @@
 @extends('frontend.homepage.layout')
 @section('content')
 
-    <div id="art-detail" class="page-body bg-light pb-5">
+    <div id="art-detail" class="page-body bg-white pt-5 mt-3 pb-5">
+        <div class="uk-container uk-container-center">
 
-        <div class="container container-center">
-            <div class="breadcrumb-wrapper">
-                <x-breadcrumb :breadcrumb="$breadcrumb" />
-            </div>
-        </div>
+            <!-- Hero Image Section (Master Header) -->
+            <div class="post-hero-media mb-0 text-center position-relative">
+                <div class="image-container mx-auto rounded-4 shadow-sm overflow-hidden position-relative post-hero-container">
+                    <img src="{{ $post->image }}" alt="{{ $post->languages->first()->pivot->name }}"
+                        class="img-fluid w-100 h-100 object-fit-cover">
 
-        <!-- Hero Header Section -->
-        <div class="post-hero-section position-relative overflow-hidden mb-5">
-            <div class="post-hero-image" style="background-image: url('{{ $post->image }}');"></div>
-            <div class="post-hero-overlay d-flex align-items-end">
-                <div class="uk-container uk-container-center w-100 py-5">
-                    <div class="post-hero-content text-start text-white">
-                        <h1 class="post-title display-4 fw-bold mb-4 text-white">
+                    <!-- Overlay Header -->
+                    <div class="hero-overlay d-flex flex-column align-items-start justify-content-end p-4 p-md-5 pb-5 post-hero-overlay-offset">
+                        <div class="post-breadcrumb-transparent mb-3">
+                            <x-breadcrumb :breadcrumb="$breadcrumb" />
+                        </div>
+                        <h1 class="post-title-overlay display-5 fw-bold mb-3 text-white text-shadow text-start">
                             {{ $post->languages->first()->pivot->name }}
                         </h1>
-                        <div class="post-meta d-flex align-items-center justify-content-start gap-4 flex-wrap">
-                            <span class="meta-item d-flex align-items-center gap-2 text-white">
-                                <i class="bi bi-calendar3"></i> {{ convertDateTime($post->created_at, 'd/m/Y') }}
+                        <div
+                            class="post-meta-overlay d-flex align-items-center justify-content-start gap-4 flex-wrap small text-white">
+                            <span class="meta-item d-flex align-items-center gap-2">
+                                <i class="bi bi-calendar3 text-primary"></i>
+                                {{ convertDateTime($post->created_at, 'd/m/Y') }}
                             </span>
-                            <span class="meta-item d-flex align-items-center gap-2 text-white">
-                                <i class="bi bi-folder2-open"></i> {{ $postCatalogue->languages->first()->pivot->name }}
+                            <span class="meta-item d-flex align-items-center gap-2">
+                                <i class="bi bi-folder2-open text-primary"></i>
+                                {{ $postCatalogue->languages->first()->pivot->name }}
                             </span>
-                            <span class="meta-item d-flex align-items-center gap-2 text-white">
-                                <i class="bi bi-eye"></i> {{ number_format($post->viewed) }} lượt xem
+                            <span class="meta-item d-flex align-items-center gap-2">
+                                <i class="bi bi-eye text-primary"></i> {{ number_format($post->viewed) }} lượt xem
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="uk-container uk-container-center">
-            <div class="row g-5">
-                <!-- Main Column (9) -->
-                <div class="col-lg-9">
-                    <article class="post-main-content bg-white p-4 p-md-5 rounded-4 shadow-sm">
-                        @if (!empty($post->description))
-                            <div
-                                class="post-description lead fw-medium mb-4 text-secondary border-start border-4 border-primary ps-4">
-                                {!! $post->description !!}
-                            </div>
-                            @if (in_array($post->post_type, ['compare', 'review']) && $post->post_products->count() > 0)
-                                <div class="comparison-table-wrapper mb-5 overflow-hidden">
+            <!-- Content Area with Overlap -->
+            <div class="row g-5 position-relative justify-content-center post-content-overlap-row">
+                <div class="col-lg-11">
+                    <div class="content-overlap-card bg-white p-4 p-md-5 rounded-4 border-0">
+
+                        <!-- Comparison Table Section -->
+                        @if (in_array($post->post_type, ['compare', 'review']) && $post->post_products->count() > 0)
+                            <div class="comparison-outer-wrapper mb-5 pt-2">
+                                <div class="comparison-header mb-4 text-center">
+                                    <h2 class="fw-bold h3">Bảng so sánh thông số chi tiết</h2>
+                                    <div class="heading-line mx-auto mb-2"></div>
+                                    <p class="text-muted small">Giúp bạn đưa ra quyết định mua sắm chính xác nhất</p>
+                                </div>
+                                <div class="comparison-table-scroll-wrapper">
                                     <div class="table-responsive rounded-4 border shadow-sm">
                                         <table class="table table-bordered align-middle mb-0 bg-white">
-                                            <thead class="sticky-top bg-white z-2 shadow-sm">
+                                            <thead class="bg-white sticky-top">
                                                 <tr>
-                                                    <th class="p-3 bg-light border-0"
-                                                        style="min-width: 200px; width: 200px; position: sticky; left: 0; z-index: 3;">
+                                                    <th class="p-3 bg-light border-0 sticky-col">
                                                         <span class="text-uppercase small fw-bold text-muted">Tiêu chí so
                                                             sánh</span>
                                                     </th>
                                                     @foreach ($post->post_products as $pp)
-                                                        <th class="p-4 border-0 text-center @if ($pp->is_highlight) bg-warning bg-opacity-10 @endif"
-                                                            style="min-width: 280px;">
+                                                        <th class="p-4 border-0 text-center product-header-cell @if ($pp->is_highlight) bg-warning bg-opacity-10 @endif">
                                                             @if ($pp->badge_text)
                                                                 <div class="mb-3">
                                                                     <span
-                                                                        class="badge bg-danger rounded-pill px-3 py-2 shadow-sm"
-                                                                        style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                                                        class="badge bg-danger rounded-pill px-3 py-2 shadow-sm product-badge">
                                                                         {{ $pp->badge_text }}
                                                                     </span>
                                                                 </div>
                                                             @endif
-                                                            <div class="product-img mb-3 mx-auto"
-                                                                style="width: 120px; height: 120px;">
+                                                            <div class="product-img mb-3 mx-auto product-img-comparison">
                                                                 <img src="{{ $pp->product->image }}"
                                                                     alt="{{ $pp->column_title ?: $pp->product->languages->first()->pivot->name }}"
                                                                     class="img-fluid rounded-3 h-100 w-100 object-fit-contain">
@@ -89,15 +89,17 @@
                                                 @foreach ($post->comparison_sections as $section)
                                                     <tr class="section-divider">
                                                         <td colspan="{{ $post->post_products->count() + 1 }}"
-                                                            class="bg-light fw-bold py-3 px-4 text-uppercase small text-dark border-0"
-                                                            style="letter-spacing: 1px; color: #1ab394 !important;">
-                                                            <i class="bi bi-layers-half me-2"></i> {{ $section->title }}
+                                                            class="bg-light fw-bold py-3 px-4 text-uppercase small text-dark border-0">
+                                                            <div class="section-title-sticky">
+                                                                <i class="bi bi-layers-half me-2"></i>
+                                                                {{ $section->title }}
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                     @foreach ($section->rows as $row)
                                                         <tr class="criteria-row">
-                                                            <td class="fw-bold p-3 bg-light bg-opacity-25 border-start-0"
-                                                                style="position: sticky; left: 0; background: #fdfdfd; z-index: 1;">
+                                                            <td
+                                                                class="fw-bold p-3 bg-light bg-opacity-25 border-start-0 sticky-col">
                                                                 {{ $row->label }}
                                                             </td>
                                                             @foreach ($post->post_products as $pp)
@@ -124,152 +126,132 @@
                                         </table>
                                     </div>
                                 </div>
+                            </div>
 
-                                <style>
-                                    .comparison-table-wrapper .sticky-top {
-                                        top: -1px;
-                                    }
-
-                                    .product-name-fe {
-                                        display: -webkit-box;
-                                        -webkit-line-clamp: 2;
-                                        -webkit-box-orient: vertical;
-                                        overflow: hidden;
-                                        min-height: 2.8em;
-                                    }
-
-                                    .criteria-row:hover td {
-                                        background-color: #f8f9fa;
-                                    }
-
-                                    .table-responsive::-webkit-scrollbar {
-                                        height: 6px;
-                                    }
-
-                                    .table-responsive::-webkit-scrollbar-thumb {
-                                        background: #cbd5e0;
-                                        border-radius: 10px;
-                                    }
-                                </style>
-                            @endif
                         @endif
 
-                        <div class="post-body-content mb-5">
-                            {!! $post->content !!}
-                        </div>
+                        <div class="row g-5 mt-2">
+                            <!-- Sidebar Column (3) - LEFT -->
+                            <div class="col-lg-3">
+                                <aside class="post-sidebar d-flex flex-column gap-4">
+                                    <!-- Category Card (Tag Post) -->
+                                    <div class="sidebar-card bg-light p-4 rounded-4 border-0">
+                                        <h4 class="sidebar-title fw-bold mb-3 pb-2 border-bottom">
+                                            Danh mục bài viết
+                                        </h4>
+                                        <ul class="sidebar-category-list list-unstyled m-0">
+                                            @foreach ($post->post_catalogues as $cat)
+                                                <li class="py-2 border-bottom last-child-border-0">
+                                                    <a href="{{ write_url($cat->languages->first()->pivot->canonical) }}"
+                                                        class="text-decoration-none text-dark d-flex justify-content-between align-items-center">
+                                                        <span
+                                                            class="small fw-medium">{{ $cat->languages->first()->pivot->name }}</span>
+                                                        <i class="bi bi-chevron-right x-small text-secondary"></i>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
 
-                        <!-- Social Share Section -->
-                        <div class="social-share-section border-top pt-4 mb-5">
-                            <div class="d-flex align-items-center gap-3 flex-wrap">
-                                <span class="fw-bold text-dark">Chia sẻ bài viết:</span>
-                                <div class="d-flex gap-2">
-                                    <a href="#" class="share-btn share-fb" title="Facebook"><i
-                                            class="bi bi-facebook"></i></a>
-                                    <a href="#" class="share-btn share-tt" title="TikTok"><i
-                                            class="bi bi-tiktok"></i></a>
-                                    <a href="#" class="share-btn share-tw" title="Twitter"><i
-                                            class="bi bi-twitter-x"></i></a>
-                                    <a href="#" class="share-btn share-li" title="LinkedIn"><i
-                                            class="bi bi-linkedin"></i></a>
-                                    <a href="#" class="share-btn share-pt" title="Pinterest"><i
-                                            class="bi bi-pinterest"></i></a>
-                                </div>
+                                    <!-- Related Product Card -->
+                                    @if ($post->product)
+                                        <div class="sidebar-card bg-white p-4 rounded-4 shadow-sm border">
+                                            <h5 class="fw-bold mb-3 border-bottom pb-2">
+                                                Sản phẩm đánh giá
+                                            </h5>
+                                            <div class="related-product-item">
+                                                <div class="product-thumb mb-3 rounded-3 overflow-hidden">
+                                                    <a
+                                                        href="{{ write_url($post->product->languages->first()->pivot->canonical) }}">
+                                                        <img src="{{ $post->product->image }}"
+                                                            alt="{{ $post->product->languages->first()->pivot->name }}"
+                                                            class="w-100">
+                                                    </a>
+                                                </div>
+                                                <h6 class="product-name fw-bold mb-2">
+                                                    <a href="{{ write_url($post->product->languages->first()->pivot->canonical) }}"
+                                                        class="text-decoration-none text-dark small">
+                                                        {{ $post->product->languages->first()->pivot->name }}
+                                                    </a>
+                                                </h6>
+                                                <div class="product-price text-danger fw-bold small">
+                                                    {{ number_format($post->product->price) }}đ
+                                                </div>
+                                                <a href="{{ write_url($post->product->languages->first()->pivot->canonical) }}"
+                                                    class="btn btn-primary w-100 mt-3 rounded-3 btn-sm">Xem chi tiết</a>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </aside>
+                            </div>
+
+                            <!-- Main Column (9) - RIGHT -->
+                            <div class="col-lg-9">
+                                <article class="post-main-content">
+                                    @if (!empty($post->description))
+                                        <div
+                                            class="post-description lead fw-medium mb-5 text-secondary border-start border-4 border-primary ps-4">
+                                            {!! $post->description !!}
+                                        </div>
+                                    @endif
+
+                                    <div class="post-body-content mb-5 lh-lg text-dark">
+                                        {!! $post->content !!}
+                                    </div>
+
+                                    <!-- Social Share Section -->
+                                    <div class="social-share-section border-top pt-4 mb-5">
+                                        <div class="d-flex align-items-center gap-3 flex-wrap">
+                                            <span class="fw-bold text-dark small">Chia sẻ bài viết:</span>
+                                            <div class="d-flex gap-2">
+                                                <a href="#" class="share-icon" title="Facebook"><i
+                                                        class="bi bi-facebook"></i></a>
+                                                <a href="#" class="share-icon" title="TikTok"><i
+                                                        class="bi bi-tiktok"></i></a>
+                                                <a href="#" class="share-icon" title="Twitter"><i
+                                                        class="bi bi-twitter-x"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Comment Section -->
+                                    <div class="comment-section border-top pt-5">
+                                        <h3 class="fw-bold mb-4">Để lại bình luận</h3>
+                                        <form action="#" method="POST" class="comment-form">
+                                            @csrf
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" class="form-control" id="name"
+                                                            placeholder="Họ tên của bạn">
+                                                        <label for="name">Họ tên của bạn</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3">
+                                                        <input type="email" class="form-control" id="email"
+                                                            placeholder="Email (không bắt buộc)">
+                                                        <label for="email">Email (không bắt buộc)</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-floating mb-3">
+                                                        <textarea class="form-control" placeholder="Nội dung bình luận" id="comment"></textarea>
+                                                        <label for="comment">Nội dung bình luận</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 text-end">
+                                                    <button type="submit"
+                                                        class="btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-sm">Gửi
+                                                        bình luận</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </article>
                             </div>
                         </div>
-
-                        <!-- Comment Section -->
-                        <div class="comment-section border-top pt-5">
-                            <h3 class="fw-bold mb-4">Để lại bình luận</h3>
-                            <form action="#" method="POST" class="comment-form">
-                                @csrf
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="name"
-                                                placeholder="Họ tên của bạn">
-                                            <label for="name">Họ tên của bạn</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" id="email"
-                                                placeholder="Email (không bắt buộc)">
-                                            <label for="email">Email (không bắt buộc)</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating mb-3">
-                                            <textarea class="form-control" placeholder="Nội dung bình luận" id="comment" style="height: 120px"></textarea>
-                                            <label for="comment">Nội dung bình luận</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-primary px-4 py-2 rounded-3 fw-bold">Gửi
-                                            bình
-                                            luận</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </article>
-                </div>
-
-                <!-- Sidebar Column (3) -->
-                <div class="col-lg-3">
-                    <aside class="post-sidebar d-flex flex-column gap-4">
-                        <!-- Category Card -->
-                        <div class="sidebar-card bg-white p-4 rounded-4 shadow-sm">
-                            <h4 class="sidebar-title fw-bold mb-3 pb-2 border-bottom">Danh mục</h4>
-                            <ul class="sidebar-category-list list-unstyled m-0">
-                                @if (isset($widgets['product-category']->object))
-                                    @foreach ($widgets['product-category']->object as $cat)
-                                        <li class="py-2 border-bottom last-child-border-0">
-                                            <a href="{{ write_url($cat->languages->first()->pivot->canonical) }}"
-                                                class="text-decoration-none text-dark d-flex justify-content-between align-items-center">
-                                                <span>{{ $cat->languages->first()->pivot->name }}</span>
-                                                <i class="bi bi-chevron-right small text-secondary"></i>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                @endif
-                            </ul>
-                        </div>
-
-                        <!-- Banner Ad -->
-                        <div class="sidebar-banner rounded-3 overflow-hidden shadow-sm">
-                            <a href="#">
-                                <img src="{{ $post->banner ?? '/templates/frontend/resources/img/banner-sidebar.jpg' }}"
-                                    alt="Banner Ad" class="w-100 rounded-2 shadow-sm">
-                            </a>
-                        </div>
-
-                        <!-- Related Product Card -->
-                        @if ($post->product)
-                            <div class="sidebar-card bg-white p-4 rounded-4 shadow-sm">
-                                <h4 class="sidebar-title fw-bold mb-3 pb-2 border-bottom">Sản phẩm liên quan</h4>
-                                <div class="related-product-item">
-                                    <div class="product-thumb mb-3 rounded-3 overflow-hidden">
-                                        <a href="{{ write_url($post->product->languages->first()->pivot->canonical) }}">
-                                            <img src="{{ $post->product->image }}"
-                                                alt="{{ $post->product->languages->first()->pivot->name }}"
-                                                class="w-100">
-                                        </a>
-                                    </div>
-                                    <h5 class="product-name fw-bold mb-2">
-                                        <a href="{{ write_url($post->product->languages->first()->pivot->canonical) }}"
-                                            class="text-decoration-none text-dark">
-                                            {{ $post->product->languages->first()->pivot->name }}
-                                        </a>
-                                    </h5>
-                                    <div class="product-price text-primary fw-bold">
-                                        {{ number_format($post->product->price) }}đ
-                                    </div>
-                                    <a href="{{ write_url($post->product->languages->first()->pivot->canonical) }}"
-                                        class="btn btn-outline-primary w-100 mt-3 rounded-3 btn-sm">Xem chi tiết</a>
-                                </div>
-                            </div>
-                        @endif
-                    </aside>
+                    </div>
                 </div>
             </div>
 
@@ -281,9 +263,9 @@
                 }
             @endphp
             @if ($relatedPosts->count() > 0)
-                <div class="related-posts-section mt-5 pt-5 border-top">
-                    <h3 class="fw-bold mb-4 text-dark">Bài viết liên quan</h3>
-                    <div class="row g-4">
+                <div class="related-posts-section mt-5 pt-5">
+                    <h3 class="fw-bold mb-4 text-dark text-center">Bài viết liên quan</h3>
+                    <div class="row g-4 justify-content-center">
                         @foreach ($relatedPosts as $val)
                             <div class="col-lg-3 col-md-6">
                                 @include('frontend.component.post_card', ['post' => $val])
@@ -294,5 +276,4 @@
             @endif
         </div>
     </div>
-
 @endsection

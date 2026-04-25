@@ -35,9 +35,10 @@ class ProductRepository extends BaseRepository
                 'products.publish',
                 'products.follow',
                 'products.price',
+                'products.price_discount',
                 'products.stock',
-                'products.code',
                 'products.sold',
+                'products.source',
                 'products.link',
                 'products.price',
                 'products.stock',
@@ -91,6 +92,8 @@ class ProductRepository extends BaseRepository
                 'products.attribute',
                 'products.variant',
                 'products.sold',
+                'products.source',
+                'products.price_discount',
                 'products.warranty',
                 'tb2.name',
                 'tb2.description',
@@ -234,9 +237,12 @@ class ProductRepository extends BaseRepository
         $query->select(
             'products.id',
             'products.price',
+            'products.price_discount',
             'products.image',
-            // 'products.lecturer_id',
-            'product_language.name as name'
+            'products.sold',
+            'products.source',
+            'product_language.name as name',
+            'product_language.canonical as canonical'
         );
 
         if (isset($param['select']) && count($param['select'])) {

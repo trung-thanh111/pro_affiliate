@@ -1,11 +1,11 @@
-@if(isset($widgets['news']->object))
-    @foreach($widgets['news']->object as $key => $cat)
+@if (isset($widgets['news']->object))
+    @foreach ($widgets['news']->object as $key => $cat)
         @php
             $catName = $cat->languages->name;
             $catCanonical = write_url($cat->languages->canonical);
             $posts = $cat->posts ?? [];
         @endphp
-        @if(count($posts))
+        @if (count($posts))
             <section class="panel-review-handbook mt50 mb50">
                 <div class="uk-container uk-container-center">
                     <div class="panel-head d-flex align-items-center justify-content-between mb30 flex-wrap gap-2">
@@ -15,7 +15,8 @@
                             </h2>
                             <div class="heading-line"></div>
                             <div class="subtitle mt10">
-                                Khám phá những bí quyết và kinh nghiệm thực tế để chọn lựa sản phẩm hoàn hảo nhất cho nhu cầu của bạn.
+                                Khám phá những bí quyết và kinh nghiệm thực tế để chọn lựa sản phẩm hoàn hảo nhất cho
+                                nhu cầu của bạn.
                             </div>
                         </div>
                         <div class="head-right">
@@ -25,7 +26,7 @@
                     <div class="panel-body">
                         <div class="uk-grid uk-grid-medium">
                             {{-- Large Post --}}
-                            @if(isset($posts[0]))
+                            @if (isset($posts[0]))
                                 @php
                                     $p1 = $posts[0];
                                     $lang1 = $p1->languages->first();
@@ -41,13 +42,12 @@
                                             <div class="overlay"></div>
                                             <div class="info-top">
                                                 <div class="tag">TIN MỚI NHẤT</div>
+                                                <h3 class="title mt-2">{{ $n1 }}</h3>
                                             </div>
                                             <div class="info-middle">
-                                                <h3 class="title">{{ $n1 }}</h3>
                                                 <div class="description">{{ Str::limit(strip_tags($d1), 150) }}</div>
                                             </div>
                                             <div class="info-bottom-right">
-                                                <div class="readmore">Xem bài viết <i class="fa fa-arrow-right"></i></div>
                                             </div>
                                         </a>
                                     </div>
@@ -56,8 +56,8 @@
 
                             <div class="uk-width-large-3-5">
                                 <div class="uk-grid uk-grid-medium uk-grid-width-large-1-2">
-                                    @foreach($posts as $k => $p)
-                                        @if($k > 0 && $k < 5)
+                                    @foreach ($posts as $k => $p)
+                                        @if ($k > 0 && $k < 5)
                                             @php
                                                 $lang = $p->languages->first();
                                                 $n = $lang->pivot->name;
@@ -72,7 +72,10 @@
                                                         <div class="overlay"></div>
                                                         <div class="info-top">
                                                             <h3 class="title">{{ Str::limit($n, 60) }}</h3>
-                                                            <div class="description">{{ Str::limit(strip_tags($d), 100) }}</div>
+                                                        </div>
+                                                        <div class="info-middle">
+                                                            <div class="description">
+                                                                {{ Str::limit(strip_tags($d), 100) }}</div>
                                                         </div>
                                                     </a>
                                                 </div>

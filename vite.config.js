@@ -6,11 +6,12 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/css/app.scss', 
+                'resources/css/app.scss',
                 'resources/js/app.js',
                 'resources/css/app_backend.scss',
                 'resources/js/app.backend.js',
-                'resources/js/post.js'
+                'resources/js/post.js',
+                'resources/js/product_tab.js'
             ],
             refresh: true,
         }),

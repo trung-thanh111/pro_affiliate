@@ -50,7 +50,7 @@ class AttributeCatalogueRepository extends BaseRepository
         }, ])->get();
     }
 
-    public function getAttributeCatalogueWhereIn($whereIn, $whereInField = 'id', $language_id){
+    public function getAttributeCatalogueWhereIn($whereIn, $language_id, $whereInField = 'id'){
         return $this->model->select([
             'attribute_catalogues.id',
             'tb2.name',

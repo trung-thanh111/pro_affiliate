@@ -136,8 +136,14 @@ if(!function_exists('getPrice')){
             return $result;
         }
 
-        // Xử lý khuyến mãi
-        if(isset($product->promotions) && is_object($product->promotions) && isset($product->promotions->discountType)){
+        // Xử lý giá giảm trực tiếp từ cột price_discount trên bảng products (Ưu tiên hàng đầu theo Task 32)
+        if(isset($product->price_discount) && $product->price_discount > 0 && $product->price_discount < $product->price){
+            $result['priceSale'] = $product->price_discount;
+            $result['percent'] = getPercent($product, $product->price - $product->price_discount);
+        }
+        // Giữ lại logic cũ làm dự phòng nếu không có price_discount nhưng có promotions (hoặc có thể bỏ qua hoàn toàn tùy yêu cầu)
+        // Hiện tại tôi sẽ ưu tiên price_discount trước.
+        else if(isset($product->promotions) && is_object($product->promotions) && isset($product->promotions->discountType)){
             // Nếu là loại phần trăm, ưu tiên lấy discountValue gốc để hiển thị chính xác
             if($product->promotions->discountType == 'percent'){
                 $result['percent'] = $product->promotions->discountValue;

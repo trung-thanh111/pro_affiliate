@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\Payment\VnpayController;
 use App\Http\Controllers\Frontend\Payment\PaypalController;
 use App\Http\Controllers\Frontend\ProductCatalogueController as FeProductCatalogueController;
+use App\Http\Controllers\Frontend\PostCatalogueController as FePostCatalogueController;
 use App\Http\Controllers\Frontend\ContactController as FeContactController;
 use App\Http\Controllers\CrawlerController;
 
@@ -41,6 +42,7 @@ Route::group(['middleware' => ['locale']], function () {
 
     Route::get('tim-kiem/trang-{page}', [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search')->where('page', '[0-9]+');
     Route::get('tim-kiem', [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search');
+    Route::get('tim-kiem-bai-viet', [FePostCatalogueController::class, 'search'])->name('post.catalogue.search');
     Route::get('yeu-thich' . config('apps.general.suffix'), [FeProductCatalogueController::class, 'wishlist'])->name('product.wishlist.index');
     Route::get('so-sanh' . config('apps.general.suffix'), [FeProductCatalogueController::class, 'compare'])->name('product.compare.index');
 

@@ -111,6 +111,16 @@
         <div class="row mb15">
             <div class="col-lg-12">
                 <div class="form-row">
+                    <label for="">Giá Khuyến Mãi (Nếu có)</label>
+                    <input type="text" name="price_discount"
+                        value="{{ old('price_discount', isset($product) ? number_format($product->price_discount, 0, ',', '.') : '') }}"
+                        class="form-control int">
+                </div>
+            </div>
+        </div>
+        <div class="row mb15">
+            <div class="col-lg-12">
+                <div class="form-row">
                     <label for="">Tồn kho</label>
                     <input type="text" name="stock"
                         value="{{ old('stock', optional($product ?? null)->stock ?? 0) }}" class="form-control"
@@ -124,16 +134,6 @@
                     <label for="">Số lượng đã bán</label>
                     <input type="text" name="sold"
                         value="{{ old('sold', optional($product ?? null)->sold ?? 0) }}" class="form-control int"
-                        min="0">
-                </div>
-            </div>
-        </div>
-        <div class="row mb15">
-            <div class="col-lg-12">
-                <div class="form-row">
-                    <label for="">Tồn kho</label>
-                    <input type="text" name="stock"
-                        value="{{ old('stock', optional($product ?? null)->stock ?? 0) }}" class="form-control"
                         min="0">
                 </div>
             </div>

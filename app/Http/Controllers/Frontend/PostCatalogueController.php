@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
+use Illuminate\Http\Request;
 use App\Repositories\Post\PostCatalogueRepository;
 use App\Services\V1\Post\PostCatalogueService;
 use App\Services\V1\Post\PostService;
@@ -14,6 +15,7 @@ use App\Enums\SlideEnum;
 use Jenssegers\Agent\Facades\Agent;
 use App\Models\Introduce;
 use App\Models\Post;
+use App\Repositories\Post\PostRepository;
 
 class PostCatalogueController extends FrontendController
 {
@@ -22,6 +24,7 @@ class PostCatalogueController extends FrontendController
     protected $postCatalogueRepository;
     protected $postCatalogueService;
     protected $postService;
+    protected $postRepository;
     protected $widgetService;
     protected $slideService;
 
@@ -29,12 +32,14 @@ class PostCatalogueController extends FrontendController
         PostCatalogueRepository $postCatalogueRepository,
         PostCatalogueService $postCatalogueService,
         PostService $postService,
+        PostRepository $postRepository,
         WidgetService $widgetService,
         SlideService $slideService,
     ) {
         $this->postCatalogueRepository = $postCatalogueRepository;
         $this->postCatalogueService = $postCatalogueService;
         $this->postService = $postService;
+        $this->postRepository = $postRepository;
         $this->widgetService = $widgetService;
         $this->slideService = $slideService;
         parent::__construct();
@@ -192,6 +197,60 @@ class PostCatalogueController extends FrontendController
 
    
 
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $posts = $this->postRepository->search($keyword, $this->language, 12);
+        
+        $widgets = $this->widgetService->getWidget([
+            ['keyword' => 'featured-products'],
+            ['keyword' => 'product-category', 'children' => true],
+            ['keyword' => 'product-category-highlight', 'object' => true],
+            ['keyword' => 'about-us-2'],
+        ], $this->language);
+
+        $lastestNews = Post::with(['languages'])->orderBy('order', 'desc')->orderBy('id', 'desc')->where(['publish' => 2])->limit(8)->get();
+        
+        $config = $this->config();
+        $system = $this->system;
+        $seo = [
+            'meta_title' => 'Kết quả tìm kiếm cho: ' . $keyword,
+            'meta_keyword' => 'tìm kiếm bài viết, ' . $keyword,
+            'meta_description' => 'Kết quả tìm kiếm bài viết cho từ khóa: ' . $keyword,
+            'meta_image' => $this->system['seo_meta_images'],
+            'canonical' => route('post.catalogue.search'),
+        ];
+        
+        $template = 'frontend.post.catalogue.index';
+        $postCatalogue = (object)[
+            'languages' => collect([(object)['pivot' => (object)['name' => 'Tìm kiếm bài viết']]]),
+            'canonical' => 'tim-kiem-bai-viet'
+        ];
+        $breadcrumb = collect([
+            (object)[
+                'languages' => collect([
+                    (object)[
+                        'pivot' => (object)[
+                            'name' => 'Tìm kiếm bài viết',
+                            'canonical' => 'tim-kiem-bai-viet'
+                        ]
+                    ]
+                ])
+            ]
+        ]);
+
+        return view($template, compact(
+            'config',
+            'seo',
+            'system',
+            'breadcrumb',
+            'posts',
+            'widgets',
+            'lastestNews',
+            'postCatalogue'
+        ));
+    }
 
     private function config()
     {

@@ -31,9 +31,8 @@
                                                 $catItemCanonical = write_url(isset($catItem->languages->canonical) ? $catItem->languages->canonical : (isset($catItem->languages->first()->pivot->canonical) ? $catItem->languages->first()->pivot->canonical : ''));
                                             @endphp
                                             <li>
-                                                <a href="{{ $catItemCanonical }}" title="{{ $catItemName }}">
+                                                <a href="javascript:void(0)" class="tab-title @if($key == 0) active @endif" data-id="{{ $catItem->id }}" title="{{ $catItemName }}">
                                                     {{ $catItemName }}
-                                                    <i class="fa fa-angle-right"></i>
                                                 </a>
                                             </li>
                                         @endforeach
@@ -45,7 +44,7 @@
 
                     {{-- Products Grid --}}
                     <div class="uk-width-large-3-4">
-                        <div class="uk-grid uk-grid-small uk-grid-width-1-2 uk-grid-width-medium-1-2 uk-grid-width-large-1-4" data-uk-grid-match="{target:'.modern-product-card'}">
+                        <div class="uk-grid uk-grid-small uk-grid-width-1-2 uk-grid-width-medium-1-2 uk-grid-width-large-1-4 product-grid-container" data-uk-grid-match="{target:'.modern-product-card'}">
                             @foreach($categoryItem->products as $product)
                                 <div class="mb20">
                                     @include('frontend.component.product_card', ['product' => $product])
@@ -57,4 +56,7 @@
             </div>
         </section>
     @endforeach
+    @push('scripts')
+        @vite(['resources/js/product_tab.js'])
+    @endpush
 @endif

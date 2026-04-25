@@ -210,6 +210,27 @@ class DashboardController extends Controller
         return response()->json($object); 
     }
 
+    public function findPost(Request $request){
+        $keyword = $request->input('keyword');
+        $alias = 'post_language';
+        $class = loadClass('Post');
+        $object = $class->findWidgetItem([
+            ['name','LIKE', '%'.$keyword.'%'],
+        ], $this->language, $alias);
+        return response()->json($object); 
+    }
+
+    public function getHotTopics(Request $request){
+        $class = loadClass('Post');
+        // Fetch 6 latest recommended posts as hot topics
+        $object = $class->findPosts([
+            ['publish', '=', 2],
+            ['recommend', '=', 2]
+        ], $this->language, ['id', 'DESC'], 6);
+        
+        return response()->json($object);
+    }
+
     public function findProductObject(Request $request){
         $html = '';
         $productCatalogueId = $request->input('product_catalogue_id');

@@ -1,83 +1,45 @@
 @extends('frontend.homepage.layout')
+
 @section('content')
-    <div class="product-catalogue page-wrapper">
-        <div class="uk-container uk-container-center mt40">
-            <div class="panel-body">
-                <h2 class="heading-1 mb20"><span>{{ $seo['meta_title'] }}</span></h2>
-                @if(!is_null($products) && count($products))
-                <div class="product-list mb30">
-                    <ul class="uk-grid uk-grid-medium">
-                        @foreach ($products as $keyPost => $valPost)
-                        @php
-                            $title = $valPost->languages->first()->pivot->name;
-                            $image = $valPost->image;
-                            $href  = write_url($valPost->languages->first()->pivot->canonical);
-                            $description = cutnchar(strip_tags($valPost->languages->first()->pivot->description), 100);
-                            $price = getPrice($valPost);
-                        @endphp
-
-                            <li class="mb10">
-                                <div class="product-item">
-                                    <a href="{{ $href }}" class="image img-cover img-zoomin">
-                                    <img src="{{ $image }}" alt="{{ $title }}">
-                                    </a>
-                                    <div class="info">
-                                        <h3 class="title" title="{{ $title }}">
-                                            <a href="{{ $href }}" title="{{ $title }}">{{ $title }}</a>
-                                        </h3>
-                                        <div class="description">{!! $description !!}</div>
-                                    </div>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                    <div class="uk-text-center search-paginate">
-                        @if ($products->hasPages())
-                            <ul class="pagination">
-                                {{-- Previous Page Link --}}
-                                @php
-                                    $prevPageUrl = ($products->currentPage() > 1) ? str_replace('?page=', '/trang-', $products->previousPageUrl()).config('apps.general.suffix') : null;
-                                @endphp
-                                @if ($prevPageUrl)
-                                    <li class="page-item"><a class="page-link" href="{{ $prevPageUrl }}">Previous</a></li>
-                                @else
-                                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
-                                @endif
-
-                                {{-- Pagination Links --}}
-                                @foreach ($products->getUrlRange(max(1, $products->currentPage() - 2), min($products->lastPage(), $products->currentPage() + 2)) as $page => $url)
-                                    @php
-                                        // $paginationUrl = str_replace('?page=', '/trang-', $url).config('apps.general.suffix');
-                                        // $paginationUrl = ($page == 1) ? str_replace('/trang-'.$page, '', $paginationUrl) : $paginationUrl;
-                                        $paginationUrl = $url;
-                                    @endphp
-                                    <li class="page-item {{ ($page == $products->currentPage()) ? 'active' : '' }}"><a class="page-link" href="{{ $paginationUrl }}">{{ $page }}</a></li>
-                                @endforeach
-
-                                {{-- Next Page Link --}}
-                                @php
-                                    $nextPageUrl = ($products->hasMorePages()) ? str_replace('?page=', '/trang-', $products->nextPageUrl()).config('apps.general.suffix') : null;
-                                @endphp
-                                @if ($nextPageUrl)
-                                    <li class="page-item"><a class="page-link" href="{{ $nextPageUrl }}">Next</a></li>
-                                @else
-                                    <li class="page-item disabled"><span class="page-link">Next</span></li>
-                                @endif
-                            </ul>
-                        @endif
-
+    <div id="prd-search" class="page-body py-5">
+        <div class="container">
+            <div class="prd-catalogue-header mb-5">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-2">
+                                <li class="breadcrumb-item"><a href="{{ write_url('/') }}" class="text-decoration-none">Trang chủ</a></li>
+                                <li class="breadcrumb-item active">Tìm kiếm</li>
+                            </ol>
+                        </nav>
+                        <h1 class="display-6 fw-bold text-dark mb-0">{{ $seo['meta_title'] }}</h1>
                     </div>
                 </div>
-                @else
-                    <div class="pt20 pb20">
-                        Không có sản phẩm phù hợp....
-                    </div>
-
-                @endif
             </div>
 
+            <div class="product-grid">
+                @if(!is_null($products) && count($products))
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4">
+                        @foreach ($products as $product)
+                            <div class="col">
+                                @include('frontend.component.product_card', ['product' => $product])
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="mt-5 d-flex justify-content-center search-paginate">
+                        {{ $products->links('pagination::bootstrap-5') }}
+                    </div>
+                @else
+                    <div class="text-center py-5 bg-white rounded-4 shadow-sm border">
+                        <img src="/backend/img/no-product.png" alt="No product" class="img-fluid mb-3" style="max-width: 150px; opacity: 0.5;">
+                        <h4 class="text-dark fw-bold">Không tìm thấy kết quả</h4>
+                        <p class="text-muted">Chúng tôi không tìm thấy sản phẩm nào phù hợp với từ khóa của bạn.</p>
+                        <a href="{{ write_url('/') }}" class="btn btn-primary rounded-pill px-4">Quay lại trang chủ</a>
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
-
 @endsection
 

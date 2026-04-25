@@ -125,7 +125,7 @@ class ProductCatalogueController extends FrontendController
         }
 
         if (isset($groupedAttributes) && !is_null($groupedAttributes) && count($groupedAttributes)) {
-            $filters = $this->productCatalogueService->getFilterList($groupedAttributes, $this->language);
+            $filters = $this->productCatalogueService->getFilterList($this->language, $groupedAttributes);
         }
         return $filters;
     }

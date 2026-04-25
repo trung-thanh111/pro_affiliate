@@ -52,6 +52,8 @@ Route::group(['middleware' => ['admin', 'locale', 'backend_default_locale']], fu
 
 Route::group(['middleware' => ['locale']], function () {
     Route::get('ajax/dashboard/findProduct', [AjaxDashboardController::class, 'findProduct'])->name('ajax.dashboard.findProduct');
+    Route::get('ajax/dashboard/findPost', [AjaxDashboardController::class, 'findPost'])->name('ajax.dashboard.findPost');
+    Route::get('ajax/dashboard/getHotTopics', [AjaxDashboardController::class, 'getHotTopics'])->name('ajax.dashboard.getHotTopics');
     Route::get('ajax/dashboard/findProductObject', [AjaxDashboardController::class, 'findProductObject'])->name('ajax.findProductObject');
     Route::post('ajax/cart/pay', [AjaxCartController::class, 'pay'])->name('ajax.cart.pay');
 
@@ -75,4 +77,5 @@ Route::group(['middleware' => ['locale']], function () {
     Route::post('ajax/product/compare/add', [AjaxProductController::class, 'compareAdd'])->name('product.compare.add');
     Route::post('ajax/product/compare/remove', [AjaxProductController::class, 'compareRemove'])->name('product.compare.remove');
     Route::get('ajax/product/compare/list', [AjaxProductController::class, 'compareList'])->name('product.compare.list');
+    Route::get('ajax/product/getProducts', [AjaxProductController::class, 'getProducts'])->name('ajax.product.getProducts');
 });

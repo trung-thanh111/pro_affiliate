@@ -12,38 +12,38 @@
     }
 @endphp
 
-<div class="modern-product-card">
-    <div class="image-box">
-        <a href="{{ $canonical }}" title="{{ $name }}">
+<a href="{{ $canonical }}?redirect=1" target="_blank" title="{{ $name }}" class="modern-product-card-link text-decoration-none d-block">
+    <div class="modern-product-card">
+        <div class="image-box">
             <img src="{{ $image }}" alt="{{ $name }}">
-        </a>
-        @if($price['percent'] > 0)
-            <div class="badge-discount">-{{ $price['percent'] }}%</div>
-        @endif
-    </div>
-    <div class="info-box">
-        <h3 class="title">
-            <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
-        </h3>
-        <div class="price-action">
-            <div class="price-group">
-                <span class="price-sale">{{ ($price['priceSale'] > 0) ? convert_price($price['priceSale'], true) : convert_price($price['price'], true) }}₫</span>
-                @if($price['priceSale'] > 0)
-                    <span class="price-old">{{ convert_price($price['price'], true) }}₫</span>
-                @endif
-            </div>
-            <a href="{{ $canonical }}?redirect=1" class="btn-cart" title="Mua ngay">
-                <i class="fa fa-shopping-cart"></i>
-            </a>
-        </div>
-
-        <div class="footer-meta">
-            @if(!empty($product->source))
-                <span class="status" style="color: #ee4d2d"><i class="fa fa-shopping-bag" style="font-size: 10px; margin-right: 3px;"></i>{{ $product->source }}</span>
-            @else
-                <span class="status">Còn hàng</span>
+            @if($price['percent'] > 0)
+                <div class="badge-discount">-{{ $price['percent'] }}%</div>
             @endif
-            <span class="sold">Đã bán: {{ $sold_text }}</span>
+        </div>
+        <div class="info-box">
+            <h3 class="title">
+                {{ $name }}
+            </h3>
+            <div class="price-action">
+                <div class="price-group">
+                    <span class="price-sale">{{ ($price['priceSale'] > 0) ? convert_price($price['priceSale'], true) : convert_price($price['price'], true) }}₫</span>
+                    @if($price['priceSale'] > 0)
+                        <span class="price-old">{{ convert_price($price['price'], true) }}₫</span>
+                    @endif
+                </div>
+                <div class="btn-cart" title="Mua ngay">
+                    <i class="fa fa-shopping-cart"></i>
+                </div>
+            </div>
+
+            <div class="footer-meta">
+                @if(!empty($product->source))
+                    <span class="status" style="color: #ee4d2d; font-weight: 600;"><i class="fa fa-shopping-bag" style="font-size: 10px; margin-right: 3px;"></i>{{ $product->source }}</span>
+                @else
+                    <span class="status" style="color: #4cd137; font-weight: 600;">Còn hàng</span>
+                @endif
+                <span class="sold">Đã bán: {{ $sold_text }}</span>
+            </div>
         </div>
     </div>
-</div>
+</a>

@@ -45,7 +45,7 @@ class AttributeRepository extends BaseRepository
         ->find($id);
     }
 
-    public function searchAttributes(string $keyword = '', array $option = [], int $languageId){
+    public function searchAttributes(int $languageId, string $keyword = '', array $option = []){
         return $this->model->whereHas('attribute_catalogues', function($query) use ($option){
             $query->where('attribute_catalogue_id', $option['attributeCatalogueId']);
         })->whereHas('attribute_language', function($query) use ($keyword){

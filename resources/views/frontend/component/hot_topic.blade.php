@@ -11,22 +11,22 @@
                 </div>
                 <div class="head-right">
                     <div class="search-box">
-                        <input type="text" placeholder="Từ khóa nổi bật">
-                        <button type="submit"><i class="fa fa-search"></i></button>
+                        <input type="text" id="hot-topic-input" placeholder="Từ khóa nổi bật">
+                        <button type="button" id="hot-topic-btn"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
             <div class="hot-topic-body">
-                <div class="uk-grid uk-grid-medium">
+                <div class="uk-grid uk-grid-medium" id="hot-topic-list">
                     @foreach($latestPosts->chunk(3) as $chunk)
-                        <div class="uk-width-large-1-4 uk-width-medium-1-2 uk-width-small-1-1">
+                        <div class="uk-width-large-1-4 uk-width-medium-1-2 uk-width-small-1-1 topic-column">
                             @foreach($chunk as $post)
                                 @php
                                     $lang = $post->languages->first();
                                     $name = $lang->pivot->name;
                                     $canonical = write_url($lang->pivot->canonical);
                                 @endphp
-                                <div class="mb20">
+                                <div class="mb20 topic-item" data-name="{{ strtolower($name) }}">
                                     <a href="{{ $canonical }}" class="topic-tag">
                                         {{ Str::limit($name, 45) }}
                                     </a>

@@ -11,6 +11,7 @@ enum SlideEnum: string
     const PARTNER = 'partner';
     const WHYCHOOSE = 'why-choose-us';
     const MOBILE = 'mobile-slide';
+    const SIDE_BANNER = 'side-banner';
 
     const MIDDLEHOME = 'middle-home';
 

@@ -2,7 +2,7 @@
 <div class="page-breadcrumb background">      
         <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
             <li>
-                <a href="/">Trang chủ</a>
+                <a href="{{ route('home.index') }}">Trang chủ</a>
             </li>
             <li>
                 <span class="slash">/</span>

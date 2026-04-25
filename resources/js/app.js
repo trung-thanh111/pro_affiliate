@@ -31,41 +31,74 @@ import '../vendor/frontend/core/library/compare.js';
 //     host: 'http://laravelversion1.com:6001'
 // });
 
-$(document).ready(function() {
+$(document).ready(function () {
     let searchTimeout;
-    $('.input-search').on('input', function() {
+
+    function loadHotTopics() {
+        let suggestionsContainer = $('.search-suggestions');
+        $.ajax({
+            url: '/ajax/dashboard/getHotTopics',
+            type: 'GET',
+            success: function (res) {
+                if (res && res.length > 0) {
+                    let html = `
+                        <div class="suggestion-header">
+                            <i class="bi bi-fire"></i> Hot Topics
+                        </div>
+                        <div class="hot-topics-list">
+                    `;
+                    res.forEach(item => {
+                        let name = item.languages[0].pivot.name;
+                        let canonical = item.languages[0].pivot.canonical;
+                        html += `<a href="/${canonical}.html" class="hot-topic-item">${name}</a>`;
+                    });
+                    html += `</div>`;
+                    suggestionsContainer.html(html).show();
+                }
+            }
+        });
+    }
+
+    $('.input-search').on('focus', function () {
+        if ($(this).val().length === 0) {
+            loadHotTopics();
+        }
+    });
+
+    $('.input-search').on('input', function () {
         let keyword = $(this).val();
         let suggestionsContainer = $('.search-suggestions');
-        
+
         clearTimeout(searchTimeout);
-        
+
+        if (keyword.length === 0) {
+            loadHotTopics();
+            return;
+        }
+
         if (keyword.length < 2) {
             suggestionsContainer.hide().empty();
             return;
         }
 
-        searchTimeout = setTimeout(function() {
+        searchTimeout = setTimeout(function () {
             $.ajax({
-                url: '/ajax/dashboard/findProduct',
+                url: '/ajax/dashboard/findPost',
                 type: 'GET',
                 data: { keyword: keyword },
-                success: function(res) {
+                success: function (res) {
                     if (res && res.length > 0) {
                         let html = '';
                         res.forEach(item => {
-                            // Map model data to suggestion item
-                            // We might need to handle the image path and price format
-                            let name = item.name || (item.languages ? item.languages[0].pivot.name : '');
+                            let name = item.languages[0].pivot.name;
                             let image = item.image || '/user-default.png';
-                            let canonical = item.canonical || (item.languages ? item.languages[0].pivot.canonical : '');
-                            let price = item.price ? new Intl.NumberFormat('vi-VN').format(item.price) + 'đ' : '';
+                            let canonical = item.languages[0].pivot.canonical;
 
                             html += `
-                                <a href="/${canonical}.html" class="suggestion-item">
+                                <a href="/${canonical}" class="suggestion-item">
                                     <img src="${image}" class="img" alt="${name}">
                                     <div class="info">
                                         <span class="name">${name}</span>
-                                        <span class="price">${price}</span>
                                     </div>
                                 </a>
                             `;
@@ -75,7 +108,7 @@ $(document).ready(function() {
                         suggestionsContainer.hide().empty();
                     }
                 },
-                error: function() {
+                error: function () {
                     suggestionsContainer.hide().empty();
                 }
             });
@@ -83,9 +116,44 @@ $(document).ready(function() {
     });
 
     // Close suggestions when clicking outside
-    $(document).on('click', function(e) {
+    $(document).on('click', function (e) {
         if (!$(e.target).closest('.header-search').length) {
             $('.search-suggestions').hide();
+        }
+    });
+
+    // Hot Topic Section Filtering
+    $('#hot-topic-input').on('keyup', function () {
+        let keyword = $(this).val().toLowerCase();
+        $('.topic-item').each(function () {
+            let name = $(this).data('name');
+            if (name.includes(keyword)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+
+        // Hide columns if no items visible
+        $('.topic-column').each(function () {
+            if ($(this).find('.topic-item:visible').length === 0) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+    });
+
+    $('#hot-topic-btn').on('click', function () {
+        let keyword = $('#hot-topic-input').val();
+        if (keyword.length > 0) {
+            window.location.href = '/tim-kiem-bai-viet?keyword=' + encodeURIComponent(keyword);
+        }
+    });
+
+    $('#hot-topic-input').on('keypress', function (e) {
+        if (e.which === 13) {
+            $('#hot-topic-btn').trigger('click');
         }
     });
 });

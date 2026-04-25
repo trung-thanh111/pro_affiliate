@@ -9,6 +9,10 @@
             </ul>
         </div>
 
+        <div class="disclaimer-text text-center mt-4">
+            <p class="m-0 fw-medium text-dark">Website là công cụ so sánh - Không bán hàng</p>
+        </div>
+
         <div class="copyright-text">
             <p>© 2024 - Bản quyền thuộc về Công ty TNHH T-Shop</p>
         </div>

@@ -157,60 +157,50 @@ class ProductController extends Controller
         ]);
     }
 
+    public function getProducts(Request $request)
+    {
+        $catalogueId = $request->input('catalogue_id');
+        $productCatalogue = $this->productCatalogueRepository->findById($catalogueId);
+        if (!$productCatalogue) {
+            return response()->json(['code' => 0, 'message' => 'Danh mục không tồn tại'], 404);
+        }
+
+        $products = $this->productService->paginate(
+            $request,
+            $this->language,
+            $productCatalogue,
+            1,
+            [],
+            ['products.order', 'desc']
+        );
+
+        $productId = $products->pluck('id')->toArray();
+        if (count($productId)) {
+            $products = $this->productService->combineProductAndPromotion($productId, $products);
+        }
+
+        $html = $this->renderFilterProduct($products);
+
+        return response()->json([
+            'html' => $html,
+            'code' => 10
+        ]);
+    }
+
     public function renderFilterProduct($products)
     {
         $html = '';
         if (!is_null($products) && count($products)) {
-            $html .= '<div class="uk-grid uk-grid-medium">';
             foreach ($products as $product) {
-                $name = $product->languages->first()->pivot->name;
-                $canonical = write_url($product->languages->first()->pivot->canonical);
-                $image = image($product->image);
-                $price = getPrice($product);
-                $catName = $product->product_catalogues->first()->languages->first()->pivot->name;
-                $review = getReview($product);
-                $total_lesson = $product->total_lesson;
-                $duration = $product->duration;
-                $review['star'] = ($product->review_count == 0) ? '0' : $product->review_average / 5 * 100;
-                // $lecturer_image = $product->lecturers->image;
-                // $lecturer_name = $product->lecturers->name;
-                $ml = $product->ml;
-                $percent = $product->percent;
-                $madeIn = $product->made_in;
-
-                if (isset($product->attribute_concat)) {
-                    $attributes = substr($product->attribute_concat, 0, -1);
-                }
-
-                $html .= <<<HTML
-                    <div class="uk-width-1-1 uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-4 mb25">
-                        <div class="product-item">
-                            <a href="{$canonical}" class="image img-scaledown img-zoomin">
-                                <img src="{$image}" alt="{$name}">
-                            </a>
-
-                            <div class="info">
-                                <div class="wine-info uk-flex uk-flex-center">
-                                    <span class="ml">{$ml}ml</span>
-                                    <span>{$percent}%</span>
-                                </div>
-
-                                <h3 class="title">
-                                    <a href="{$canonical}" title="{$name}">{$name}</a>
-                                </h3>
-
-                                <div class="price">
-                                    {$price['html']}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                HTML;
+                $html .= '<div class="col">';
+                $html .= view('frontend.component.product_card', compact('product'))->render();
+                $html .= '</div>';
             }
-            $html .= '</div>';
-            $html .= $products->links('pagination::bootstrap-4');
         } else {
-            $html .= '<div class="no-result">Không có sản phẩm phù hợp</div>';
+            $html .= '<div class="no-result col-12 text-center py-5">
+                <img src="/backend/img/no-product.png" alt="No product" class="img-fluid mb-3" style="max-width: 150px; opacity: 0.5;">
+                <p class="text-muted">Không có sản phẩm phù hợp</p>
+            </div>';
         }
         return $html;
     }

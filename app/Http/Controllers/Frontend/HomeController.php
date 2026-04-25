@@ -85,6 +85,11 @@ class HomeController extends FrontendController
             ['is_review', '=', 1]
         ], $this->language, ['id', 'DESC'], 6);
 
+        $featuredReviews = $this->postService->findPosts([
+            ['publish', '=', 2],
+            ['recommend', '=', 2]
+        ], $this->language, ['id', 'DESC'], 5);
+
         $postCatalogues = $this->postCatalogueRepository->findByCondition([
             ['publish', '=', 2]
         ], true, [
@@ -107,6 +112,7 @@ class HomeController extends FrontendController
             'categoryWithProducts',
             'latestPosts',
             'reviewPosts',
+            'featuredReviews',
             'postCatalogues'
         ));
     }

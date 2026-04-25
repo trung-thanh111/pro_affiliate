@@ -15,12 +15,14 @@
                     <div class="divider"></div>
                     <a href="#" class="text-decoration-none">Tải ứng dụng</a>
                     <div class="divider"></div>
-                    <span class="d-flex align-items-center gap-2">Kết nối <i class="bi bi-facebook"></i> <i class="bi bi-instagram"></i></span>
+                    <span class="d-flex align-items-center gap-2">Kết nối <i class="bi bi-facebook"></i> <i
+                            class="bi bi-instagram"></i></span>
                 </div>
                 <div class="d-flex align-items-center gap-3">
                     <a href="#" class="text-decoration-none"><i class="bi bi-bell"></i> Thông Báo</a>
                     <a href="#" class="text-decoration-none"><i class="bi bi-question-circle"></i> Hỗ Trợ</a>
-                    <a href="#" class="text-decoration-none"><i class="bi bi-globe"></i> Tiếng Việt <i class="bi bi-chevron-down"></i></a>
+                    <a href="#" class="text-decoration-none"><i class="bi bi-globe"></i> Tiếng Việt <i
+                            class="bi bi-chevron-down"></i></a>
                     <div class="divider"></div>
                     @guest('customer')
                         <a href="{{ route('customer.login') }}" class="text-decoration-none">Đăng Ký</a>
@@ -28,7 +30,8 @@
                         <a href="{{ route('customer.login') }}" class="text-decoration-none">Đăng Nhập</a>
                     @endguest
                     @auth('customer')
-                        <a href="{{ route('customer.account') }}" class="user-info text-decoration-none d-flex align-items-center gap-1">
+                        <a href="{{ route('customer.account') }}"
+                            class="user-info text-decoration-none d-flex align-items-center gap-1">
                             <i class="bi bi-person-circle"></i>
                             {{ auth('customer')->user()->name }}
                         </a>
@@ -44,14 +47,15 @@
             <div class="d-flex align-items-start gap-4">
                 {{-- Logo --}}
                 <div class="logo flex-shrink-0 mt-1">
-                    <a href="/"><img src="{{ $system['homepage_logo'] }}" alt="Logo"></a>
+                    <a href="{{ route('home.index') }}"><img src="{{ $system['homepage_logo'] }}" alt="Logo"></a>
                 </div>
 
                 {{-- Search Area --}}
                 <div class="header-center">
                     <div class="header-search">
-                        <form action="{{ route('product.catalogue.search') }}" method="GET" class="search-form">
-                            <input type="text" name="keyword" class="input-search" placeholder="Shopee bao lễ - Gì cũng rẻ" autocomplete="off">
+                        <form action="{{ route('post.catalogue.search') }}" method="GET" class="search-form">
+                            <input type="text" name="keyword" class="input-search"
+                                placeholder="Tìm kiếm bài viết, đánh giá..." autocomplete="off">
                             <button type="submit" class="btn-search">
                                 <i class="bi bi-search"></i>
                             </button>
@@ -60,30 +64,26 @@
                             {{-- Results via AJAX --}}
                         </div>
                     </div>
-                    
+
                     {{-- Category/Tags below search --}}
-                    @if(isset($headerTags) && count($headerTags))
+                    @if (isset($headerTags) && count($headerTags))
                         <div class="header-tags">
-                            @foreach($headerTags as $tag)
+                            @foreach ($headerTags as $tag)
                                 @php
                                     $tagName = $tag->languages->first()->pivot->name ?? '';
                                     $tagUrl = $tag->languages->first()->pivot->canonical ?? '#';
                                 @endphp
-                                @if($tagName)
-                                    <a href="{{ route('product.catalogue.index', ['canonical' => $tagUrl]) }}">{{ $tagName }}</a>
+                                @if ($tagName)
+                                    <a
+                                        href="{{ route('router.index', ['canonical' => $tagUrl]) }}">{{ $tagName }}</a>
                                 @endif
                             @endforeach
                         </div>
                     @endif
                 </div>
 
-                {{-- Cart --}}
-                <div class="cart-wrapper">
-                    <a href="{{ route('cart.checkout') }}" class="btn-cart">
-                        <i class="bi bi-cart3"></i>
-                        <span class="cart-count">{{ $cartCount }}</span>
-                    </a>
-                </div>
+                {{-- Cart removed --}}
+
             </div>
         </div>
     </div>
@@ -93,14 +93,14 @@
         <div class="header-top-row d-flex align-items-center justify-content-between py-2">
             {{-- Left: Logo --}}
             <div class="mobile-logo">
-                <a href="/"><img src="{{ $system['homepage_logo'] }}" alt="Logo" class="img-fluid"
+                <a href="{{ route('home.index') }}"><img src="{{ $system['homepage_logo'] }}" alt="Logo" class="img-fluid"
                         style="max-height: 45px;"></a>
             </div>
 
             {{-- Center: Search (Visible only on Tablet) --}}
             <div class="header-search-tablet d-none d-md-block flex-grow-1 mx-4">
                 <div class="mobile-search-bar">
-                    <form action="{{ route('product.catalogue.search') }}" method="GET" class="search-form-mobile">
+                    <form action="{{ route('post.catalogue.search') }}" method="GET" class="search-form-mobile">
                         <div class="input-group">
                             <input type="text" name="keyword" class="form-control"
                                 placeholder="Bạn muốn tìm gì hôm nay?" autocomplete="off">
@@ -112,12 +112,9 @@
                 </div>
             </div>
 
-            {{-- Right: Icons (Menu + Cart) --}}
+            {{-- Right: Icon (Menu) --}}
             <div class="mobile-actions d-flex align-items-center gap-2">
-                <a href="{{ route('cart.checkout') }}" class="mobile-icon-link position-relative">
-                    <i class="bi bi-cart3 fs-2"></i>
-                    <span class="cart-badge">{{ $cartCount }}</span>
-                </a>
+
                 <div class="mobile-nav-toggle">
                     <a class="mobile-menu-trigger" href="#offcanvas" data-uk-offcanvas="{target:'#offcanvas'}">
                         <i class="bi bi-list fs-1"></i>
@@ -129,10 +126,10 @@
         {{-- Bottom Row: Search (Visible only on Mobile) --}}
         <div class="header-search-row pb-3 d-md-none">
             <div class="mobile-search-bar">
-                <form action="{{ route('product.catalogue.search') }}" method="GET" class="search-form-mobile">
+                <form action="{{ route('post.catalogue.search') }}" method="GET" class="search-form-mobile">
                     <div class="input-group">
-                        <input type="text" name="keyword" class="form-control" placeholder="Bạn muốn tìm gì hôm nay?"
-                            autocomplete="off">
+                        <input type="text" name="keyword" class="form-control"
+                            placeholder="Bạn muốn tìm gì hôm nay?" autocomplete="off">
                         <button class="btn btn-search-mobile" type="submit">
                             <i class="bi bi-search"></i>
                         </button>
@@ -152,7 +149,7 @@
 
         <div class="mobile-menu-header">
             <div class="mobile-menu-logo">
-                <a href="/" title="Logo">
+                <a href="{{ route('home.index') }}" title="Logo">
                     <img src="{{ $system['homepage_logo'] }}" alt="Logo" />
                 </a>
             </div>
@@ -186,17 +183,12 @@
 
                 <a href="{{ route('product.wishlist.index') }}" class="mobile-menu-btn mobile-btn-wishlist">
                     <i class="fa fa-heart"></i> Yêu thích
-                    @if($wishlistCount > 0)
+                    @if ($wishlistCount > 0)
                         <span class="mobile-badge">{{ $wishlistCount }}</span>
                     @endif
                 </a>
 
-                <a href="{{ route('cart.checkout') }}" class="mobile-menu-btn mobile-btn-cart">
-                    <i class="fa fa-shopping-cart"></i> Giỏ hàng
-                    @if($cartCount > 0)
-                        <span class="mobile-badge">{{ $cartCount }}</span>
-                    @endif
-                </a>
+
             </div>
 
             <div class="mobile-menu-contact">

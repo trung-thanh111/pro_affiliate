@@ -386,8 +386,10 @@ class ProductService extends BaseService
             'products.image',
             'products.order',
             'products.price',
+            'products.price_discount',
             'products.stock',
             'products.sold',
+            'products.source',
             'tb2.name',
             'tb2.canonical',
         ];
@@ -401,6 +403,7 @@ class ProductService extends BaseService
             'image',
             'album',
             'price',
+            'price_discount',
             'stock',
             'sold',
             'code',
@@ -577,6 +580,12 @@ class ProductService extends BaseService
             'whereRaw' => null,
         ];
 
+        $attributes = $request->input('attributes');
+        if (isset($attributes['catalogue']) && !empty($attributes['catalogue'])) {
+            $productCatalogueIds = (array)$attributes['catalogue'];
+        }
+
+        $bindings = [];
         if (!empty($productCatalogueIds)) {
             $query['join'][] = ['product_catalogue_product as pcp', 'pcp.product_id', '=', 'products.id'];
 
@@ -643,6 +652,14 @@ class ProductService extends BaseService
         $query['where'] = null;
 
         if (!is_null($attributes) && count($attributes)) {
+            // Remove 'catalogue' from attributes if it exists, as it's handled in productCatalogueQuery
+            if (isset($attributes['catalogue'])) {
+                unset($attributes['catalogue']);
+            }
+
+            if (count($attributes) == 0) {
+                return $query;
+            }
 
 
             $concatExpression = 'CONCAT(';

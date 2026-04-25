@@ -12,7 +12,7 @@
         </div>
         <div class="review-content">
             <h3 class="review-title mb-2">{{ $name }}</h3>
-            <div class="review-desc text-secondary mb-3">
+            <div class="review-desc text-dark mb-3">
                 {{ Str::limit(strip_tags($desc), 250) }}
             </div>
             <div class="review-meta d-flex align-items-center gap-2 small">

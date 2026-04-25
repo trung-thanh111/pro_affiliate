@@ -86,4 +86,26 @@ class PostRepository extends BaseRepository
         ->paginate($perPage, ['*'], 'page', $page);
     }
 
+    public function search(?string $keyword = '', int $languageId = 1, int $perPage = 12){
+        return $this->model->select([
+            'posts.id',
+            'posts.image',
+            'posts.created_at',
+            'posts.viewed',
+            'tb2.name',
+            'tb2.canonical',
+            'tb2.description'
+        ])
+        ->join('post_language as tb2', 'tb2.post_id', '=', 'posts.id')
+        ->where('tb2.language_id', '=', $languageId)
+        ->where('posts.publish', '=', 2)
+        ->where(function($query) use ($keyword){
+            $query->where('tb2.name', 'LIKE', '%'.$keyword.'%')
+                  ->orWhere('tb2.description', 'LIKE', '%'.$keyword.'%')
+                  ->orWhere('tb2.content', 'LIKE', '%'.$keyword.'%');
+        })
+        ->orderBy('posts.id', 'DESC')
+        ->paginate($perPage);
+    }
+
 }
