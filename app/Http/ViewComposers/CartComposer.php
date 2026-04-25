@@ -10,6 +10,7 @@ class CartComposer
 {
 
     protected $cartService;
+    protected static $cartData = null;
 
     public function __construct(
         CartService $cartService,
@@ -19,15 +20,22 @@ class CartComposer
 
     public function compose(View $view)
     {
+        if (static::$cartData === null) {
+            $carts = Cart::instance('shopping')->content();
+            $carts = $this->cartService->remakeCart($carts);
+            $cartCaculate = $this->cartService->reCaculateCart();
+            $wishlistCount = Cart::instance('wishlist')->count();
+            $compareCount = Cart::instance('compare')->count();
 
-        $carts = Cart::instance('shopping')->content();
-        $carts = $this->cartService->remakeCart($carts);
-        $cartCaculate = $this->cartService->reCaculateCart();
-        $wishlistCount = Cart::instance('wishlist')->count();
-        $compareCount = Cart::instance('compare')->count();
+            static::$cartData = [
+                'cartShare' => $cartCaculate,
+                'wishlistCount' => $wishlistCount,
+                'compareCount' => $compareCount,
+            ];
+        }
 
-        $view->with('cartShare', $cartCaculate);
-        $view->with('wishlistCount', $wishlistCount);
-        $view->with('compareCount', $compareCount);
+        $view->with('cartShare', static::$cartData['cartShare']);
+        $view->with('wishlistCount', static::$cartData['wishlistCount']);
+        $view->with('compareCount', static::$cartData['compareCount']);
     }
 }

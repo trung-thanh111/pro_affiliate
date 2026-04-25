@@ -84,6 +84,11 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
+        view()->composer('frontend.component.category_slider', function($view) use ($language){
+            $composer = app()->make(\App\Http\ViewComposers\CategorySliderComposer::class, ['language' => $language->id]);
+            $composer->compose($view);
+        });
+
       
 
      

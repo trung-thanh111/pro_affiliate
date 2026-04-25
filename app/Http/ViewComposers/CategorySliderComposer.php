@@ -1,13 +1,14 @@
 <?php
-
 namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
 use App\Services\V1\Product\ProductCatalogueService;
 
-class HeaderComposer
+class CategorySliderComposer
 {
-    protected static $headerData = [];
+    protected $productCatalogueService;
+    protected $language;
+    protected static $categories = null;
 
     public function __construct(
         ProductCatalogueService $productCatalogueService,
@@ -19,9 +20,9 @@ class HeaderComposer
 
     public function compose(View $view)
     {
-        if (!isset(static::$headerData[$this->language])) {
-            static::$headerData[$this->language] = $this->productCatalogueService->getFeaturedCatalogues($this->language, 8);
+        if (static::$categories === null) {
+            static::$categories = $this->productCatalogueService->getCategorySlider($this->language);
         }
-        $view->with('headerTags', static::$headerData[$this->language]);
+        $view->with('categories', static::$categories);
     }
 }

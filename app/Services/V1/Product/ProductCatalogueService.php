@@ -340,4 +340,19 @@ class ProductCatalogueService extends BaseService
             ['order', 'desc']
         )->take($limit);
     }
+
+    public function getCategorySlider($languageId){
+        return $this->productCatalogueRepository->findByCondition(
+            [
+                ['publish', '=', 2]
+            ],
+            true,
+            [
+                'languages' => function($query) use ($languageId){
+                    $query->where('language_id', $languageId);
+                }
+            ],
+            ['order', 'desc']
+        );
+    }
 }

@@ -652,7 +652,7 @@ class WidgetService extends BaseService
         return $result;
     }
 
-    
+
 
     /**
      * Get objects with relationships for regular widgets
@@ -759,6 +759,9 @@ class WidgetService extends BaseService
     /**
      * Get recursive category IDs - Fallback version for older MySQL
      */
+    /**
+     * Get recursive category IDs - Optimized using Nested Set Model (lft/rgt)
+     */
     private function getRecursiveCategoryIds(int $categoryId, string $catalogueModel): array
     {
         static $recursiveCache = [];
@@ -770,29 +773,25 @@ class WidgetService extends BaseService
 
         $tableName = $this->getTableName($catalogueModel);
 
-        // Fallback: Simple recursive approach (compatible with older MySQL)
-        $ids = [$categoryId];
-        $this->collectChildrenIds($tableName, $categoryId, $ids);
+        // Fetch lft and rgt of the parent category
+        $parent = DB::table($tableName)
+            ->select('lft', 'rgt')
+            ->where('id', $categoryId)
+            ->first();
 
-        return $recursiveCache[$cacheKey] = array_unique($ids);
-    }
-
-    /**
-     * Recursive helper to collect all children IDs
-     */
-    private function collectChildrenIds(string $tableName, int $parentId, array &$ids): void
-    {
-        $children = DB::select("
-            SELECT id FROM {$tableName} 
-            WHERE parent_id = ? AND deleted_at IS NULL
-        ", [$parentId]);
-
-        foreach ($children as $child) {
-            if (!in_array($child->id, $ids)) {
-                $ids[] = $child->id;
-                $this->collectChildrenIds($tableName, $child->id, $ids);
-            }
+        if (!$parent) {
+            return $recursiveCache[$cacheKey] = [$categoryId];
         }
+
+        // Use lft/rgt to get all descendants in a single query
+        $ids = DB::table($tableName)
+            ->where('lft', '>=', $parent->lft)
+            ->where('rgt', '<=', $parent->rgt)
+            ->whereNull('deleted_at')
+            ->pluck('id')
+            ->toArray();
+
+        return $recursiveCache[$cacheKey] = $ids;
     }
 
     /**
@@ -804,12 +803,12 @@ class WidgetService extends BaseService
             return $objects;
         }
         $productIds = $objects->pluck('id')->toArray();
-        if(!empty($productIds) && is_array($productIds)){
+        if (!empty($productIds) && is_array($productIds)) {
             $promotions = $this->promotionRepository->findByProduct($productIds);
-            if($promotions->isNotEmpty()){
+            if ($promotions->isNotEmpty()) {
                 $promotionMap = $promotions->keyBy('product_id');
-                foreach($objects as $index => $product){
-                    if($promotionMap->has($product->id)){
+                foreach ($objects as $index => $product) {
+                    if ($promotionMap->has($product->id)) {
                         $objects[$index]->promotions = $promotionMap->get($product->id);
                     }
                 }
@@ -854,14 +853,14 @@ class WidgetService extends BaseService
      */
     public function getBestSellers(int $language = 1, int $limit = 10)
     {
-        $products = \App\Models\Product::with(['languages' => function($query) use ($language) {
-                $query->where('language_id', $language);
-            }])
+        $products = \App\Models\Product::with(['languages' => function ($query) use ($language) {
+            $query->where('language_id', $language);
+        }])
             ->where('publish', 2)
             ->orderBy('sold', 'DESC')
             ->limit($limit)
             ->get();
-            
+
         return $this->applyPromotions($products, 'Product');
     }
 
@@ -874,9 +873,9 @@ class WidgetService extends BaseService
         $primaryPromotion = \App\Models\Promotion::where('is_primary', 1)
             ->where('publish', 2)
             ->where('startDate', '<=', now())
-            ->where(function($query) {
+            ->where(function ($query) {
                 $query->where('endDate', '>=', now())
-                      ->orWhere('neverEndDate', 'active');
+                    ->orWhere('neverEndDate', 'active');
             })
             ->first();
 
@@ -889,71 +888,81 @@ class WidgetService extends BaseService
                 ->toArray();
 
             if (!empty($productIds)) {
-                $products = \App\Models\Product::with(['languages' => function($query) use ($language) {
-                        $query->where('language_id', $language);
-                    }])
+                $products = \App\Models\Product::with(['languages' => function ($query) use ($language) {
+                    $query->where('language_id', $language);
+                }])
                     ->whereIn('id', $productIds)
                     ->where('publish', 2)
                     ->limit($limit)
                     ->get();
-                
+
                 return $this->applyPromotions($products, 'Product');
             }
         }
 
         // Fallback: Lấy các sản phẩm có khuyến mãi bất kỳ nếu không có khuyến mãi chính
-        $products = \App\Models\Product::with(['languages' => function($query) use ($language) {
-                $query->where('language_id', $language);
-            }])
+        $products = \App\Models\Product::with(['languages' => function ($query) use ($language) {
+            $query->where('language_id', $language);
+        }])
             ->where('publish', 2)
-            ->limit(50) 
+            ->limit(50)
             ->get();
-            
+
         $products = $this->applyPromotions($products, 'Product');
-        
-        return $products->filter(function($product) {
+
+        return $products->filter(function ($product) {
             $price = getPrice($product);
             return $price['percent'] > 0;
         })->take($limit);
     }
     public function getCategoryWithProducts(int $language = 1, int $limit = 8, int $catLimit = 3)
     {
-        $categories = \App\Models\ProductCatalogue::with(['languages' => function($query) use ($language) {
-                $query->where('language_id', $language);
-            }])
+        // Cache key for the whole result set
+        $cacheKey = "cat_with_products_{$language}_{$limit}_{$catLimit}";
+        if (isset(static::$widgetCache[$cacheKey])) {
+            return static::$widgetCache[$cacheKey];
+        }
+
+        $categories = \App\Models\ProductCatalogue::with(['languages' => function ($query) use ($language) {
+            $query->where('language_id', $language);
+        }])
             ->where('publish', 2)
             ->where('parent_id', 0)
             ->orderBy('order', 'DESC')
             ->limit($catLimit)
             ->get();
 
-        foreach($categories as $category) {
-            // Lấy IDs sản phẩm thuộc danh mục này (bao gồm cả quan hệ n-n trong product_catalogue_product)
-            $productIds = DB::table('product_catalogue_product')
-                ->where('product_catalogue_id', $category->id)
-                ->pluck('product_id')
-                ->toArray();
+        if ($categories->isEmpty()) return $categories;
 
-            $products = \App\Models\Product::with(['languages' => function($query) use ($language) {
-                    $query->where('language_id', $language);
-                }])
-                ->whereIn('id', $productIds)
+        // Eager load all children for these categories in one query
+        $categoryIds = $categories->pluck('id')->toArray();
+        $allChildren = \App\Models\ProductCatalogue::with(['languages' => function ($query) use ($language) {
+            $query->where('language_id', $language);
+        }])
+            ->whereIn('parent_id', $categoryIds)
+            ->where('publish', 2)
+            ->get()
+            ->groupBy('parent_id');
+
+        // Fetch products for each category
+        foreach ($categories as $category) {
+            // Get all descendant IDs for this category using lft/rgt
+            $descendantIds = $this->getRecursiveCategoryIds($category->id, 'ProductCatalogue');
+
+            $products = \App\Models\Product::with(['languages' => function ($query) use ($language) {
+                $query->where('language_id', $language);
+            }])
+                ->whereHas('product_catalogues', function ($q) use ($descendantIds) {
+                    $q->whereIn('product_catalogues.id', $descendantIds);
+                })
                 ->where('publish', 2)
                 ->limit($limit)
                 ->get();
-            
+
             $category->products = $this->applyPromotions($products, 'Product');
-            
-            // Lấy các danh mục con để làm sidebar
-            $category->children = \App\Models\ProductCatalogue::with(['languages' => function($query) use ($language) {
-                    $query->where('language_id', $language);
-                }])
-                ->where('parent_id', $category->id)
-                ->where('publish', 2)
-                ->limit(10)
-                ->get();
+            $category->children = $allChildren->get($category->id, collect());
         }
 
-        return $categories;
+        return static::$widgetCache[$cacheKey] = $categories;
     }
 }

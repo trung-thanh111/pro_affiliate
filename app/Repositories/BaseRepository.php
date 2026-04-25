@@ -113,6 +113,8 @@ class BaseRepository
         return $this->model->select($column)->with($relation)->findOrFail($modelId);
     }
 
+    protected static $queryCache = [];
+
     public function findByCondition(
         $condition = [] , 
         $flag = false, 
@@ -122,6 +124,20 @@ class BaseRepository
         array $withCount = [],
     )
     {
+        // Safe serialization for cache key (handles closures)
+        $args = func_get_args();
+        array_walk_recursive($args, function (&$item) {
+            if ($item instanceof \Closure) {
+                $item = 'closure_' . spl_object_hash($item);
+            }
+        });
+
+        $cacheKey = md5(get_class($this->model) . serialize($args));
+        
+        if (isset(static::$queryCache[$cacheKey])) {
+            return static::$queryCache[$cacheKey];
+        }
+
         $query = $this->model->newQuery();
         foreach($condition as $key => $val){
             $query->where($val[0], $val[1] , $val[2]);
@@ -133,7 +149,9 @@ class BaseRepository
         $query->with($relation);
         $query->withCount($withCount);
         $query->orderBy($orderBy[0], $orderBy[1]);
-        return ($flag == false) ? $query->first() : $query->get();
+        
+        $result = ($flag == false) ? $query->first() : $query->get();
+        return static::$queryCache[$cacheKey] = $result;
     }
 
     public function findByWhereHas(array $condition = [], string $relation = '', string $alias = ''){

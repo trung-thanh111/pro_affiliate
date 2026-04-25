@@ -1,13 +1,5 @@
 @php
     $currentLanguage = $currentLanguage ?? \App\Models\Language::where('canonical', app()->getLocale())->first()->id ?? 1;
-    $categories = \App\Models\ProductCatalogue::where('publish', 2)
-        ->with([
-            'languages' => function ($query) use ($currentLanguage) {
-                $query->where('language_id', $currentLanguage);
-            }
-        ])
-        ->get();
-
 @endphp
 
 <div class="panel-category-slider wow animate__animated animate__fadeIn">

@@ -3,7 +3,7 @@
 @endphp
 <div class="uk-container uk-container-center">
     <table cellspacing="0" border="0" cellpadding="0" width="100%" bgcolor="#f2f3f8"
-        style="@import url(https://fonts.googleapis.com/css?family=Rubik:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
+        style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
         <tr>
             <td>
                 <table style="background-color: #f2f3f8; max-width:670px;  margin:0 auto;" width="100%" border="0"
@@ -20,7 +20,7 @@
                                 </tr>
                                 <tr>
                                     <td style="padding:0 35px;">
-                                        <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">
+                                        <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;">
                                             Bạn đã yêu cầu đặt lại mật khẩu của mình</h1>
                                         <span
                                             style="display:inline-block; vertical-align:middle; margin:10px 0 10px; border-bottom:1px solid #cecece; width:100px;"></span>

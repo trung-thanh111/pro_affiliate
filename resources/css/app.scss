@@ -17,7 +17,7 @@
 @import "../vendor/frontend/core/plugins/jquery-nice-select-1.1.0/css/nice-select.css";
 @import "../vendor/frontend/resources/config.css";
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 // ================
 // IMPORT FONTS
 // ================
@@ -33,7 +33,7 @@
     --secondary-gradient: linear-gradient(90deg, #7DDEB1 0%, #43B97F 100%);
     --star-color: #ffcd29;
     --hover-color: #fb5533;
-    --main-font: "Roboto", sans-serif;
+    --main-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
     --shopee-white: #fff;
 }
 
@@ -589,7 +589,7 @@ ol li {
                 color: var(--accent-color);
                 font-weight: 700;
                 font-size: 17px;
-                font-family: 'Inter', sans-serif;
+                font-family: var(--main-font);
             }
 
             .sold {

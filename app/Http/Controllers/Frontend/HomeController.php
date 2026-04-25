@@ -64,7 +64,7 @@ class HomeController extends FrontendController
         $bestSellers = $this->widgetService->getBestSellers($this->language, 5);
         $promotionProducts = $this->widgetService->getPromotionProducts($this->language, 8);
         $categoryWithProducts = $this->widgetService->getCategoryWithProducts($this->language, 8, 1); // Lấy 1 danh mục tiêu biểu
-        $categories = $this->widgetService->getWidget([['keyword' => 'category']], $this->language)['category'] ?? null;
+        $categories = $widgets['category'] ?? null;
 
         $system = $this->system;
         $seo = [
