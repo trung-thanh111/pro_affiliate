@@ -7,14 +7,14 @@
   padding-right: 50px;
   max-width: 1920px;
   margin: 0 auto;
-  font-family: "Roboto";
+  font-family: 'Helvetica Neue';
   font-size: 15px;
 }
 .nice-select,
 .container-cart select option,
 .container-cart input[type="email"]::placeholder,
 .container-cart input[type="text"]::placeholder {
-  font-family: "Roboto";
+  font-family: 'Helvetica Neue';
   font-size: 13px;
   color: #000;
 }
@@ -438,7 +438,7 @@ i {
    font-size:11px;
    color:red;
    font-weight: normal;
-   font-family: Segoe UI;
+   font-family: 'Helvetica Neue';
 }
 .niceSelect .list{
    height:300px;

@@ -3,7 +3,7 @@
 *** Checkbox ***
 *********************/
 .checkbox + label {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: 'Helvetica Neue';
   position: relative;
   display: inline-block;
   margin: 0px;
@@ -101,7 +101,7 @@ input:checked + .switch .bg_circle:before {
 body {
   background: #fff;
   color: #a0a0a0;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: 'Helvetica Neue';
   font-weight: 300; }
 
 ul, ul li {

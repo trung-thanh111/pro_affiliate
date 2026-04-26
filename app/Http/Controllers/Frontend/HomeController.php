@@ -55,15 +55,15 @@ class HomeController extends FrontendController
             ['keyword' => 'p-hl'],
             ['keyword' => 'category', 'children' => true],
             ['keyword' => 'feedback', 'object' => true],
-            ['keyword' => 'news', 'object' => true],
+            ['keyword' => 'news', 'object' => true, 'limit' => 12],
             ['keyword' => 'value', 'object' => true],
             ['keyword' => 'ship'],
         ], $this->language);
 
 
-        $bestSellers = $this->widgetService->getBestSellers($this->language, 5);
-        $promotionProducts = $this->widgetService->getPromotionProducts($this->language, 8);
-        $categoryWithProducts = $this->widgetService->getCategoryWithProducts($this->language, 8, 1); // Lấy 1 danh mục tiêu biểu
+        $bestSellers = $this->widgetService->getBestSellers($this->language, 6);
+        $promotionProducts = $this->widgetService->getPromotionProducts($this->language, 12);
+        $categoryWithProducts = $this->widgetService->getCategoryWithProducts($this->language, 12, 1); // Lấy 1 danh mục tiêu biểu
         $categories = $widgets['category'] ?? null;
 
         $system = $this->system;
@@ -77,7 +77,8 @@ class HomeController extends FrontendController
         $schema = $this->schema($seo);
 
         $latestPosts = $this->postService->findPosts([
-            ['publish', '=', 2]
+            ['publish', '=', 2],
+            ['recommend', '=', 2]
         ], $this->language, ['id', 'DESC'], 12);
 
         $reviewPosts = $this->postService->findPosts([

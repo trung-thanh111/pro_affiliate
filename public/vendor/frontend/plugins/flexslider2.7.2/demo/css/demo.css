@@ -64,7 +64,7 @@ em {font-style: italic;}
 body {
 	background: #42a2ce;
 	font-size: 14px;
-	font-family: Helvetica, 'Arial', sans-serif;
+	font-family: 'Helvetica Neue';
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
 	height: auto;
@@ -77,7 +77,7 @@ a {
 h3 {
 	margin: 0 0 8px;
 	color: #fff;
-	font: normal 24px Geogrotesque-semibold, Helvetica, Arial, sans-serif;
+	font: normal 24px Geogrotesque-semibold, Helvetica 'Helvetica Neue';
 	text-shadow: 0 1px 0 #2F4C63;
 }
 p {
@@ -130,7 +130,7 @@ box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #fff;
   line-height: 1;
   font-size: .9em;
   cursor: pointer;
-  font-family: "proxima-nova", sans-serif;
+  font-family: 'Helvetica Neue';
   border: 1px solid #1a4064;
   background: #255a8c;
   -webkit-border-radius: 100px;
@@ -170,10 +170,10 @@ aside h3 {float: left;}
 /* Header
 ***********************/
 header .logo  { display: block; margin: 10px 0 30px; }
-header h1 { font-family: Geogrotesque-Semibold, Helvetica, Arial, sans-serif; margin: 0 0 10px; text-shadow: 0 1px 0 #2F4C63; color: #fff; font-size: 42px; }
-header h2 { margin: 0 0 30px; font: normal 20px Geogrotesque-regular, Helvetica, Arial, sans-serif; text-shadow: 0 1px 1px #555; color: #fff; }
+header h1 { font-family: 'Helvetica Neue'; margin: 0 0 10px; text-shadow: 0 1px 0 #2F4C63; color: #fff; font-size: 42px; }
+header h2 { margin: 0 0 30px; font: normal 20px Geogrotesque-regular, Helvetica 'Helvetica Neue'; text-shadow: 0 1px 1px #555; color: #fff; }
 header .button { margin: 0 0 50px; padding: 10px 15px 10px 15px; position: relative; }
-h3.nav-header { width: 200px; margin: 0 0 10px; padding: 0 0 3px; font-size: 18px; text-shadow: 0 1px 1px #555; color: #fff; font-family: Geogrotesque-Regular, Helvetica, Arial, sans-serif; border-bottom: 1px solid #fff; border-bottom: 1px solid rgba(255,255,255,0.5); }
+h3.nav-header { width: 200px; margin: 0 0 10px; padding: 0 0 3px; font-size: 18px; text-shadow: 0 1px 1px #555; color: #fff; font-family: 'Helvetica Neue'; border-bottom: 1px solid #fff; border-bottom: 1px solid rgba(255,255,255,0.5); }
 nav { margin-bottom: 20px; }
 nav li {margin: 0 0 7px; font-size: 15px; }
 nav li a:hover,

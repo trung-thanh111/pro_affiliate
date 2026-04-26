@@ -6,7 +6,7 @@
 body {
 	background: #fff;
 	color: #1a1a1a;
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-family: 'Helvetica Neue'; 
 	font-weight: 300;
 }
 
@@ -275,7 +275,7 @@ a:focus {
 *********************/
 
 .checkbox + label {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  font-family: 'Helvetica Neue'; 
   position: relative;
   display: inline-block;
   margin: 0px;

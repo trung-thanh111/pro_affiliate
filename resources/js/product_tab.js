@@ -9,13 +9,13 @@
             let catalogueId = _this.data('id');
             
             // Find the closest parent section to locate the grid container
-            let parentSection = _this.closest('.uk-grid');
+            let parentSection = _this.closest('section');
             let gridContainer = parentSection.find('.product-grid-container');
             
             if(gridContainer.length === 0) return;
 
             // UI Update
-            _this.closest('.category-list-sidebar').find('.tab-title').removeClass('active');
+            parentSection.find('.tab-title').removeClass('active');
             _this.addClass('active');
 
             // Ajax Load

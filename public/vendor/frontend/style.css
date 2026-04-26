@@ -10,13 +10,13 @@
     --four-color: #E7DEFF;
     --star-color: #FFCD29;
     --hover-color: var(--primary-color);
-    --main-font: 'Inter';
-    --second-font: 'Manrope';
+    --main-font:  'Helvetica Neue';
+    --second-font:  'Helvetica Neue';
     --third-font: 'Unbounded'
 }
 
 body{
-    font-family: var(--main-font), sans-serif;
+    font-family: 'Helvetica Neue';
     min-height: 1000px;
 }
 
@@ -140,7 +140,7 @@ ul li,ol li{
     width: 150px;
     border: 1px solid #e5e7eb;
     font-size: 12px;
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Helvetica Neue';
 }
 .mobile-upper .tool {
     display: flex;
@@ -320,7 +320,7 @@ ul li,ol li{
     color: #000;
     font-weight: 600;
     text-transform: capitalize;
-    font-family: var(--second-font), sans-serif !important;
+    font-family: 'Helvetica Neue';
     position: relative;
     padding-right: 20px;
 }
@@ -397,7 +397,7 @@ ul li,ol li{
     width: 325px;
     height: 40px;
     padding: 6px 10px;
-    font-family: var(--main-font), sans-serif !important;
+    font-family: 'Helvetica Neue';
 }
 .form-search input::placeholder{
     color: #000 !important;

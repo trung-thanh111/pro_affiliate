@@ -20,14 +20,14 @@
 		font-style: normal;
 	}
 	@font-face {
-		font-family: 'Poppins';
+		font-family: 'Helvetica Neue';
 		src:url('../../fonts/Poppins/SVN-Poppins Regular.ttf');
 		font-weight: normal;
 		font-style: normal;
 	}
 
 	@font-face {
-		font-family: 'Poppins Light';
+		font-family: 'Helvetica Neue';
 		src:url('../../fonts/Poppins/PoppinsVN-300.ttf');
 		font-weight: normal;
 		font-style: normal;
@@ -40,7 +40,7 @@
     body {
         background: #fff;
         color: #333;
-        font: 400 14px/20px 'Poppins', sans-serif;
+        font: 400 14px/20px 'Helvetica Neue';
     }
     h1, h2, h3, h4, h5, h6 {
         margin: 0 0 10px 0;

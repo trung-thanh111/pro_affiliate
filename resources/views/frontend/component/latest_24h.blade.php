@@ -3,10 +3,10 @@
         <div class="uk-container uk-container-center">
             <div class="panel-head d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
                 <div class="head-left">
-                    <h2 class="section-title-24h text-uppercase fw-bold m-0">MỚI NHẤT TRONG 24H</h2>
+                    <h2 class="section-title-24h text-uppercase fw-bold m-0">BÀI VIẾT NỔI BẬT</h2>
                     <div class="title-underline-24h mt-3"></div>
                     <div class="subtitle text-secondary mt-3">
-                        Cập nhật siêu tốc những tin tức, xu hướng và sự kiện nổi bật vừa diễn ra trong vòng 24 giờ qua.
+                        Tổng hợp những bài viết, tin tức và xu hướng nổi bật nhất được cộng đồng quan tâm.
                     </div>
                 </div>
                 <div class="head-right">

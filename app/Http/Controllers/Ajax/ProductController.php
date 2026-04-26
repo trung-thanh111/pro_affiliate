@@ -170,7 +170,7 @@ class ProductController extends Controller
             $this->language,
             $productCatalogue,
             1,
-            [],
+            ['limit' => 12],
             ['products.order', 'desc']
         );
 
@@ -192,7 +192,7 @@ class ProductController extends Controller
         $html = '';
         if (!is_null($products) && count($products)) {
             foreach ($products as $product) {
-                $html .= '<div class="col">';
+                $html .= '<div class="mb20">';
                 $html .= view('frontend.component.product_card', compact('product'))->render();
                 $html .= '</div>';
             }

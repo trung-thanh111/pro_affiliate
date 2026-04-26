@@ -76,7 +76,7 @@ h2{
 	padding-top: 10px;
 	padding-bottom: 50px;
 	color: #333;
-	font: 10px Arial, sans-serif;
+	font: 10px 'Helvetica Neue';
 }
 
 .tabs {
@@ -94,7 +94,7 @@ h2{
 	display: block;
 	color: #fff;
 	text-decoration: none;
-	font: bold 11px/11px 'Arial';
+	font: bold 11px/11px 'Helvetica Neue';
 	text-transform: uppercase;
 	padding: 10px 15px;
 	border-right: 1px solid #fff;
@@ -243,7 +243,7 @@ code {
 }
 
 #bodycomparison div span{
-	font: 10px Arial;
+	font: 10px 'Helvetica Neue';
 	position: absolute;
 	left: 0;
 }
@@ -259,11 +259,11 @@ code {
  position: relative;
 }
 .arialbody{
-	font-family: Arial;
+	font-family: 'Helvetica Neue';
 	position: relative;
 }
 .verdanabody{
-	font-family: Verdana;
+	font-family: 'Helvetica Neue';
 	position: relative;
 }
 .georgiabody{
@@ -350,7 +350,7 @@ code {
 	top: 0;
 	display: block;
 	text-align: center;
-	font: bold 9px Arial, sans-serif;
+	font: bold 9px 'Helvetica Neue';
 	background-color: #3a768f;
 	width: 100%;
 	color: #fff;
@@ -359,21 +359,21 @@ code {
 
 
 #glyphs h1 {
-	font-family: Arial, sans-serif;
+	font-family: 'Helvetica Neue';
 }
 /* @end */
 
 /* @group Installing */
 
 #installing {
-	font: 13px Arial, sans-serif;
+	font: 13px 'Helvetica Neue';
 }
 
 #installing p,
 #glyphs p{
 	line-height: 1.2em;
 	margin-bottom: 18px;
-	font: 13px Arial, sans-serif;
+	font: 13px 'Helvetica Neue';
 }
 
 
@@ -386,7 +386,7 @@ code {
 /* @end */
 
 #rendering h1 {
-	font-family: Arial, sans-serif;
+	font-family: 'Helvetica Neue';
 }
 .render_table td {
 	font: 11px "Courier New", Courier, mono;

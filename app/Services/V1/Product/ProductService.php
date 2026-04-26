@@ -96,7 +96,7 @@ class ProductService extends BaseService
             });
         }
 
-        $perPage = (!is_null($productCatalogue))  ? 40 : 24;
+        $perPage = ($extend['limit']) ?? ((!is_null($productCatalogue))  ? 40 : 24);
 
         $condition = [
             'keyword' => addslashes($request->input('keyword')),

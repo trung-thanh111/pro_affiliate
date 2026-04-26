@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-@font-face{
+ @font-face{
     font-family:"uicons-regular-straight";
     src:url("fonts/uicons-regular-straight.eot#iefix") format("embedded-opentype"),
     url("fonts/uicons-regular-straight.woff2") format("woff2"),
@@ -26,7 +25,7 @@ i[class^=fi-rs-],span[class^=fi-rs-]{line-height:0 !important}i[class^=fi-rs-]:b
     box-sizing: border-box;
 }
 body{
-    font-family: 'Inter', sans-serif;
+    font-family: 'Helvetica Neue';
     font-weight: 400;
     margin:0;
     color:#000;
@@ -43,7 +42,7 @@ body{
 }
 
 button{
-    font-family: Mulish;
+    font-family: 'Helvetica Neue';
 }
 
 ul{
@@ -384,7 +383,7 @@ ul li{
     text-transform: uppercase;
     width: 220px;
     margin-bottom: 25px;
-    font-family: "Inter", sans-serif !important;
+    font-family: 'Helvetica Neue'!important;
 }
 .cart-checkout:hover{
     color: #fff;
@@ -562,7 +561,7 @@ ul li{
     padding:5px 20px;
 }
 .voucher-form button{
-    font-family: 'Arimo', sans-serif !important;
+    font-family: 'Helvetica Neue'!important;
     width:35%;
     height:100%;
     padding:5px 20px 5px calc(20px + 3%);

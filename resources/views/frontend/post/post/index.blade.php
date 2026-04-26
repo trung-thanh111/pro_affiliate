@@ -2,16 +2,18 @@
 @section('content')
 
     <div id="art-detail" class="page-body bg-white pt-5 mt-3 pb-5">
-        <div class="uk-container uk-container-center">
+        <div class="container">
 
             <!-- Hero Image Section (Master Header) -->
             <div class="post-hero-media mb-0 text-center position-relative">
-                <div class="image-container mx-auto rounded-4 shadow-sm overflow-hidden position-relative post-hero-container">
+                <div
+                    class="image-container mx-auto rounded-4 shadow-sm overflow-hidden position-relative post-hero-container">
                     <img src="{{ $post->image }}" alt="{{ $post->languages->first()->pivot->name }}"
                         class="img-fluid w-100 h-100 object-fit-cover">
 
                     <!-- Overlay Header -->
-                    <div class="hero-overlay d-flex flex-column align-items-start justify-content-end p-4 p-md-5 pb-5 post-hero-overlay-offset">
+                    <div
+                        class="hero-overlay d-flex flex-column align-items-start justify-content-end p-4 p-md-5 pb-5 post-hero-overlay-offset">
                         <div class="post-breadcrumb-transparent mb-3">
                             <x-breadcrumb :breadcrumb="$breadcrumb" />
                         </div>
@@ -38,7 +40,7 @@
 
             <!-- Content Area with Overlap -->
             <div class="row g-5 position-relative justify-content-center post-content-overlap-row">
-                <div class="col-lg-11">
+                <div class="col-lg-12">
                     <div class="content-overlap-card bg-white p-4 p-md-5 rounded-4 border-0">
 
                         <!-- Comparison Table Section -->
@@ -59,7 +61,8 @@
                                                             sánh</span>
                                                     </th>
                                                     @foreach ($post->post_products as $pp)
-                                                        <th class="p-4 border-0 text-center product-header-cell @if ($pp->is_highlight) bg-warning bg-opacity-10 @endif">
+                                                        <th
+                                                            class="p-4 border-0 text-center product-header-cell @if ($pp->is_highlight) bg-warning bg-opacity-10 @endif">
                                                             @if ($pp->badge_text)
                                                                 <div class="mb-3">
                                                                     <span
@@ -127,30 +130,18 @@
                                     </div>
                                 </div>
                             </div>
-
                         @endif
 
                         <div class="row g-5 mt-2">
-                            <!-- Sidebar Column (3) - LEFT -->
+                            <!-- Sidebar Column (LEFT - TOC) -->
                             <div class="col-lg-3">
                                 <aside class="post-sidebar d-flex flex-column gap-4">
-                                    <!-- Category Card (Tag Post) -->
-                                    <div class="sidebar-card bg-light p-4 rounded-4 border-0">
+                                    <!-- Table of Contents -->
+                                    <div id="toc-container" class="sidebar-card bg-light p-4 rounded-4 border-0 d-none">
                                         <h4 class="sidebar-title fw-bold mb-3 pb-2 border-bottom">
-                                            Danh mục bài viết
+                                            Mục lục bài viết
                                         </h4>
-                                        <ul class="sidebar-category-list list-unstyled m-0">
-                                            @foreach ($post->post_catalogues as $cat)
-                                                <li class="py-2 border-bottom last-child-border-0">
-                                                    <a href="{{ write_url($cat->languages->first()->pivot->canonical) }}"
-                                                        class="text-decoration-none text-dark d-flex justify-content-between align-items-center">
-                                                        <span
-                                                            class="small fw-medium">{{ $cat->languages->first()->pivot->name }}</span>
-                                                        <i class="bi bi-chevron-right x-small text-secondary"></i>
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
+                                        <nav id="toc" class="toc-nav"></nav>
                                     </div>
 
                                     <!-- Related Product Card -->
@@ -185,8 +176,8 @@
                                 </aside>
                             </div>
 
-                            <!-- Main Column (9) - RIGHT -->
-                            <div class="col-lg-9">
+                            <!-- Main Column (MIDDLE) -->
+                            <div class="col-lg-6 p-0">
                                 <article class="post-main-content">
                                     @if (!empty($post->description))
                                         <div
@@ -197,21 +188,6 @@
 
                                     <div class="post-body-content mb-5 lh-lg text-dark">
                                         {!! $post->content !!}
-                                    </div>
-
-                                    <!-- Social Share Section -->
-                                    <div class="social-share-section border-top pt-4 mb-5">
-                                        <div class="d-flex align-items-center gap-3 flex-wrap">
-                                            <span class="fw-bold text-dark small">Chia sẻ bài viết:</span>
-                                            <div class="d-flex gap-2">
-                                                <a href="#" class="share-icon" title="Facebook"><i
-                                                        class="bi bi-facebook"></i></a>
-                                                <a href="#" class="share-icon" title="TikTok"><i
-                                                        class="bi bi-tiktok"></i></a>
-                                                <a href="#" class="share-icon" title="Twitter"><i
-                                                        class="bi bi-twitter-x"></i></a>
-                                            </div>
-                                        </div>
                                     </div>
 
                                     <!-- Comment Section -->
@@ -250,6 +226,45 @@
                                     </div>
                                 </article>
                             </div>
+
+                            <!-- Sidebar Column (RIGHT) -->
+                            <div class="col-lg-3">
+                                <aside class="post-sidebar d-flex flex-column gap-4">
+                                    <!-- Category Card (Tag Post) -->
+                                    <div class="sidebar-card bg-light p-4 rounded-4 border-0">
+                                        <h4 class="sidebar-title fw-bold mb-3 pb-2 border-bottom">
+                                            Danh mục bài viết
+                                        </h4>
+                                        <ul class="sidebar-category-list list-unstyled m-0">
+                                            @foreach ($post->post_catalogues as $cat)
+                                                <li class="py-2 border-bottom last-child-border-0">
+                                                    <a href="{{ write_url($cat->languages->first()->pivot->canonical) }}"
+                                                        class="text-decoration-none text-dark d-flex justify-content-between align-items-center">
+                                                        <span
+                                                            class="fw-medium">{{ $cat->languages->first()->pivot->name }}</span>
+                                                        <i class="bi bi-chevron-right x-small text-secondary"></i>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+
+                                    <!-- Social Share Card -->
+                                    <div class="sidebar-card bg-light p-4 rounded-4 border-0">
+                                        <h4 class="sidebar-title fw-bold mb-3 pb-2 border-bottom">
+                                            Chia sẻ bài viết
+                                        </h4>
+                                        <div class="d-flex gap-3 justify-content-start mt-2">
+                                            <a href="#" class="share-icon" title="Facebook"><i
+                                                    class="bi bi-facebook"></i></a>
+                                            <a href="#" class="share-icon" title="TikTok"><i
+                                                    class="bi bi-tiktok"></i></a>
+                                            <a href="#" class="share-icon" title="Twitter"><i
+                                                    class="bi bi-twitter-x"></i></a>
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -276,4 +291,66 @@
             @endif
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const content = document.querySelector('.post-body-content');
+            const toc = document.querySelector('#toc');
+            const container = document.querySelector('#toc-container');
+
+            if (content && toc) {
+                const headings = content.querySelectorAll('h2, h3');
+                if (headings.length > 0) {
+                    container.classList.remove('d-none');
+                    const ul = document.createElement('ul');
+                    ul.className = 'list-unstyled m-0';
+
+                    headings.forEach((heading, index) => {
+                        const id = 'heading-' + index;
+                        heading.id = id;
+
+                        const li = document.createElement('li');
+                        const isH2 = heading.tagName.toLowerCase() === 'h2';
+                        li.className = isH2 ? 'toc-item toc-h2' : 'toc-item toc-h3 ps-4';
+
+                        const a = document.createElement('a');
+                        a.href = '#' + id;
+                        a.className = 'text-decoration-none text-dark d-flex align-items-center py-2';
+
+                        const span = document.createElement('span');
+                        span.className = 'fw-medium';
+
+                        let headingText = heading.textContent.trim();
+                        headingText = headingText.replace(/^\d+[\.\)\s]+/, '');
+                        span.textContent = headingText;
+
+                        a.appendChild(span);
+                        li.appendChild(a);
+                        ul.appendChild(li);
+                    });
+                    toc.appendChild(ul);
+
+                    // Smooth scroll
+                    document.querySelectorAll('#toc a').forEach(anchor => {
+                        anchor.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const targetId = this.getAttribute('href');
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                const offset = 120; // Sticky header offset
+                                const elementPosition = targetElement.getBoundingClientRect().top;
+                                const offsetPosition = elementPosition + window.pageYOffset -
+                                offset;
+
+                                window.scrollTo({
+                                    top: offsetPosition,
+                                    behavior: "smooth"
+                                });
+                            }
+                        });
+                    });
+                }
+            }
+        });
+    </script>
 @endsection

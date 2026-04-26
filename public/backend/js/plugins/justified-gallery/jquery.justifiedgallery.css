@@ -32,7 +32,7 @@ html { overflow-y: scroll; } /*to prevent the loop when the scrollbar appear and
 .justifiedGallery .jg-image a { text-decoration: none; }
 .justifiedGallery .jg-image-label {
     white-space: normal;
-    font: normal 12px arial;
+    font: normal 12px 'Helvetica Neue';
     background: #000;
     color: #fff;
     position: absolute;

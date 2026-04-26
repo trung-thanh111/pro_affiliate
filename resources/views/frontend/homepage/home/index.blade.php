@@ -6,9 +6,9 @@
     @include('frontend.component.promotion')
     @include('frontend.component.product_category_section')
     @include('frontend.component.middle_banner')
+    @include('frontend.component.latest_24h')
     @include('frontend.component.review_handbook')
     @include('frontend.component.hot_topic')
-    @include('frontend.component.latest_24h')
     @include('frontend.component.new_review')
 @endsection
 @push('scripts')
