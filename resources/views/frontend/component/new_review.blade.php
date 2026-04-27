@@ -15,57 +15,16 @@
             </div>
 
             <div class="panel-body">
-                <div class="row g-4">
-                    @php
-                        $featured = $reviewPosts->first();
-                        $sideItems = $reviewPosts->slice(1, 4);
+                @include('frontend.component.review_block', ['posts' => $reviewPosts])
+            </div>
+            <div id="review-list" class="mt-5">
+                {{-- AJAX loaded blocks (1+4) will appear here --}}
+            </div>
 
-                        $fLang = $featured->languages->first();
-                        $fName = $fLang->pivot->name;
-                        $fCanonical = write_url($fLang->pivot->canonical);
-                        $fTime = date('d/m/Y', strtotime($featured->created_at));
-                        $fDesc = $fLang->pivot->description;
-                    @endphp
-
-                    <div class="col-lg-9">
-                        <div class="new-review-featured">
-                            <a href="{{ $fCanonical }}" class="text-decoration-none text-dark">
-                                <div class="featured-img-wrapper mb-3">
-                                    <img src="{{ $featured->image }}" alt="{{ $fName }}">
-                                </div>
-                                <h3 class="featured-title">{{ $fName }}</h3>
-                                <div class="featured-meta mb-3">
-                                    <span class="date">{{ $fTime }}</span>
-                                </div>
-                                <div class="featured-desc">
-                                    {{ $fDesc }}
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3">
-                        <div class="new-review-side-list">
-                            @foreach ($sideItems as $item)
-                                @php
-                                    $lang = $item->languages->first();
-                                    $name = $lang->pivot->name;
-                                    $canonical = write_url($lang->pivot->canonical);
-                                @endphp
-                                <div class="side-review-item mb-4">
-                                    <a href="{{ $canonical }}" class="text-decoration-none text-dark">
-                                        <div class="side-img-wrapper mb-2">
-                                            <img src="{{ $item->image }}" alt="{{ $name }}">
-                                        </div>
-                                        <div class="side-content">
-                                            <h4 class="side-title">{{ $name }}</h4>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
+            <div class="view-more-footer text-center mt-5">
+                <button type="button" id="load-more-review" data-page="1" class="view-all-standard border-primary text-primary px-5 py-2 fw-bold text-uppercase">
+                    Xem thêm đánh giá <i class="bi bi-chevron-down ms-2"></i>
+                </button>
             </div>
         </div>
     </section>

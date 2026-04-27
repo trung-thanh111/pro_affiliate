@@ -61,17 +61,21 @@ class PostRepository extends BaseRepository
         ->find($id);
     }
 
-    public function findPosts(array $condition = [], int $languageId = 1, array $orderBy = ['id', 'DESC'], int $limit = 10){
-        return $this->model->where($condition)
+    public function findPosts(array $condition = [], int $languageId = 1, array $orderBy = ['id', 'DESC'], int $limit = 10, int $offset = 0){
+        $query = $this->model->where($condition)
         ->whereHas('languages', function($query) use ($languageId){
             $query->where('language_id', $languageId);
         })
         ->with(['languages' => function($query) use ($languageId){
             $query->where('language_id', $languageId);
         }])
-        ->orderBy($orderBy[0], $orderBy[1])
-        ->limit($limit)
-        ->get();
+        ->orderBy($orderBy[0], $orderBy[1]);
+
+        if($offset > 0){
+            $query->skip($offset);
+        }
+
+        return $query->limit($limit)->get();
     }
 
     public function findPostsPagination(array $condition = [], int $languageId = 1, array $orderBy = ['id', 'DESC'], int $perPage = 6, int $page = 1){

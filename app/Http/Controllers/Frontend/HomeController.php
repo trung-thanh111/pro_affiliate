@@ -84,7 +84,7 @@ class HomeController extends FrontendController
         $reviewPosts = $this->postService->findPosts([
             ['publish', '=', 2],
             ['is_review', '=', 1]
-        ], $this->language, ['id', 'DESC'], 6);
+        ], $this->language, ['id', 'DESC'], 4);
 
         $featuredReviews = $this->postService->findPosts([
             ['publish', '=', 2],

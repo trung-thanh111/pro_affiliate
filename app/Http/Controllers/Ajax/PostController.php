@@ -55,20 +55,22 @@ class PostController extends FrontendController
 
     public function loadReview(Request $request){
         $page = $request->input('page', 1);
-        $perPage = 6;
-        $posts = $this->postRepository->findPostsPagination([
+        $perPage = 4;
+        $offset = 4 * ($page - 1); // Skip previous blocks (1 featured + 3 side = 4 total)
+
+        $posts = $this->postRepository->findPosts([
             ['publish', '=', 2],
             ['is_review', '=', 1]
-        ], $this->language, ['id', 'DESC'], $perPage, $page);
+        ], $this->language, ['id', 'DESC'], $perPage, $offset);
 
         $html = '';
-        foreach($posts as $post){
-            $html .= view('frontend.component.review_item', compact('post'))->render();
+        if(count($posts)){
+            $html = view('frontend.component.review_block', compact('posts'))->render();
         }
 
         return response()->json([
             'html' => $html,
-            'hasMore' => $posts->hasMorePages()
+            'hasMore' => (count($posts) == $perPage)
         ]);
     }
 
