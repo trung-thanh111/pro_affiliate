@@ -1,0 +1,3596 @@
+{
+  "error": null,
+  "error_msg": null,
+  "data": {
+    "itemid": 17576448641,
+    "shopid": 187103490,
+    "userid": 1010774852,
+    "price_max_before_discount": 9800000000,
+    "has_lowest_price_guarantee": false,
+    "price_before_discount": 9800000000,
+    "price_min_before_discount": 9800000000,
+    "exclusive_price_info": null,
+    "hidden_price_display": null,
+    "price_min": 999900000,
+    "price_max": 9300000000,
+    "price": 999900000,
+    "stock": 960,
+    "discount": "90%",
+    "historical_sold": 125493,
+    "sold": 25,
+    "show_discount": 90,
+    "raw_discount": 90,
+    "min_purchase_limit": 0,
+    "overall_purchase_limit": {
+      "order_max_purchase_limit": 0,
+      "overall_purchase_limit": null,
+      "item_overall_quota": null,
+      "start_date": null,
+      "end_date": null
+    },
+    "pack_size": null,
+    "is_live_streaming_price": null,
+    "show_free_return": null,
+    "name": "Quần Short unisex nam nữ chất cotton cao cấp, phong cách thể thao, mặc thoáng mát, co dãn 4 chiều, quần đùi nam nữ, basi",
+    "ctime": 1655809585,
+    "item_status": "normal",
+    "status": 1,
+    "condition": 1,
+    "catid": 100011,
+    "description": "MÔ TẢ SẢN PHẨM\nQuần Short trơn, Quần Short Comp chất tổ ong cao cấp, quần Short đai lưng túi hộp, quần Short Essentials\n    ✪ Chất Liệu Vải :  cotton cao cấp 100%, co giãn 4 chiều, vải mềm, mịn, thoáng mát, không xù lông.\n    ✪ Kĩ thuật may: Đường may chuẩn chỉnh, tỉ mỉ, chắc chắn\n    ✪ Hình in: Công nghệ in tiên tiến đảm bảo độ bền màu và hình in ngay cả khi giặt máy.\n    ✪ Kiểu Dáng :Form Rộng Thoải Mái\n    ✪ Full size nam nữ : 40 - 85 kg\n\nI. SHOP CAM KẾT\n- Sản phẩm quần Short đùi Unisex cotton cao cấp giống mô tả 100%\n- Hình ảnh sản phẩm là ảnh thật, các hình hoàn toàn do shop tự thiết kế.\n- Kiểm tra  cẩn thận trước khi gói hàng giao cho Quý Khách\n- Hàng có sẵn, giao hàng ngay khi nhận được đơn \n- Hoàn tiền nếu sản phẩm không giống với mô tả\n- Chấp nhận đổi hàng khi size không vừa trong 3 ngày.\n\nII. HỖ TRỢ ĐỔI TRẢ THEO QUY ĐỊNH CỦA SHOPEE\n- Điều kiện áp dụng (trong vòng 2 ngày kể từ khi nhận sản phẩm) \n- Hàng hoá bị rách, in lỗi, bung chỉ, và các lỗi do vận chuyển hoặc do nhà sản xuất.\n1. Trường hợp được chấp nhận: \n- Hàng giao sai size khách đã đặt hàng \n- Giao thiếu hàng \n2. Trường hợp không đủ điều kiện áp dụng chính sách: \n- Quá 2 ngày kể từ khi Quý khách nhận hàng \n- Gửi lại hàng không đúng mẫu mã, không phải sản phẩm của KARLEY STORE\n- Không thích, không hợp, đặt nhầm mã, nhầm màu,... \n\n#aothun #thun #aophong #unisex #aothunnam #aothunnu #freesize #oversize #aophongloang #taylo #formrong #hanquoc #aothuntaylo #aocotron #aothunformrong #samexoy #aosamexoy #aodoi #aothunmixmau #aophongmixmau #aothunmix #aophongmix #aoswweater #sweater #quanshort",
+    "is_mart": false,
+    "rich_text_description": {
+      "paragraph_list": [
+        {
+          "type": 0,
+          "text": "MÔ TẢ SẢN PHẨM",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "Quần Short trơn, Quần Short Comp chất tổ ong cao cấp, quần Short đai lưng túi hộp, quần Short Essentials",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "    ✪ Chất Liệu Vải :  cotton cao cấp 100%, co giãn 4 chiều, vải mềm, mịn, thoáng mát, không xù lông.",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "    ✪ Kĩ thuật may: Đường may chuẩn chỉnh, tỉ mỉ, chắc chắn",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "    ✪ Hình in: Công nghệ in tiên tiến đảm bảo độ bền màu và hình in ngay cả khi giặt máy.",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "    ✪ Kiểu Dáng :Form Rộng Thoải Mái",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "    ✪ Full size nam nữ : 40 - 85 kg",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 10001,
+          "text": null,
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": 1
+        },
+        {
+          "type": 0,
+          "text": "I. SHOP CAM KẾT",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "- Sản phẩm quần Short đùi Unisex cotton cao cấp giống mô tả 100%",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "- Hình ảnh sản phẩm là ảnh thật, các hình hoàn toàn do shop tự thiết kế.",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "- Kiểm tra  cẩn thận trước khi gói hàng giao cho Quý Khách",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "- Hàng có sẵn, giao hàng ngay khi nhận được đơn ",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "- Hoàn tiền nếu sản phẩm không giống với mô tả",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "- Chấp nhận đổi hàng khi size không vừa trong 3 ngày.",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 10001,
+          "text": null,
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": 1
+        },
+        {
+          "type": 0,
+          "text": "II. HỖ TRỢ ĐỔI TRẢ THEO QUY ĐỊNH CỦA SHOPEE",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "- Điều kiện áp dụng (trong vòng 2 ngày kể từ khi nhận sản phẩm) ",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "- Hàng hoá bị rách, in lỗi, bung chỉ, và các lỗi do vận chuyển hoặc do nhà sản xuất.",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "1. Trường hợp được chấp nhận: ",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "- Hàng giao sai size khách đã đặt hàng ",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "- Giao thiếu hàng ",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "2. Trường hợp không đủ điều kiện áp dụng chính sách: ",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "- Quá 2 ngày kể từ khi Quý khách nhận hàng ",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "- Gửi lại hàng không đúng mẫu mã, không phải sản phẩm của KARLEY STORE",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 0,
+          "text": "- Không thích, không hợp, đặt nhầm mã, nhầm màu,... ",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        },
+        {
+          "type": 10001,
+          "text": null,
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": 1
+        },
+        {
+          "type": 0,
+          "text": "#aothun #thun #aophong #unisex #aothunnam #aothunnu #freesize #oversize #aophongloang #taylo #formrong #hanquoc #aothuntaylo #aocotron #aothunformrong #samexoy #aosamexoy #aodoi #aothunmixmau #aophongmixmau #aothunmix #aophongmix #aoswweater #sweater #quanshort",
+          "img_id": null,
+          "ratio": null,
+          "empty_paragraph_count": null
+        }
+      ]
+    },
+    "show_shopee_verified_label": false,
+    "size_chart": "vn-11134207-7ras8-mar4rusn5n1475",
+    "reference_item_id": "",
+    "brand": null,
+    "item_rating": {
+      "rating_star": 4.737303700982643,
+      "rating_count": [
+        21779,
+        484,
+        253,
+        689,
+        1651,
+        18702
+      ]
+    },
+    "label_ids": [
+      1007525,
+      1015839,
+      1009396,
+      1000279,
+      700025213,
+      1009763,
+      1000268,
+      1000277,
+      844931086908638,
+      298413316,
+      1718087960,
+      1428713,
+      700190087,
+      997801121,
+      998091081,
+      298888322,
+      2073667,
+      298898335,
+      2063613,
+      2098587,
+      298933316,
+      700810083,
+      2143619,
+      2143645,
+      2143672,
+      2158617,
+      1883614,
+      298983321,
+      298988311,
+      1400705063,
+      298988334,
+      1718252943,
+      298973406,
+      2158712,
+      298973470,
+      2158745,
+      2153753,
+      2143697,
+      299033331,
+      2218641,
+      2213649,
+      1119699,
+      2213728,
+      2218749,
+      299048426,
+      822059849520140,
+      829011927936514,
+      298833391,
+      700515093,
+      700925026,
+      299098323,
+      299108331,
+      299108332,
+      299113351,
+      299108352,
+      299113353,
+      2278589,
+      2278651,
+      2278655,
+      299138366,
+      299138377,
+      299098365,
+      2283641,
+      2283642,
+      998296012,
+      2298619,
+      998291035,
+      998301022,
+      700915020,
+      998301038,
+      1718392985,
+      701000044,
+      1718412950,
+      299153461,
+      1718398124,
+      1400845034,
+      700960061,
+      298623321,
+      2288653,
+      700965064,
+      700995127,
+      1400845202,
+      2328764,
+      1400845035,
+      2318605,
+      2328612
+    ],
+    "attributes": [
+      {
+        "name": "Chất liệu",
+        "value": "Cotton",
+        "id": 100134,
+        "is_timestamp": false,
+        "brand_option": null,
+        "val_id": 1149
+      },
+      {
+        "name": "Mẫu",
+        "value": "Trơn",
+        "id": 100162,
+        "is_timestamp": false,
+        "brand_option": null,
+        "val_id": 1463
+      },
+      {
+        "name": "Phong cách",
+        "value": "Thể thao, Cơ bản, Hàn Quốc, Đường phố, Nhiệt đới",
+        "id": 100169,
+        "is_timestamp": false,
+        "brand_option": null,
+        "val_id": 1497
+      },
+      {
+        "name": "Xuất xứ",
+        "value": "Trung Quốc",
+        "id": 100037,
+        "is_timestamp": false,
+        "brand_option": null,
+        "val_id": 35
+      },
+      {
+        "name": "Dịp",
+        "value": "Hằng Ngày",
+        "id": 100155,
+        "is_timestamp": false,
+        "brand_option": null,
+        "val_id": 1387
+      },
+      {
+        "name": "Loại quần short",
+        "value": "Jersey",
+        "id": 100177,
+        "is_timestamp": false,
+        "brand_option": null,
+        "val_id": 1587
+      }
+    ],
+    "liked": false,
+    "liked_count": 18983,
+    "cmt_count": 21685,
+    "flag": 65536,
+    "shopee_verified": false,
+    "is_adult": false,
+    "is_preferred_plus_seller": false,
+    "tier_variations": [
+      {
+        "name": "Màu",
+        "options": [
+          "Đen+Trắng Short",
+          "Đen+Tiêu Short",
+          "Trắng+Tiêu Short",
+          "Đen+Trắng Short Comp",
+          "Đen+Tiêu Short Comp",
+          "Trắng+Tiêu ShortComp",
+          "Đen Short",
+          "Trắng Short",
+          "Ghi nhạt Short",
+          "Đen Short Comp",
+          "Trắng Short Comp",
+          "Xám Short Comp",
+          "Be đậm Short Comp",
+          "Xanh than Short Comp",
+          "Ghi nhạt Short Comp",
+          "Be Short đai lưng",
+          "Rêu Short đai lưng",
+          "Xám Short đai lưng",
+          "Đen Essentials Short",
+          "Trắng EssentialShort",
+          "Ghi Essentials Short",
+          "3 Dây Rút Quần"
+        ],
+        "images": [
+          "vn-11134207-7ras8-mc7lx78h96ryaf",
+          "vn-11134207-7ras8-mc7lx98wb7nyc4",
+          "vn-11134207-7ras8-mc7lxcr56gsu17",
+          "vn-11134207-7ras8-mc7lxh8mm579d3",
+          "vn-11134207-7ras8-mc7lxjxgpuoe20",
+          "vn-11134207-7ras8-mc7lxm53hbima4",
+          "3491495d72e43af00271b89010b3b0c0",
+          "dc30bfd7e443882d94edd7480d326cb8",
+          "vn-11134207-7qukw-lhdf1nr729rn01",
+          "vn-11134207-7qukw-lhdf1nr73oc3c3",
+          "vn-11134207-7qukw-lhdf1nr752wj55",
+          "vn-11134207-7qukw-lhdf1nr7dib786",
+          "vn-11134207-7qukw-lhdf6412mz1vf1",
+          "vn-11134207-7qukw-lhdf6412odmb5e",
+          "vn-11134207-7qukw-lhdf6412slbn81",
+          "vn-11134207-7qukw-lkcu4d9pypb02c",
+          "vn-11134207-7qukw-lkcu4d9pxaqk41",
+          "vn-11134207-7qukw-lkcu4d9pvw644c",
+          "vn-11134207-7qukw-lkcu4d9puhlodc",
+          "vn-11134207-7qukw-lkcu4d9pt31895",
+          "vn-11134207-7qukw-lkcu4d9q2x0c67",
+          "vn-11134207-7ras8-mbw8k4wg09kif4"
+        ],
+        "properties": [],
+        "type": 0,
+        "summed_stocks": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          90,
+          0,
+          0,
+          90,
+          90,
+          90,
+          90,
+          90,
+          90,
+          0,
+          60,
+          0,
+          90,
+          90,
+          90
+        ]
+      },
+      {
+        "name": "Size",
+        "options": [
+          "M: 40-55kg",
+          "L: 56-68kg",
+          "XL: 69-85kg"
+        ],
+        "images": null,
+        "properties": [],
+        "type": 0,
+        "summed_stocks": null
+      }
+    ],
+    "bundle_deal_id": 0,
+    "can_use_bundle_deal": false,
+    "size_chart_info": null,
+    "add_on_deal_info": null,
+    "bundle_deal_info": null,
+    "can_use_wholesale": false,
+    "wholesale_tier_list": [],
+    "is_group_buy_item": null,
+    "group_buy_info": null,
+    "welcome_package_type": 0,
+    "welcome_package_info": null,
+    "tax_code": null,
+    "invoice_option": null,
+    "complaint_policy": null,
+    "wp_eligibility": null,
+    "images": [
+      "6331a79731c3de9fb121b4b809c17362",
+      "3491495d72e43af00271b89010b3b0c0",
+      "dc30bfd7e443882d94edd7480d326cb8",
+      "vn-11134207-7qukw-lhdf6412ps6rfd",
+      "7f56755783080abf0d2fc1224732d46b",
+      "56ae2913f1b04bd0cae5592937c462cc",
+      "vn-11134207-7qukw-lhdf6412r6r765",
+      "vn-11134207-7qukw-lkcu4d9q03vgb2",
+      "vn-11134207-7qukw-lkcu4d9q1ifwa9"
+    ],
+    "image": "6331a79731c3de9fb121b4b809c17362",
+    "video_info_list": [],
+    "item_type": 0,
+    "long_images": null,
+    "clip_info": null,
+    "shopee_video_info_list": [],
+    "shopee_video_rcmd_info": null,
+    "shopee_video_req_id": null,
+    "is_official_shop": false,
+    "show_official_shop_label_in_title": false,
+    "shop_location": "",
+    "coin_earn_label": null,
+    "cb_option": 0,
+    "is_pre_order": false,
+    "estimated_days": 2,
+    "badge_icon_type": 0,
+    "show_free_shipping": false,
+    "shipping_icon_type": 0,
+    "cod_flag": 0,
+    "is_service_by_shopee": false,
+    "show_original_guarantee": false,
+    "categories": [
+      {
+        "catid": 100011,
+        "display_name": "Thời Trang Nam",
+        "no_sub": false,
+        "is_default_subcat": false
+      },
+      {
+        "catid": 100053,
+        "display_name": "Quần đùi",
+        "no_sub": true,
+        "is_default_subcat": false
+      }
+    ],
+    "other_stock": 271785,
+    "item_has_post": false,
+    "discount_stock": 960,
+    "current_promotion_has_reserve_stock": true,
+    "current_promotion_reserved_stock": 960,
+    "normal_stock": 271785,
+    "brand_id": 0,
+    "is_alcohol_product": false,
+    "show_recycling_info": false,
+    "coin_info": {
+      "spend_cash_unit": 100000,
+      "coin_earn_items": []
+    },
+    "models": [
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Ghi nhạt Short,M: 40-55kg",
+        "promotionid": 0,
+        "price": 9800000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VN0153T2Z",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              },
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            8,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 156877767584,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Trắng Short Comp,L: 56-68kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8491,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8491,
+        "extinfo": {
+          "tier_index": [
+            10,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767569,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Trắng Short,M: 40-55kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8481,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8481,
+        "extinfo": {
+          "tier_index": [
+            7,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 173353656245,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Rêu Short đai lưng,M: 40-55kg",
+        "promotionid": 840755032802304,
+        "price": 9600000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": null,
+            "promotion_type": 301
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            16,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 235512158057,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Be đậm Short Comp,M: 40-55kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8498,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8498,
+        "extinfo": {
+          "tier_index": [
+            12,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767564,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen+Tiêu Short,L: 56-68kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            1,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504801,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Ghi nhạt Short Comp,M: 40-55kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8497,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8497,
+        "extinfo": {
+          "tier_index": [
+            14,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 79312374811,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Xám Short Comp,XL: 69-85kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8492,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8492,
+        "extinfo": {
+          "tier_index": [
+            11,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767577,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen+Trắng Short Comp,XL: 69-85kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            3,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504808,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Xanh than Short Comp,M: 40-55kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8493,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8493,
+        "extinfo": {
+          "tier_index": [
+            13,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767566,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Trắng Short,XL: 69-85kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8469,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8469,
+        "extinfo": {
+          "tier_index": [
+            7,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 173353656241,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen Short,XL: 69-85kg",
+        "promotionid": 0,
+        "price": 9800000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            6,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 173353656244,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen+Tiêu Short Comp,L: 56-68kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            4,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504810,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "3 Dây Rút Quần,L: 56-68kg",
+        "promotionid": 265615500193792,
+        "price": 999900000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8497,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8497,
+        "extinfo": {
+          "tier_index": [
+            21,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767574,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen+Trắng Short,L: 56-68kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            0,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504798,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Xám Short Comp,M: 40-55kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8495,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8495,
+        "extinfo": {
+          "tier_index": [
+            11,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767576,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen Short Comp,XL: 69-85kg",
+        "promotionid": 840755032802304,
+        "price": 7900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": null,
+            "promotion_type": 301
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            9,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767568,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Trắng EssentialShort,XL: 69-85kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8495,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8495,
+        "extinfo": {
+          "tier_index": [
+            19,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 235512158068,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Trắng+Tiêu Short,XL: 69-85kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            2,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504805,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen+Tiêu Short Comp,M: 40-55kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            4,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504809,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen Short Comp,L: 56-68kg",
+        "promotionid": 840755032802304,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": null,
+            "promotion_type": 301
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            9,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767561,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Trắng Short Comp,M: 40-55kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8497,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8497,
+        "extinfo": {
+          "tier_index": [
+            10,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767579,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen Short Comp,M: 40-55kg",
+        "promotionid": 840755032802304,
+        "price": 7900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": null,
+            "promotion_type": 301
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            9,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767571,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Trắng EssentialShort,L: 56-68kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8497,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8497,
+        "extinfo": {
+          "tier_index": [
+            19,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 235512158067,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Xám Short đai lưng,L: 56-68kg",
+        "promotionid": 265615500193792,
+        "price": 9300000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8498,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8498,
+        "extinfo": {
+          "tier_index": [
+            17,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 235512158058,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Be Short đai lưng,XL: 69-85kg",
+        "promotionid": 265615500193792,
+        "price": 9300000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8496,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8496,
+        "extinfo": {
+          "tier_index": [
+            15,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 235512158059,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Rêu Short đai lưng,L: 56-68kg",
+        "promotionid": 840755032802304,
+        "price": 9600000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": null,
+            "promotion_type": 301
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            16,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 235512158061,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Be đậm Short Comp,L: 56-68kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8498,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8498,
+        "extinfo": {
+          "tier_index": [
+            12,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767565,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "3 Dây Rút Quần,M: 40-55kg",
+        "promotionid": 265615500193792,
+        "price": 999900000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8498,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8498,
+        "extinfo": {
+          "tier_index": [
+            21,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767580,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Ghi nhạt Short,XL: 69-85kg",
+        "promotionid": 0,
+        "price": 9800000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 1,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            8,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 156877767578,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Be Short đai lưng,L: 56-68kg",
+        "promotionid": 265615500193792,
+        "price": 9300000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8498,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8498,
+        "extinfo": {
+          "tier_index": [
+            15,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 235512158056,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "3 Dây Rút Quần,XL: 69-85kg",
+        "promotionid": 265615500193792,
+        "price": 999900000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8497,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8497,
+        "extinfo": {
+          "tier_index": [
+            21,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767572,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Be đậm Short Comp,XL: 69-85kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8497,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8497,
+        "extinfo": {
+          "tier_index": [
+            12,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767583,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen Essentials Short,XL: 69-85kg",
+        "promotionid": 0,
+        "price": 9800000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            18,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 235512158069,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen+Trắng Short Comp,L: 56-68kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            3,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504807,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Trắng+Tiêu Short,M: 40-55kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            2,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504803,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen Essentials Short,L: 56-68kg",
+        "promotionid": 0,
+        "price": 9800000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            18,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 235512158066,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Ghi Essentials Short,M: 40-55kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8497,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8497,
+        "extinfo": {
+          "tier_index": [
+            20,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767582,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen Short,L: 56-68kg",
+        "promotionid": 0,
+        "price": 9800000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            6,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 173353656243,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen Short,M: 40-55kg",
+        "promotionid": 0,
+        "price": 9800000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            6,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 173353656242,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen Essentials Short,M: 40-55kg",
+        "promotionid": 0,
+        "price": 9800000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            18,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 235512158064,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Trắng+Tiêu ShortComp,L: 56-68kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            5,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504813,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Ghi Essentials Short,L: 56-68kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8494,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8494,
+        "extinfo": {
+          "tier_index": [
+            20,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767563,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Xanh than Short Comp,L: 56-68kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8495,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8495,
+        "extinfo": {
+          "tier_index": [
+            13,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767575,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Ghi nhạt Short,L: 56-68kg",
+        "promotionid": 0,
+        "price": 9800000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VN0153T2Z",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              },
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            8,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 156877767567,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Ghi Essentials Short,XL: 69-85kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8497,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8497,
+        "extinfo": {
+          "tier_index": [
+            20,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767570,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Trắng+Tiêu Short,L: 56-68kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            2,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504804,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Rêu Short đai lưng,XL: 69-85kg",
+        "promotionid": 840755032802304,
+        "price": 9600000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": null,
+            "promotion_type": 301
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            16,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 235512158062,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Trắng Short Comp,XL: 69-85kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8492,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8492,
+        "extinfo": {
+          "tier_index": [
+            10,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767562,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen+Trắng Short Comp,M: 40-55kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            3,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504806,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Xanh than Short Comp,XL: 69-85kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8493,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8493,
+        "extinfo": {
+          "tier_index": [
+            13,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767573,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Xám Short đai lưng,M: 40-55kg",
+        "promotionid": 265615500193792,
+        "price": 9300000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8496,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8496,
+        "extinfo": {
+          "tier_index": [
+            17,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 235512158063,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Trắng+Tiêu ShortComp,M: 40-55kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            5,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504812,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen+Trắng Short,XL: 69-85kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            0,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504799,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Ghi nhạt Short Comp,L: 56-68kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8496,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8496,
+        "extinfo": {
+          "tier_index": [
+            14,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 79312374812,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Ghi nhạt Short Comp,XL: 69-85kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8494,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8494,
+        "extinfo": {
+          "tier_index": [
+            14,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 79312374810,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Trắng+Tiêu ShortComp,XL: 69-85kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            5,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504814,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen+Tiêu Short,M: 40-55kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            1,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504800,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Xám Short Comp,L: 56-68kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8494,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8494,
+        "extinfo": {
+          "tier_index": [
+            11,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 156877767581,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Trắng EssentialShort,M: 40-55kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8498,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8498,
+        "extinfo": {
+          "tier_index": [
+            19,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 235512158060,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Be Short đai lưng,M: 40-55kg",
+        "promotionid": 265615500193792,
+        "price": 9300000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8497,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8497,
+        "extinfo": {
+          "tier_index": [
+            15,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 235512158065,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen+Trắng Short,M: 40-55kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            0,
+            0
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504797,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Xám Short đai lưng,XL: 69-85kg",
+        "promotionid": 840755032802304,
+        "price": 9600000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": null,
+            "promotion_type": 301
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            17,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 235512158055,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 30,
+        "name": "Trắng Short,L: 56-68kg",
+        "promotionid": 265615500193792,
+        "price": 8900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 30,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 30,
+                "fulfilment_type": 2,
+                "address_id": 29390451
+              }
+            ],
+            "promotion_type": 312
+          },
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 8458,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": true,
+        "normal_stock": 8458,
+        "extinfo": {
+          "tier_index": [
+            7,
+            1
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 9800000000,
+        "modelid": 173353656246,
+        "stock": 30,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen+Tiêu Short Comp,XL: 69-85kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            4,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504811,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      },
+      {
+        "itemid": 17576448641,
+        "status": 1,
+        "current_promotion_reserved_stock": 0,
+        "name": "Đen+Tiêu Short,XL: 69-85kg",
+        "promotionid": 0,
+        "price": 19900000000,
+        "price_stocks": [
+          {
+            "allocated_stock": 0,
+            "stock_breakdown_by_location": [
+              {
+                "location_id": "VNZ",
+                "available_stock": 0,
+                "fulfilment_type": 2,
+                "address_id": null
+              }
+            ],
+            "promotion_type": 0
+          }
+        ],
+        "current_promotion_has_reserve_stock": false,
+        "normal_stock": 0,
+        "extinfo": {
+          "tier_index": [
+            1,
+            2
+          ],
+          "group_buy_info": null,
+          "is_pre_order": false,
+          "estimated_days": 2
+        },
+        "price_before_discount": 0,
+        "modelid": 265722504802,
+        "stock": 0,
+        "has_gimmick_tag": false,
+        "key_measurement": null
+      }
+    ],
+    "spl_info": null,
+    "preview_info": null,
+    "fe_categories": [
+      {
+        "catid": 11035567,
+        "display_name": "Thời Trang Nam",
+        "no_sub": false,
+        "is_default_subcat": false
+      },
+      {
+        "catid": 11035590,
+        "display_name": "Quần Short",
+        "no_sub": false,
+        "is_default_subcat": false
+      },
+      {
+        "catid": 11035591,
+        "display_name": "Quần Đùi/Quần Short",
+        "no_sub": true,
+        "is_default_subcat": false
+      }
+    ],
+    "presale_info": null,
+    "show_best_price_guarantee": false,
+    "item_has_video": false,
+    "item_has_size_recommendation": false,
+    "is_cc_installment_payment_eligible": false,
+    "is_non_cc_installment_payment_eligible": false,
+    "flash_sale": {
+      "flash_sale_type": 2,
+      "extra_discount_info": null,
+      "promotionid": 265615500193792,
+      "start_time": 1777352400,
+      "end_time": 1777363200,
+      "promo_images": [
+        "6331a79731c3de9fb121b4b809c17362"
+      ],
+      "price": 999900000,
+      "flash_sale_stock": 960,
+      "stock": 960,
+      "hidden_price_display": null,
+      "promo_overlay_image": "vn-11134258-81ztc-mnd7ib2ncqgz93",
+      "price_before_discount": 9800000000,
+      "lowest_past_price": null
+    },
+    "upcoming_flash_sale": null,
+    "deep_discount": null,
+    "has_low_fulfillment_rate": false,
+    "is_partial_fulfilled": false,
+    "makeups": null,
+    "shop_vouchers": null,
+    "credit_insurance_data": null,
+    "global_sold": 125493,
+    "is_infant_milk_formula_product": false,
+    "should_show_amp_tag": true,
+    "sorted_variation_image_index_list": [
+      7,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      17,
+      19,
+      20,
+      21,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      16,
+      18
+    ],
+    "lowest_past_price": null,
+    "is_prescription_item": false,
+    "should_move_ratings_above": null,
+    "review_rcmd_exp_group": null,
+    "age_gate": {
+      "kyc": null
+    }
+  },
+  "is_indexable": true
+}

@@ -13,3 +13,7 @@
         </div>
     </div>
 </div>
+
+@include('backend.product.product.component.crawl_modal')
+
+<script src="{{ asset('vendor/backend/library/product_crawl.js') }}"></script>

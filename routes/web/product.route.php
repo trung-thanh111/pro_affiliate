@@ -39,6 +39,9 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
         Route::post('{id}/update', [ProductController::class, 'update'])->where(['id' => '[0-9]+'])->name('product.update');
         Route::get('{id}/delete', [ProductController::class, 'delete'])->where(['id' => '[0-9]+'])->name('product.delete');
         Route::delete('{id}/destroy', [ProductController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('product.destroy');
+
+        Route::post('crawl', [ProductController::class, 'crawl'])->name('product.crawl');
+        Route::post('save-crawled', [ProductController::class, 'saveCrawled'])->name('product.saveCrawled');
     });
 
     Route::group(['prefix' => 'attribute/catalogue'], function () {

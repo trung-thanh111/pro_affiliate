@@ -14,6 +14,9 @@
                         @endforeach
                     </select>
                     @include('backend.dashboard.component.keyword')
+                    <button type="button" id="crawl-data-btn" class="btn btn-primary mr10">
+                        <i class="fa fa-download mr5"></i> Craw data
+                    </button>
                     <a href="{{ route('product.create') }}" class="btn btn-danger"><i class="fa fa-plus mr5"></i>{{ $config['seo']['create']['title'] }}</a>
                 </div>
             </div>

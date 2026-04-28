@@ -844,4 +844,45 @@ class ProductService extends BaseService
         ];
         return $reviews;
     }
+
+    public function createFromCrawl($data, $languageId)
+    {
+        DB::beginTransaction();
+        try {
+            $productPayload = [
+                'publish' => 2,
+                'image' => $data['image'] ?? ($data['images'][0] ?? ''),
+                'price' => convert_price($data['original_price'] ?? 0),
+                'price_discount' => convert_price($data['price'] ?? 0),
+                'user_id' => Auth::id(),
+                'product_catalogue_id' => 1,
+            ];
+            
+            $product = $this->productRepository->create($productPayload);
+            
+            if ($product->id > 0) {
+                $languagePayload = [
+                    'name' => $data['name'],
+                    'description' => $data['description'] ?? '',
+                    'content' => $data['description'] ?? '',
+                    'canonical' => Str::slug($data['name']) . '-' . time(),
+                    'meta_title' => $data['name'],
+                    'meta_description' => $data['description'] ?? '',
+                ];
+                
+                $request = new \Illuminate\Http\Request($languagePayload);
+                
+                $this->updateLanguageForProduct($product, $request, $languageId);
+                $product->product_catalogues()->sync([1]);
+                $this->createRouter($product, $request, $this->controllerName, $languageId);
+            }
+
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
+
 }

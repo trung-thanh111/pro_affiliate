@@ -171,13 +171,58 @@ class ProductController extends Controller
         return redirect()->route('product.index')->with('error','Xóa bản ghi không thành công. Hãy thử lại');
     }
 
+    public function crawl(Request $request)
+    {
+        $url = $request->input('url');
+        if (empty($url)) {
+            return response()->json(['status' => 'error', 'message' => 'Vui lòng cung cấp link']);
+        }
+
+        // Logic thực thi Python crawler
+        // Sử dụng đường dẫn tuyệt đối để đảm bảo Web Server (Laragon) tìm thấy Python
+        $pythonPath = 'C:\\laragon\\bin\\python\\python-3.10\\python.exe'; 
+        $scriptPath = base_path('crawler/main.py');
+        $urlBase64 = base64_encode($url);
+        $command = "$pythonPath $scriptPath $urlBase64 2>&1";
+        $output = shell_exec($command);
+
+        $data = json_decode($output, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json([
+                'status' => 'error', 
+                'message' => 'Lỗi hệ thống Python: ' . $output
+            ]);
+        }
+
+        if (empty($data) || isset($data['error'])) {
+            return response()->json([
+                'status' => 'error', 
+                'message' => $data['error'] ?? 'Không thể lấy dữ liệu từ link này. Hãy kiểm tra lại link hoặc công cụ quét.'
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ]);
+    }
+
+    public function saveCrawled(Request $request)
+    {
+        $data = $request->all();
+        if ($this->productService->createFromCrawl($data, $this->language)) {
+            return response()->json(['status' => 'success']);
+        }
+
+        return response()->json(['status' => 'error', 'message' => 'Có lỗi xảy ra khi lưu bản ghi']);
+    }
+
     private function configData(){
         return [
             'extendJs' => true,
             'model' => 'Product'
         ];
     }
-
-   
 
 }

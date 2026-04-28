@@ -1,0 +1,17 @@
+2026/04/28-14:14:40.489 43a4 Reusing MANIFEST D:\Workspace\pro_affiliate\crawler\shopee\output\shopee_profile\Default\Local Storage\leveldb/MANIFEST-000001
+2026/04/28-14:14:40.503 43a4 Recovering log #22
+2026/04/28-14:14:40.503 43a4 Level-0 table #24: started
+2026/04/28-14:14:40.509 43a4 Level-0 table #24: 18470 bytes OK
+2026/04/28-14:14:40.510 43a4 Recovering log #24
+2026/04/28-14:14:40.514 43a4 Reusing old log D:\Workspace\pro_affiliate\crawler\shopee\output\shopee_profile\Default\Local Storage\leveldb/000024.log 
+2026/04/28-14:14:40.516 43a4 Delete type=0 #22
+2026/04/28-14:14:40.516 43a4 Delete type=2 #25
+2026/04/28-14:14:40.519 28d0 Compacting 4@0 + 1@1 files
+2026/04/28-14:14:40.526 28d0 Generated table #25@0: 28 keys, 28607 bytes
+2026/04/28-14:14:40.527 28d0 Compacted 4@0 + 1@1 files => 28607 bytes
+2026/04/28-14:14:40.528 28d0 compacted to: files[ 0 1 0 0 0 0 0 ]
+2026/04/28-14:14:40.529 28d0 Delete type=2 #13
+2026/04/28-14:14:40.529 28d0 Delete type=2 #15
+2026/04/28-14:14:40.529 28d0 Delete type=2 #18
+2026/04/28-14:14:40.529 28d0 Delete type=2 #21
+2026/04/28-14:14:40.529 28d0 Delete type=2 #24
