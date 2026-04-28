@@ -68,14 +68,14 @@ class ShopeeApiCrawler:
         """Khởi động trình duyệt một lần duy nhất cho toàn bộ quá trình."""
         if self.page: return
         
-        logger.info("🚀 Khởi động trình duyệt duy nhất cho toàn bộ quá trình...")
+        # logger.debug("🚀 Khởi động trình duyệt duy nhất cho toàn bộ quá trình...")
         self.playwright = sync_playwright().start()
         
         user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
         
         self.browser_context = self.playwright.chromium.launch_persistent_context(
             self.user_data_dir,
-            headless=False,
+            headless=True,
             channel="chrome",
             user_agent=user_agent,
             viewport={'width': 1366, 'height': 768},
@@ -105,18 +105,18 @@ class ShopeeApiCrawler:
                             data = json_res.get("data")
                             if data and (data.get("name") or data.get("itemid")):
                                 self.last_api_data = data
-                                logger.info(f"🔥 [INTERCEPT] Bắt được API: {data.get('name', 'N/A')[:40]}...")
+                                # logger.debug(f"🔥 [INTERCEPT] Bắt được API: {data.get('name', 'N/A')[:40]}...")
                     except: pass
         
         self.browser_context.on("response", on_response)
         
         # Warm-up nhẹ nhàng ở lần đầu tiên
-        logger.info("Warming up session...")
+        # logger.debug("Warming up session...")
         try:
-            self.page.goto(SHOPEE_BASE_URL, wait_until="networkidle", timeout=30000)
-            time.sleep(random.uniform(2, 4))
+            self.page.goto(SHOPEE_BASE_URL, wait_until="networkidle", timeout=15000)
+            time.sleep(random.uniform(1, 2))
         except:
-            logger.warning("Warmup timeout, proceeding anyway...")
+            pass
 
     def stop(self):
         """Đóng trình duyệt và giải phóng tài nguyên."""
@@ -125,7 +125,6 @@ class ShopeeApiCrawler:
         if self.playwright:
             self.playwright.stop()
         self.page = None
-        logger.info("🛑 Đã đóng trình duyệt.")
 
     def _random_delay(self, multiplier: float = 1.0) -> None:
         delay = random.uniform(self.delay_min, self.delay_max) * multiplier
@@ -152,14 +151,10 @@ class ShopeeApiCrawler:
                 processed_images.append(img)
 
         return ShopeeProduct(
-            item_id=str(item.get("itemid", "")),
-            shop_id=str(item.get("shopid", "")),
             title=item.get("name", ""),
             price_min=float(p_min),
             price_max=float(p_max),
-            images=processed_images[:5], # Lấy 5 ảnh đầu
-            url=f"https://shopee.vn/product/{item.get('shopid')}/{item.get('itemid')}",
-            crawled_at=datetime.now().isoformat()
+            images=processed_images, # Lấy toàn bộ ảnh có sẵn
         )
 
     def get_product(self, shop_id: str, item_id: str, url: Optional[str] = None) -> Optional[ShopeeProduct]:
@@ -177,24 +172,21 @@ class ShopeeApiCrawler:
         if not url:
             url = f"{SHOPEE_BASE_URL}/product/{shop_id}/{item_id}?lang=vi"
         
-        logger.info(f"📦 Đang xử lý: {shop_id}/{item_id}")
-        
         try:
             # 1. Truy cập URL (Đợi domcontentloaded là đủ để script chạy)
-            logger.info(f"Navigating to: {url}")
             try:
                 page.goto(url, wait_until="domcontentloaded", timeout=30000)
             except Exception as e:
                 logger.warning(f"Goto timeout (domcontentloaded), continuing to check background data...")
 
             # ─── CHIẾT XUẤT SIÊU TỐC (Active & Passive Polling) ─────────────
-            logger.info("⚡ Đang trích xuất dữ liệu siêu tốc...")
+            # logger.debug("⚡ Đang trích xuất dữ liệu siêu tốc...")
             
             for _ in range(12): # 12 x 0.5s = 6s
                 # ƯU TIÊN 1: Kiểm tra Interceptor (Thụ động)
                 if self.last_api_data:
                     product = self._extract_product_data(self.last_api_data)
-                    logger.info(f"⚡ [FAST-TRACK] Bắt được API Shopee sau {(_ + 1) * 0.5}s")
+                    # logger.debug(f"⚡ [FAST-TRACK] Bắt được API Shopee sau {(_ + 1) * 0.5}s")
                     self._successful_requests += 1
                     return product
                 
@@ -206,7 +198,7 @@ class ShopeeApiCrawler:
                         if active_data.get("data") and active_data["data"].get("name"):
                             self.last_api_data = active_data["data"]
                             product = self._extract_product_data(self.last_api_data)
-                            logger.info(f"⚡ [FAST-TRACK] Ép gọi API chủ động thành công!")
+                            # logger.debug(f"⚡ [FAST-TRACK] Ép gọi API chủ động thành công!")
                             self._successful_requests += 1
                             return product
                     except: pass
@@ -216,8 +208,6 @@ class ShopeeApiCrawler:
                     break
                 time.sleep(0.5)
 
-            # ─── FALLBACK: Nếu siêu tốc thất bại ──────
-            
             # 1. Kiểm tra chặn truy cập (Captcha)
             if "verify/traffic" in page.url or page.query_selector("text='word word word'"):
                 logger.warning("⚠️ Shopee đang bắt giải Captcha! Vui lòng can thiệp...")

@@ -8,8 +8,8 @@ def login():
     if not os.path.exists(user_data_dir):
         os.makedirs(user_data_dir, exist_ok=True)
     
-    print(f"[*] Đang mở trình duyệt với profile tại: {user_data_dir}")
-    print("[!] Vui lòng đăng nhập vào Shopee trên cửa sổ trình duyệt hiện ra.")
+    print(f"[*] Đang mở trình duyệt: {user_data_dir}")
+    print("[!] Vui lòng đăng nhập vào Shopee:.")
     print("[!] Sau khi đăng nhập xong, hãy ĐÓNG TRÌNH DUYỆT để lưu session.")
 
     with sync_playwright() as p:

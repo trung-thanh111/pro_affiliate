@@ -15,7 +15,9 @@ import random
 from dataclasses import dataclass
 from typing import Optional
 
-from config import OUTPUT_JSON_FILE, MAX_BATCH_SIZE, OUTPUT_DIR
+from config import MAX_BATCH_SIZE
+# Tự động lấy đường dẫn thư mục Downloads của hệ thống
+DOWNLOADS_DIR = os.path.join(os.path.expanduser("~"), "Downloads")
 from crawlers.shopee_api_crawler import ShopeeApiCrawler
 from models.product import ShopeeProduct
 from utils.url_parser import parse_shopee_url, extract_ids_from_urls
@@ -82,8 +84,8 @@ def crawl_urls(
 
     # ── Loại bỏ URL trùng lặp ────────────────────
     unique_urls = list(dict.fromkeys(urls))
-    if len(unique_urls) < len(urls):
-        logger.info(f"Loại bỏ {len(urls) - len(unique_urls)} URL trùng")
+    # if len(unique_urls) < len(urls):
+    #     logger.info(f"Loại bỏ {len(urls) - len(unique_urls)} URL trùng")
     urls = unique_urls
 
     # ── Khởi tạo crawler nếu chưa có ─────────────
@@ -93,84 +95,72 @@ def crawl_urls(
     products: list[ShopeeProduct] = []
     errors:   list[dict]          = []
 
-    # 🚀 KHỞI ĐỘNG BROWSER DUY NHẤT
-    crawler.start()
-
     try:
-        logger.info(f"🚀 Bắt đầu crawl {len(urls)} URL...")
-
         # ── Parse tất cả URLs trước ──────────────────
         parsed_urls = extract_ids_from_urls(urls)
 
-        # ── Crawl từng URL ───────────────────────────
-        for index, (url, parse_result) in enumerate(parsed_urls, start=1):
-            prefix = f"[{index:>3}/{len(urls)}]"
+        # ─── Crawl từng URL ───────────────────────────
+        try:
+            for index, (url, parse_result) in enumerate(parsed_urls, start=1):
+                if isinstance(parse_result, Exception):
+                    errors.append({"url": url, "reason": str(parse_result)})
+                    continue
 
-            # Trường hợp parse URL thất bại
-            if isinstance(parse_result, Exception):
-                logger.warning(f"{prefix} ❌ Parse lỗi: {url[:60]}")
-                errors.append({"url": url, "reason": str(parse_result)})
-                continue
+                print(f"[*] [{index}/{len(urls)}] Đang xử lý: {url[:50]}...")
+                product = crawler.get_product(
+                    shop_id=parse_result["shop_id"],
+                    item_id=parse_result["item_id"],
+                    url=url
+                )
 
-            # Crawl sản phẩm
-            logger.info(f"{prefix} 🔍 {url[:60]}...")
-            product = crawler.get_product(
-                shop_id=parse_result["shop_id"],
-                item_id=parse_result["item_id"],
-                url=url
-            )
-
-            if product:
-                products.append(product)
-                # Giới hạn độ dài title khi in log cho đẹp
-                short_title = product.title[:50] + "..." if len(product.title) > 50 else product.title
-                logger.info(f"{prefix} ✅ {short_title}")
-            else:
-                errors.append({"url": url, "reason": "Crawl thất bại (Kiểm tra log/ảnh lỗi)"})
-                logger.warning(f"{prefix} ⚠️ Không lấy được dữ liệu")
-            
-            # Nghỉ ngắn giữa các link để tăng tốc (Dữ liệu API giờ bắt rất nhanh)
-            if index < len(parsed_urls):
-                delay = random.uniform(1, 2)
-                logger.info(f"⏳ Nghỉ nhanh {delay:.1f}s...")
-                time.sleep(delay)
+                if product:
+                    products.append(product)
+                    print(f"    ✅ Thành công: {product.title[:60]}...")
+                else:
+                    errors.append({"url": url, "reason": "Crawl thất bại"})
+                    print(f"    ❌ Thất bại: {url[:50]}")
+                
+                if index < len(parsed_urls):
+                    time.sleep(random.uniform(1, 2))
+        except KeyboardInterrupt:
+            print("\n[⚠️] Đang hủy thao tác crawl theo yêu cầu...")
+            # Trả về kết quả những gì đã crawl được đến lúc này
+            pass
 
         # ── Tạo kết quả ──────────────────────────────
         result = BatchResult(products=products, errors=errors)
-        result.print_summary()
-
-        # ── In thống kê crawler ───────────────────────
-        stats = crawler.get_stats()
-        logger.info(
-            f"📈 Thống kê crawler: {stats['success']}/{stats['total']} request thành công "
-            f"({stats['rate']})"
-        )
 
         # ── Lưu JSON ra file ─────────────────────────
+        saved_file = None
         if save_to_file and products:
-            save_products_to_json(products)
+            saved_file = save_products_to_json(products)
 
-        return result
+        return result, saved_file
 
-    finally:
-        crawler.stop()
+    except Exception as e:
+        logger.error(f"Lỗi batch: {str(e)}")
+        return BatchResult(products=products, errors=errors), None
 
 
 def save_products_to_json(
     products: list[ShopeeProduct],
-    filepath: str = OUTPUT_JSON_FILE,
-) -> None:
+    filepath: Optional[str] = None,
+) -> str:
     """
-    Lưu danh sách sản phẩm ra file JSON.
-    Tạo thư mục nếu chưa tồn tại.
+    Lưu danh sách sản phẩm ra file JSON với tên duy nhất.
     """
+    if not filepath:
+        timestamp = time.strftime("%Y%m%d_%H%M%S")
+        filename = f"shopee-product-{timestamp}.json"
+        filepath = os.path.join(DOWNLOADS_DIR, filename)
+
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
 
     data = [p.to_dict() for p in products]
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-    logger.info(f"💾 Đã lưu {len(products)} sản phẩm → {filepath}")
+    return filepath
 
 
 def load_urls_from_file(filepath: str) -> list[str]:
@@ -189,5 +179,5 @@ def load_urls_from_file(filepath: str) -> list[str]:
             if line.strip() and not line.strip().startswith("#")
         ]
 
-    logger.info(f"📄 Đọc được {len(urls)} URL từ {filepath}")
+    # logger.info(f"📄 Đọc được {len(urls)} URL từ {filepath}")
     return urls

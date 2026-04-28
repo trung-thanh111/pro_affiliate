@@ -45,12 +45,13 @@ def get_logger(name: str = "shopee_crawler") -> logging.Logger:
     console_handler.setFormatter(console_formatter)
 
     # ── File handler (không màu) ──────────────────
+    # CHỈ LOG LỖI (ERROR) RA FILE ĐỂ TIẾT KIỆM BỘ NHỚ VÀ DỄ THEO DÕI
     file_formatter = logging.Formatter(
         "[%(levelname)s] %(asctime)s %(name)s: %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
     )
     file_handler = logging.FileHandler(LOG_FILE, encoding="utf-8")
-    file_handler.setLevel(logging.DEBUG)
+    file_handler.setLevel(logging.ERROR)
     file_handler.setFormatter(file_formatter)
 
     logger.addHandler(console_handler)
