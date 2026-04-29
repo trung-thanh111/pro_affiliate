@@ -3,12 +3,30 @@ import sys
 import argparse
 import time
 import subprocess
+import shutil
+from config import OUTPUT_DIR
 from crawlers.batch_crawler import crawl_urls, load_urls_from_file, DOWNLOADS_DIR
 from crawlers.shopee_api_crawler import ShopeeApiCrawler
 from utils.url_parser import parse_shopee_url
 from utils.logger import get_logger
 
 logger = get_logger("main")
+
+def delete_profile():
+    profile_path = os.path.join(OUTPUT_DIR, "shopee_profile")
+    if os.path.exists(profile_path):
+        print(f"\n[*] Đang xóa profile tại: {profile_path}...")
+        try:
+            # Kill chrome processes if any
+            subprocess.run(['taskkill', '/F', '/IM', 'chrome.exe'], capture_output=True)
+            time.sleep(1)
+            shutil.rmtree(profile_path)
+            print("[✅] Đã xóa profile thành công.")
+        except Exception as e:
+            print(f"[❌] Lỗi xóa: {str(e)}")
+    else:
+        print("\n[!] Không tìm thấy profile.")
+    time.sleep(1)
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -30,10 +48,11 @@ def show_guide():
     print("\n2. CRAWL HÀNG LOẠT (BATCH):")
     print("   - Tạo file 'urls.txt' trong cùng thư mục với tool này.")
     print("   - Mỗi dòng dán 1 link sản phẩm Shopee.")
-    print("   - Chọn [3] và nhấn Enter để tool tự chạy.")
-    print("\n3. KẾT QUẢ & TẢI VỀ:")
-    print("   - Sau khi xong, tool sẽ tự động lưu file JSON vào thư mục DOWNLOADS.")
-    print("   - Thư mục Downloads sẽ tự động bật lên để bạn lấy file.")
+    print("   - Chọn [4] và nhấn Enter để tool tự chạy.")
+    print("\n3. SIÊU TÀNG HÌNH (REMOTE CHROME):")
+    print("   - Chọn [2] để mở một cửa sổ Chrome.")
+    print("   - Đăng nhập Shopee trên đó.")
+    print("   - Khi crawl, chọn 'y' để kết nối vào cửa sổ này.")
     print("\n" + "-"*65)
     input("Nhấn Enter để quay lại menu...")
 
@@ -45,50 +64,56 @@ def create_sample_file():
             f.write("https://shopee.vn/product/89827191/23244410073\n")
         print(f"\n[✅] Đã tạo file mẫu '{filename}'. Bạn có thể mở nó lên để dán thêm link.")
     else:
-        print(f"\n[!] File '{filename}' đã tồn tại.")
-    time.sleep(2)
-
-def login_manual():
-    print("\n[*] Đang khởi động trình duyệt để đăng nhập...")
-    crawler = ShopeeApiCrawler()
-    try:
-        crawler.start()
-        print("\n" + "!"*60)
-        print("  1. Vui lòng đăng nhập vào Shopee trên trình duyệt.")
-        print("  2. Giải Captcha nếu xuất hiện.")
-        print("  3. Sau khi xong, hãy QUAY LẠI ĐÂY và nhấn ENTER.")
-        print("!"*60)
-        input("\n Nhấn ENTER sau khi đã đăng nhập thành công...")
-    finally:
-        crawler.stop()
-    print("\n[✅] Đã lưu session! Sẵn sàng thực chiến.")
+        print(f"[✅] Đã tồn tại file '{filename}'.")
     time.sleep(1)
+
+def launch_chrome_remote():
+    """Hướng dẫn và tự động mở Chrome ở chế độ Remote Debugging"""
+    profile_path = os.path.join(os.getcwd(), "output", "chrome_debug_profile")
+    if not os.path.exists(profile_path):
+        os.makedirs(profile_path, exist_ok=True)
+    
+    chrome_paths = [
+        r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+        r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+        os.path.expandvars(r"%LocalAppData%\Google\Chrome\Application\chrome.exe")
+    ]
+    chrome_exe = next((p for p in chrome_paths if os.path.exists(p)), None)
+    
+    if not chrome_exe:
+        print("\n[❌] Không tìm thấy Google Chrome. Hãy mở thủ công với flag: --remote-debugging-port=9222")
+        return False
+
+    print("\n[*] Đang khởi động Google Chrome ...")
+    cmd = f'"{chrome_exe}" --remote-debugging-port=9222 --user-data-dir="{profile_path}" --no-first-run'
+    subprocess.Popen(cmd, shell=True)
+    print("[✅] Đã mở Chrome. HÃY ĐĂNG NHẬP SHOPEE TRÊN ĐÓ TRƯỚC.")
+    time.sleep(2)
+    return True
 
 def crawl_single_flow():
     url = input("\n Nhập link sản phẩm Shopee: ").strip()
     if not url: return
     
+    ids = parse_shopee_url(url)
+    print(f"[*] Đang xử lý: {url[:50]}...")
+    use_remote = input(" Dùng Chrome đang mở ở Option [1] (y/n)? [y]: ").strip().lower() != 'n'
+    
+    crawler = ShopeeApiCrawler()
     try:
-        ids = parse_shopee_url(url)
-        print(f"[*] Đang xử lý: {url[:50]}...")
-        crawler = ShopeeApiCrawler()
-        try:
-            crawler.start()
-            product = crawler.get_product(ids['shop_id'], ids['item_id'], url)
-            if product:
-                from crawlers.batch_crawler import save_products_to_json
-                saved_file = save_products_to_json([product])
-                print(f"    ✅ Thành công! Đang tự động tải về thư mục Downloads...")
-                print(f"    📂 File: {os.path.basename(saved_file)}")
-                os.startfile(os.path.dirname(saved_file))
-            else:
-                print(f"    ❌ Thất bại: {url[:50]}")
-        finally:
-            crawler.stop()
-    except KeyboardInterrupt:
-        print("\n[⚠️] Đã hủy thao tác.")
+        crawler.start(headless=False, use_remote=use_remote)
+        product = crawler.get_product(ids['shop_id'], ids['item_id'], url)
+        if product:
+            from crawlers.batch_crawler import save_products_to_json
+            saved_file = save_products_to_json([product])
+            print(f"    ✅ Thành công! File: {os.path.basename(saved_file)}")
+            os.startfile(os.path.dirname(saved_file))
+        else:
+            print(f"    ❌ Thất bại: {url[:50]}")
     except Exception as e:
         print(f"\n[❌] Lỗi: {str(e)}")
+    finally:
+        crawler.stop()
     input("\nNhấn Enter để quay lại menu...")
 
 def crawl_batch_flow():
@@ -104,24 +129,23 @@ def crawl_batch_flow():
     
     if not os.path.exists(file_path):
         print(f"\n[❌] Không tìm thấy file: {file_path}")
-        print("Gợi ý: Chọn chức năng [4] ở menu chính để tạo file mẫu.")
-        input("\nNhấn Enter để quay lại menu...")
         return
-
+    
+    use_remote = input("\n Dùng Chrome đang mở ở Option [1] (y/n)? [y]: ").strip().lower() != 'n'
+    
     crawler = ShopeeApiCrawler()
     try:
-        crawler.start()
+        crawler.start(headless=False, use_remote=use_remote)
         urls = load_urls_from_file(file_path)
         if not urls:
-            print("\n File rỗng, không có gì để crawl.")
+            print("\n File rỗng.")
         else:
             result, saved_file = crawl_urls(urls, crawler)
             if saved_file:
-                print(f"\n HOÀN TẤT! Đã tải về: {os.path.basename(saved_file)}")
-                print(f" Thư mục Downloads đang được mở...")
+                print(f"\n HOÀN TẤT! Đã lưu: {os.path.basename(saved_file)}")
                 os.startfile(os.path.dirname(saved_file))
-    except KeyboardInterrupt:
-        print("\n Đã dừng quá trình crawl batch theo yêu cầu.")
+    except Exception as e:
+        print(f"\n[❌] Lỗi: {str(e)}")
     finally:
         crawler.stop()
     input("\nNhấn Enter để quay lại menu...")
@@ -130,17 +154,24 @@ def main_menu():
     while True:
         clear_screen()
         show_banner()
-        print("\n[1] ĐĂNG NHẬP / GIẢI CAPTCHA (Làm 1 lần duy nhất)")
+        print("\n[0] XÓA PROFILE CŨ (Làm mới hoàn toàn)")
+        # print("[1] ĐĂNG NHẬP (Làm 1 lần duy nhất)")
+        print("[1] MỞ CHROME & ĐĂNG NHẬP THỦ CÔNG")
         print("[2] CRAWL 1 LINK ĐƠN LẺ")
-        print("[3] CRAWL DANH SÁCH TỪ FILE (BATCH)")
+        print("[3] CRAWL DANH SÁCH (urls.txt hoặc link file .txt)")
         print("[4] TẠO FILE 'urls.txt' MẪU")
-        print("[5] HƯỚNG DẪN SỬ DỤNG")
+        print("[5] HƯỚNG DẪN")
         print("[6] THOÁT")
         
-        choice = input("\n Chọn chức năng (1-6): ").strip()
+        choice = input("\n Chọn chức năng (0-6): ").strip()
         
-        if choice == '1':
-            login_manual()
+        if choice == '0':
+            delete_profile()
+        # elif choice == '1':
+        #     from login_helper import manual_login
+        #     manual_login()
+        elif choice == '1':
+            launch_chrome_remote()
         elif choice == '2':
             crawl_single_flow()
         elif choice == '3':
@@ -150,36 +181,13 @@ def main_menu():
         elif choice == '5':
             show_guide()
         elif choice == '6':
-            print("\nChào tạm biệt! ")
             break
         else:
             print("\n Lựa chọn không hợp lệ.")
             time.sleep(1)
 
 def main():
-    parser = argparse.ArgumentParser(description="Shopee Crawler CLI")
-    parser.add_argument("--url", help="Crawl 1 URL duy nhất")
-    parser.add_argument("--file", help="Crawl danh sách URL từ file")
-    args = parser.parse_args()
-
-    if args.url:
-        ids = parse_shopee_url(args.url)
-        crawler = ShopeeApiCrawler()
-        try:
-            crawler.start()
-            crawler.get_product(ids['shop_id'], ids['item_id'], args.url)
-        finally:
-            crawler.stop()
-    elif args.file:
-        crawler = ShopeeApiCrawler()
-        try:
-            crawler.start()
-            urls = load_urls_from_file(args.file)
-            crawl_urls(urls, crawler)
-        finally:
-            crawler.stop()
-    else:
-        main_menu()
+    main_menu()
 
 if __name__ == "__main__":
     main()

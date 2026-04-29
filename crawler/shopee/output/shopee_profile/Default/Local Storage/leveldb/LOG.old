@@ -1,5 +1,6 @@
-2026/04/28-19:25:13.032 3108 Reusing MANIFEST D:\Workspace\pro_affiliate\crawler\shopee\output\shopee_profile\Default\Local Storage\leveldb/MANIFEST-000001
-2026/04/28-19:25:13.052 3108 Recovering log #49
-2026/04/28-19:25:13.052 3108 Level-0 table #52: started
-2026/04/28-19:25:13.058 3108 Level-0 table #52: 28435 bytes OK
-2026/04/28-19:25:13.063 3108 Delete type=0 #49
+2026/04/29-14:07:15.544 a580 Reusing MANIFEST D:\Workspace\pro_affiliate\crawler\shopee\output\shopee_profile\Default\Local Storage\leveldb/MANIFEST-000001
+2026/04/29-14:07:15.550 a580 Recovering log #3
+2026/04/29-14:07:15.552 a580 Reusing old log D:\Workspace\pro_affiliate\crawler\shopee\output\shopee_profile\Default\Local Storage\leveldb/000003.log 
+2026/04/29-14:07:27.678 a624 Level-0 table #5: started
+2026/04/29-14:07:27.683 a624 Level-0 table #5: 68696 bytes OK
+2026/04/29-14:07:27.686 a624 Delete type=0 #3

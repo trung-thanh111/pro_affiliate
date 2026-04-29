@@ -1,0 +1,11 @@
+[ERROR] 2026-04-29 12:01:20 shopee_crawler: ❌ Quá thời gian chờ giải Captcha!
+[ERROR] 2026-04-29 12:42:37 shopee_crawler: ❌ Không thể kết nối vào Chrome (9222). Hãy đảm bảo bạn đã mở Chrome bằng lệnh đặc biệt. Lỗi: 'Browser' object has no attribute 'pages'
+[ERROR] 2026-04-29 14:05:24 shopee_crawler: ❌ Không thể kết nối vào Chrome (9222). Hãy đảm bảo bạn đã mở Chrome bằng lệnh đặc biệt. Lỗi: connect ECONNREFUSED 127.0.0.1:9222
+[ERROR] 2026-04-29 14:06:52 shopee_crawler: ❌ Không thể kết nối vào Chrome (9222). Hãy đảm bảo bạn đã mở Chrome bằng lệnh đặc biệt. Lỗi: connect ECONNREFUSED 127.0.0.1:9222
+[ERROR] 2026-04-29 14:13:11 shopee_crawler: ❌ Không thể kết nối vào Chrome (9222). Hãy đảm bảo bạn đã mở Chrome bằng lệnh đặc biệt. Lỗi: connect ECONNREFUSED 127.0.0.1:9222
+[ERROR] 2026-04-29 14:15:53 shopee_crawler: ❌ Lỗi: Target page, context or browser has been closed
+[ERROR] 2026-04-29 14:15:53 shopee_crawler: ❌ Lỗi: Target page, context or browser has been closed
+[ERROR] 2026-04-29 14:15:55 shopee_crawler: ❌ Lỗi: Target page, context or browser has been closed
+[ERROR] 2026-04-29 14:15:55 shopee_crawler: ❌ Lỗi: Target page, context or browser has been closed
+[ERROR] 2026-04-29 14:15:57 shopee_crawler: ❌ Lỗi: Target page, context or browser has been closed
+[ERROR] 2026-04-29 14:15:57 shopee_crawler: ❌ Lỗi: Target page, context or browser has been closed
