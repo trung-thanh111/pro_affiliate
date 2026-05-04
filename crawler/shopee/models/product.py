@@ -3,10 +3,11 @@ from typing import List
 
 @dataclass
 class ShopeeProduct:
-    title: str
-    price_min: float
-    price_max: float
-    images: List[str]
+    name: str
+    price: float
+    price_discount: float
+    album: List[str]
+    
 
     def to_dict(self):
         return asdict(self)

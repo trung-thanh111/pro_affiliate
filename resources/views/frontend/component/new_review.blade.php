@@ -22,8 +22,8 @@
             </div>
 
             <div class="view-more-footer text-center mt-5">
-                <button type="button" id="load-more-review" data-page="1" class="view-all-standard border-primary text-primary px-5 py-2 fw-bold text-uppercase">
-                    Xem thêm đánh giá <i class="bi bi-chevron-down ms-2"></i>
+                <button type="button" id="load-more-review" data-page="1" class="view-all-standard text-primary px-5 py-2 fw-bold text-uppercase">
+                    Xem thêm <i class="bi bi-chevron-down ms-2"></i>
                 </button>
             </div>
         </div>
