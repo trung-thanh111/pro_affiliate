@@ -185,7 +185,7 @@ ol li {
             margin-top: 5px;
 
             img {
-                height: 68px;
+                height: 40px;
                 width: auto;
             }
         }
@@ -197,7 +197,7 @@ ol li {
             justify-content: center;
             align-items: flex-start;
             max-width: 860px;
-            margin: 0 auto;
+            padding: 0 20px;
             position: relative;
             z-index: 10;
         }
@@ -5369,7 +5369,9 @@ html.wowjs .wow {
         transition: transform 0.3s ease;
     }
 
-    &:hover, &:focus, &:active {
+    &:hover,
+    &:focus,
+    &:active {
         background: var(--primary-gradient);
         color: #fff !important;
         border-color: transparent;

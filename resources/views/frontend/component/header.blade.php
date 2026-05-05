@@ -44,7 +44,7 @@
     {{-- Main Header --}}
     <div class="main-header">
         <div class="container">
-            <div class="d-flex align-items-start gap-4">
+            <div class="d-flex align-items-center gap-4">
                 {{-- Logo --}}
                 <div class="logo flex-shrink-0 mt-1">
                     <a href="{{ route('home.index') }}"><img src="{{ $system['homepage_logo'] }}" alt="Logo"></a>
@@ -93,8 +93,8 @@
         <div class="header-top-row d-flex align-items-center justify-content-between py-2">
             {{-- Left: Logo --}}
             <div class="mobile-logo">
-                <a href="{{ route('home.index') }}"><img src="{{ $system['homepage_logo'] }}" alt="Logo" class="img-fluid"
-                        style="max-height: 45px;"></a>
+                <a href="{{ route('home.index') }}"><img src="{{ $system['homepage_logo'] }}" alt="Logo"
+                        class="img-fluid" style="max-height: 45px;"></a>
             </div>
 
             {{-- Center: Search (Visible only on Tablet) --}}
@@ -128,8 +128,8 @@
             <div class="mobile-search-bar">
                 <form action="{{ route('post.catalogue.search') }}" method="GET" class="search-form-mobile">
                     <div class="input-group">
-                        <input type="text" name="keyword" class="form-control"
-                            placeholder="Bạn muốn tìm gì hôm nay?" autocomplete="off">
+                        <input type="text" name="keyword" class="form-control" placeholder="Bạn muốn tìm gì hôm nay?"
+                            autocomplete="off">
                         <button class="btn btn-search-mobile" type="submit">
                             <i class="bi bi-search"></i>
                         </button>
