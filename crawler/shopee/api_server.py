@@ -135,9 +135,10 @@ async def crawl_single(request: CrawlSingleRequest):
         raise HTTPException(status_code=400, detail=f"URL không hợp lệ: {str(e)}")
 
     # Crawl sản phẩm
-    product = _crawler.get_product(
+    product = await _crawler.get_product(
         shop_id=ids["shop_id"],
         item_id=ids["item_id"],
+        url=request.url,
     )
 
     if not product:
@@ -164,7 +165,7 @@ async def crawl_batch(request: CrawlBatchRequest):
     Response:
         { "success": N, "products": [...], "errors": [...] }
     """
-    result = crawl_urls(
+    result, _ = await crawl_urls(
         urls    = request.urls,
         crawler = _crawler,
         save_to_file = False,  # Không lưu file khi gọi qua API

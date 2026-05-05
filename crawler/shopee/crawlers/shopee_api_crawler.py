@@ -1,6 +1,6 @@
 """
 =====================================================
-  crawlers/shopee_api_crawler.py — Crawler chính (Playwright Version)
+  crawlers/shopee_api_crawler.py — Crawler chính (Playwright Async Version)
   
   Nguyên tắc hoạt động:
   1. Sử dụng Playwright (Stealth) để bypass Cloudflare/Bot detection.
@@ -11,13 +11,13 @@
 """
 
 import os
-import time
+import asyncio
 import random
 import re
 import json
 from datetime import datetime
 from typing import Optional, List, Dict, Any
-from playwright.sync_api import sync_playwright
+from playwright.async_api import async_playwright
 
 from config import (
     SHOPEE_BASE_URL,
@@ -59,31 +59,32 @@ class ShopeeApiCrawler:
         self.playwright = None
         self.browser_context = None
         self.page = None
+        self.browser = None
 
         if not os.path.exists(self.user_data_dir):
             os.makedirs(self.user_data_dir, exist_ok=True)
 
-    def start(self, headless: bool = True, use_remote: bool = False):
+    async def start(self, headless: bool = True, use_remote: bool = False):
         """Khởi động trình duyệt hoặc kết nối vào trình duyệt có sẵn."""
         if self.page: return
         
-        self.playwright = sync_playwright().start()
+        self.playwright = await async_playwright().start()
         
         if use_remote:
             # Chế độ kết nối vào Chrome đang mở sẵn (Cổng 9222)
             try:
-                self.browser = self.playwright.chromium.connect_over_cdp("http://localhost:9222")
+                self.browser = await self.playwright.chromium.connect_over_cdp("http://localhost:9222")
                 if not self.browser.contexts:
-                    self.browser_context = self.browser.new_context()
+                    self.browser_context = await self.browser.new_context()
                 else:
                     self.browser_context = self.browser.contexts[0]
                 
-                self.page = self.browser_context.pages[0] if self.browser_context.pages else self.browser_context.new_page()
+                self.page = self.browser_context.pages[0] if self.browser_context.pages else await self.browser_context.new_page()
                 logger.info("✅ Đã kết nối thành công!")
             except Exception as e:
-                logger.error(f"❌ Không thể kết nối vào Chrome (9222). Hãy đảm bảo bạn đã mở Chrome bằng lệnh đặc biệt. Lỗi: {e}")
+                logger.error(f"❌ Không thể kết nối vào Chrome (9222). Lỗi: {e}")
                 if self.playwright:
-                    self.playwright.stop()
+                    await self.playwright.stop()
                 self.playwright = None
                 raise e
         else:
@@ -94,13 +95,13 @@ class ShopeeApiCrawler:
                 '--password-store=basic',
                 '--use-mock-keychain',
                 '--disable-blink-features=AutomationControlled',
-                '--test-type', # Quan trọng: Khóa mọi cảnh báo vàng của Chrome
+                '--test-type',
             ]
                 
-            self.browser_context = self.playwright.chromium.launch_persistent_context(
+            self.browser_context = await self.playwright.chromium.launch_persistent_context(
                 self.user_data_dir,
                 headless=headless,
-                channel="chrome", # Dùng Chrome thật
+                channel="chrome",
                 viewport={'width': 1366, 'height': 768},
                 locale="vi-VN",
                 timezone_id="Asia/Ho_Chi_Minh",
@@ -108,167 +109,138 @@ class ShopeeApiCrawler:
                 ignore_default_args=["--enable-automation", "--no-sandbox"], 
                 args=browser_args
             )
-            self.page = self.browser_context.pages[0] if self.browser_context.pages else self.browser_context.new_page()
+            self.page = self.browser_context.pages[0] if self.browser_context.pages else await self.browser_context.new_page()
         
-        # ─── CÀI ĐẶT CHUNG CHO CẢ 2 CHẾ ĐỘ ───────────────────────────
-        
-        # 1. Custom Stealth Injection (Ultimate Edition)
-        self.page.add_init_script("""
-            // 1. Xóa Webdriver tuyệt đối
+        # 1. Stealth Injection
+        await self.page.add_init_script("""
             Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
-            if (Object.getPrototypeOf(navigator).hasOwnProperty('webdriver')) {
-                delete Object.getPrototypeOf(navigator).webdriver;
-            }
-
-            // 2. Fake Chrome Object chuyên sâu
             window.chrome = {
                 app: { isInstalled: false, InstallState: { DISABLED: 'disabled', INSTALLED: 'installed', NOT_INSTALLED: 'not_installed' } },
                 runtime: { PlatformOs: 'win', PlatformArch: 'x86-64', OnInstalledReason: { INSTALL: 'install' } }
             };
-
-            // 3. Fake Hardware Fingerprint (Rất quan trọng cho Akamai)
             Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => 8 });
             Object.defineProperty(navigator, 'deviceMemory', { get: () => 8 });
-            Object.defineProperty(navigator, 'plugins', { get: () => [1, 2, 3, 4, 5] });
-            Object.defineProperty(navigator, 'languages', { get: () => ['vi-VN', 'vi', 'en-US', 'en'] });
-
-            // 4. Fake WebGL Vendor & Renderer (Bypass hardware check)
-            const getParameter = WebGLRenderingContext.prototype.getParameter;
-            WebGLRenderingContext.prototype.getParameter = function(parameter) {
-                if (parameter === 37445) return 'Google Inc. (NVIDIA)'; // UNMASKED_VENDOR_WEBGL
-                if (parameter === 37446) return 'ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Direct3D11 vs_5_0 ps_5_0, D3D11)'; // UNMASKED_RENDERER_WEBGL
-                return getParameter.apply(this, arguments);
-            };
-
-            // 5. Bypass Permissions
-            const originalQuery = window.navigator.permissions.query;
-            window.navigator.permissions.query = parameters => (
-                parameters.name === 'notifications' ?
-                    Promise.resolve({ state: Notification.permission }) :
-                    originalQuery(parameters)
-            );
         """)
         
-        # ─── Global API Interceptor (Context Level - Catch All) ───────
+        # 2. API Interceptor
         self.last_api_data = None
         def on_response(response):
-            url = response.url
-            if "shopee.vn/api/v4/" in url:
-                # logger.debug(f"🔍 API Hit: {url[:80]}...")
-                if "item/get" in url or "pdp/get" in url:
-                    try:
-                        if response.status == 200:
-                            json_res = response.json()
-                            data = json_res.get("data")
-                            if data and (data.get("name") or data.get("itemid")):
-                                self.last_api_data = data
-                                # logger.debug(f"🔥 [INTERCEPT] Bắt được API: {data.get('name', 'N/A')[:40]}...")
-                    except: pass
+            if "shopee.vn/api/v4/" in response.url:
+                if "item/get" in response.url or "pdp/get" in response.url:
+                    asyncio.create_task(self._handle_api_response(response))
         
         self.browser_context.on("response", on_response)
         
-        # Warm-up nhẹ nhàng ở lần đầu tiên
+        # Warm-up
         try:
-            # Đi từ trang chủ để giống người dùng thật hơn
-            self.page.goto(SHOPEE_BASE_URL, wait_until="domcontentloaded", timeout=30000)
-            
-            # Mô phỏng di chuyển chuột ngẫu nhiên để làm ấm
-            for _ in range(3):
-                self.page.mouse.move(random.randint(100, 700), random.randint(100, 500))
-                time.sleep(random.uniform(0.5, 1.5))
-                
-            time.sleep(random.uniform(1, 2))
-        except:
-            pass
+            await self.page.goto(SHOPEE_BASE_URL, wait_until="domcontentloaded", timeout=30000)
+            await asyncio.sleep(random.uniform(1, 2))
+        except: pass
 
-    def stop(self):
+    async def _handle_api_response(self, response):
+        try:
+            if response.status == 200:
+                json_res = await response.json()
+                data = json_res.get("data")
+                if data and (data.get("name") or data.get("itemid")):
+                    self.last_api_data = data
+        except: pass
+
+    async def stop(self):
         """Đóng trình duyệt và dọn dẹp tài nguyên."""
         try:
-            if self.page:
-                self.page.close()
-            if self.browser_context:
-                self.browser_context.close()
-            if hasattr(self, 'browser') and self.browser:
-                self.browser.close()
-            if self.playwright:
-                self.playwright.stop()
-        except Exception as e:
-            # logger.debug(f"Error during stop: {e}")
-            pass
+            if self.page: await self.page.close()
+            if self.browser_context: await self.browser_context.close()
+            if self.browser: await self.browser.close()
+            if self.playwright: await self.playwright.stop()
+        except: pass
         finally:
             self.page = None
             self.browser_context = None
             self.playwright = None
             self.browser = None
 
-    def _random_delay(self, multiplier: float = 1.0) -> None:
-        delay = random.uniform(self.delay_min, self.delay_max) * multiplier
-        time.sleep(delay)
+    def _slugify(self, text: str) -> str:
+        """Chuyển đổi văn bản thành slug URL."""
+        if not text: return ""
+        text = text.lower()
+        # Thay thế các ký tự tiếng Việt có dấu
+        vietnamese_map = {
+            'a': 'àáạảãâầấậẩẫăằắặẳẵ',
+            'e': 'èéẹẻẽêềếệểễ',
+            'i': 'ìíịỉĩ',
+            'o': 'òóọỏõôồốộổỗơờớợởỡ',
+            'u': 'ùúụủũưừứựửữ',
+            'y': 'ỳýỵỷỹ',
+            'd': 'đ'
+        }
+        for char, chars in vietnamese_map.items():
+            for c in chars:
+                text = text.replace(c, char)
+        
+        text = re.sub(r'[^a-z0-9\s-]', '', text)
+        text = re.sub(r'\s+', '-', text).strip('-')
+        return text
 
     def _extract_product_data(self, item: dict) -> ShopeeProduct:
-        """Chuyển đổi dữ liệu thô sang ShopeeProduct tối giản."""
-        # Lấy giá min/max từ API hoặc DOM
         p_min = item.get("price_min", item.get("price", 0))
         p_max = item.get("price_max", p_min)
-        
-        # Nếu là dữ liệu API Shopee, giá thường bị nhân 100,000
         if p_min > 1000000:
             p_min /= SHOPEE_PRICE_UNIT
             p_max /= SHOPEE_PRICE_UNIT
 
-        # Xử lý danh sách ảnh
         raw_images = item.get("images", [])
-        processed_images = []
-        for img in raw_images:
-            if not img.startswith("http"):
-                processed_images.append(f"https://down-vn.img.susercontent.com/file/{img}")
-            else:
-                processed_images.append(img)
+        processed_images = [f"https://down-vn.img.susercontent.com/file/{img}" if not img.startswith("http") else img for img in raw_images]
+
+        categories = item.get("categories", [])
+        cat_name = ""
+        if categories:
+            cat_name = categories[-1].get("display_name", "")
 
         return ShopeeProduct(
-            title=item.get("name", ""),
-            price_min=float(p_min),
-            price_max=float(p_max),
-            images=processed_images, # Lấy toàn bộ ảnh có sẵn
+            name=item.get("name", ""),
+            price=float(p_min),
+            price_discount=float(p_max),
+            album=processed_images,
+            # catalogue={
+            #     "name": cat_name,
+            #     "canonical": self._slugify(cat_name),
+            # },
         )
 
-    def get_product(self, shop_id: str, item_id: str, url: Optional[str] = None) -> Optional[ShopeeProduct]:
-        """Lấy thông tin sản phẩm dùng session hiện có."""
+    async def get_product(self, shop_id: str, item_id: str, url: Optional[str] = None) -> Optional[ShopeeProduct]:
+        # print(f"DEBUG: Calling get_product with shop_id={shop_id}, item_id={item_id}")
         self._total_requests += 1
         self.last_api_data = None 
         
-        # Kiểm tra xem page có còn sống không, nếu không thì khởi động lại
         try:
             if not self.page or self.page.is_closed():
-                self.start()
+                await self.start()
         except:
-            self.start()
+            await self.start()
         
-        page = self.page
         if not url:
             url = f"{SHOPEE_BASE_URL}/product/{shop_id}/{item_id}?lang=vi"
         
-        max_retries = 2
-        for attempt in range(max_retries):
+        for attempt in range(2):
             try:
-                # 1. Điều hướng/Reload
                 if attempt > 0:
-                    logger.info(f"[*] Thử lại lần {attempt} sau khi giải Captcha...")
-                    page.reload(wait_until="domcontentloaded")
+                    logger.info(f"[*] Thử lại lần {attempt}...")
+                    await self.page.reload(wait_until="domcontentloaded")
                 else:
-                    page.goto(url, wait_until="domcontentloaded", timeout=30000)
+                    await self.page.goto(url, wait_until="domcontentloaded", timeout=30000)
 
-                # 2. Polling API (Thụ động & Chủ động)
+                # Polling API
                 for _ in range(15):
                     if self.last_api_data:
                         product = self._extract_product_data(self.last_api_data)
                         self._successful_requests += 1
                         return product
                     
-                    if _ % 2 == 0:
+                    if _ % 3 == 0:
                         try:
                             api_url = f"https://shopee.vn/api/v4/item/get?itemid={item_id}&shopid={shop_id}"
-                            active_data = page.evaluate(f"async () => {{ const r = await fetch('{api_url}'); return await r.json(); }}")
+                            active_data = await self.page.evaluate(f"async () => {{ const r = await fetch('{api_url}'); return await r.json(); }}")
                             if active_data.get("data") and active_data["data"].get("name"):
                                 self.last_api_data = active_data["data"]
                                 product = self._extract_product_data(self.last_api_data)
@@ -276,47 +248,51 @@ class ShopeeApiCrawler:
                                 return product
                         except: pass
 
-                    if "shopee.vn/verify" in page.url:
-                        break
-                    time.sleep(0.5)
+                    if "shopee.vn/verify" in self.page.url: break
+                    await asyncio.sleep(1)
 
-                # 3. Xử lý Captcha
-                if "shopee.vn/verify" in page.url:
-                    logger.warning("⚠️ Shopee đang bắt giải Captcha! Vui lòng can thiệp...")
-                    solved = False
-                    for _ in range(180):
-                        if "shopee.vn/verify" not in page.url:
-                            logger.info("✅ Đã vượt qua Captcha")
-                            time.sleep(2)
-                            solved = True
+                # Captcha handling
+                if "shopee.vn/verify" in self.page.url:
+                    logger.warning("⚠️ Shopee Captcha! Hãy giải trên trình duyệt...")
+                    for _ in range(120):
+                        if "shopee.vn/verify" not in self.page.url:
+                            await asyncio.sleep(2)
                             break
-                        time.sleep(1)
-                    if solved: continue
-                    else: return None
+                        await asyncio.sleep(1)
+                    continue
 
-                # 4. Fallback DOM
-                logger.warning("⚠️ API thất bại, đang thử cào DOM...")
-                page.wait_for_selector("h1, .product-briefing", timeout=5000)
-                full_title = page.title()
-                title = full_title.split("|")[0].strip() if "|" in full_title else full_title
-                
-                heuristics = page.evaluate("""() => {
-                    const res = { price_min: 0, images: [] };
-                    const p = document.querySelector('.G27LRz, .pq6_tw');
-                    if (p) res.price_min = parseInt(p.innerText.replace(/[^0-9]/g, '')) || 0;
-                    res.images = Array.from(document.querySelectorAll('img')).map(i => i.src).slice(0, 3);
-                    return res;
-                }""")
-                
-                if title and title != "Shopee Việt Nam":
-                    self.last_api_data = {
-                        "name": title, "itemid": item_id, "shopid": shop_id,
-                        "price_min": heuristics['price_min'], "price_max": heuristics['price_min'],
-                        "images": heuristics['images']
-                    }
-                    product = self._extract_product_data(self.last_api_data)
-                    self._successful_requests += 1
-                    return product
+                # Fallback DOM
+                logger.warning("⚠️ Thử cào DOM...")
+                try:
+                    await self.page.wait_for_selector("h1", timeout=5000)
+                    full_title = await self.page.title()
+                    title = full_title.split("|")[0].strip()
+                    heuristics = await self.page.evaluate("""() => {
+                        const p = document.querySelector('.G27LRz, .pq6_tw');
+                        const b = document.querySelectorAll('.shopee-category-view__breadcrumb__item, .v79pYn');
+                        let cat = "";
+                        if (b && b.length > 0) {
+                            cat = b[b.length - 1].innerText;
+                        }
+                        return { 
+                            price_min: p ? parseInt(p.innerText.replace(/[^0-9]/g, '')) : 0,
+                            category_name: cat
+                        };
+                    }""")
+                    if title:
+                        self._successful_requests += 1
+                        cat_name = heuristics.get('category_name', '')
+                        return ShopeeProduct(
+                            name=title,
+                            price=float(heuristics['price_min']),
+                            price_discount=float(heuristics['price_min']),
+                            album=[],
+                            catalogue={
+                                "name": cat_name,
+                                "canonical": self._slugify(cat_name),
+                            }
+                        )
+                except: pass
 
             except Exception as e:
                 logger.error(f"❌ Lỗi: {e}")
@@ -324,11 +300,5 @@ class ShopeeApiCrawler:
         return None
 
     def get_stats(self) -> dict:
-        failed = self._total_requests - self._successful_requests
         rate = (self._successful_requests / self._total_requests * 100) if self._total_requests > 0 else 0
-        return {
-            "total": self._total_requests, 
-            "success": self._successful_requests, 
-            "failed": failed, 
-            "rate": f"{rate:.1f}%"
-        }
+        return {"total": self._total_requests, "success": self._successful_requests, "rate": f"{rate:.1f}%"}

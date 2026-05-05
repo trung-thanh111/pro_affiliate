@@ -9,3 +9,10 @@
 [ERROR] 2026-04-29 14:15:55 shopee_crawler: ❌ Lỗi: Target page, context or browser has been closed
 [ERROR] 2026-04-29 14:15:57 shopee_crawler: ❌ Lỗi: Target page, context or browser has been closed
 [ERROR] 2026-04-29 14:15:57 shopee_crawler: ❌ Lỗi: Target page, context or browser has been closed
+[ERROR] 2026-05-04 09:17:08 shopee_crawler: ❌ Không thể kết nối vào Chrome (9222). Hãy đảm bảo bạn đã mở Chrome bằng lệnh đặc biệt. Lỗi: connect ECONNREFUSED 127.0.0.1:9222
+[ERROR] 2026-05-04 09:24:54 shopee_crawler: ❌ Lỗi: ShopeeProduct.__init__() got an unexpected keyword argument 'title'
+[ERROR] 2026-05-04 09:24:56 shopee_crawler: ❌ Lỗi: ShopeeProduct.__init__() got an unexpected keyword argument 'title'
+[ERROR] 2026-05-04 09:26:58 shopee_crawler: ❌ Lỗi: ShopeeProduct.__init__() got an unexpected keyword argument 'title'
+[ERROR] 2026-05-04 09:27:00 shopee_crawler: ❌ Lỗi: ShopeeProduct.__init__() got an unexpected keyword argument 'title'
+[ERROR] 2026-05-04 09:47:08 shopee_crawler: ❌ Không thể kết nối vào Chrome (9222). Lỗi: connect ECONNREFUSED 127.0.0.1:9222
+[ERROR] 2026-05-04 12:14:45 shopee_crawler: ❌ Không thể kết nối vào Chrome (9222). Lỗi: connect ECONNREFUSED 127.0.0.1:9222
