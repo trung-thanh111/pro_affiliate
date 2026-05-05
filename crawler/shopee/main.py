@@ -46,13 +46,12 @@ def launch_chrome_remote():
     time.sleep(2)
     return True
 
-async def crawl_single_flow():
+async def crawl_single_flow(crawler):
     url = input("\n Nhập link sản phẩm Shopee: ").strip()
     if not url: return
     ids = parse_shopee_url(url)
     use_remote = input(" Dùng Chrome đang mở (y/n)? [y]: ").strip().lower() != 'n'
     
-    crawler = ShopeeApiCrawler()
     try:
         await crawler.start(headless=False, use_remote=use_remote)
         product = await crawler.get_product(ids['shop_id'], ids['item_id'], url)
@@ -60,21 +59,19 @@ async def crawl_single_flow():
             from crawlers.batch_crawler import save_products_to_json
             saved_file = save_products_to_json([product])
             print(f" ✅ Thành công! File: {os.path.basename(saved_file)}")
-            # os.startfile(os.path.dirname(saved_file)) # Tắt cho đỡ phiền khi debug
     except Exception as e:
         print(f"\n[❌] Lỗi tại main: {str(e)}")
     finally:
-        await crawler.stop()
+        pass
     input("\nNhấn Enter để quay lại menu...")
 
-async def crawl_batch_flow():
+async def crawl_batch_flow(crawler):
     file_path = input("\n Nhập tên file (mặc định 'urls.txt'): ").strip() or "urls.txt"
     if not os.path.exists(file_path):
         print(f"\n[❌] Không tìm thấy file: {file_path}")
         return
     use_remote = input("\n Dùng Chrome đang mở (y/n)? [y]: ").strip().lower() != 'n'
     
-    crawler = ShopeeApiCrawler()
     try:
         await crawler.start(headless=False, use_remote=use_remote)
         urls = load_urls_from_file(file_path)
@@ -85,12 +82,12 @@ async def crawl_batch_flow():
     except Exception as e:
         print(f"\n[❌] Lỗi tại main: {str(e)}")
     finally:
-        await crawler.stop()
+        pass
     input("\nNhấn Enter để quay lại menu...")
 
-def main_menu():
+async def main_menu():
+    crawler = ShopeeApiCrawler()
     while True:
-        # clear_screen()
         show_banner()
         print("[1] MỞ CHROME & ĐĂNG NHẬP")
         print("[2] CRAWL 1 LINK")
@@ -101,12 +98,18 @@ def main_menu():
         if choice == '1':
             launch_chrome_remote()
         elif choice == '2':
-            asyncio.run(crawl_single_flow())
+            await crawl_single_flow(crawler)
         elif choice == '3':
-            asyncio.run(crawl_batch_flow())
+            await crawl_batch_flow(crawler)
         elif choice == '4':
             break
-        time.sleep(0.5)
+        await asyncio.sleep(0.5)
+    
+    # Chỉ thực sự dừng khi thoát hẳn app
+    # await crawler.stop()
 
 if __name__ == "__main__":
-    main_menu()
+    try:
+        asyncio.run(main_menu())
+    except KeyboardInterrupt:
+        pass

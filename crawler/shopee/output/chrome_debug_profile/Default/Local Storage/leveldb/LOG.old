@@ -1,8 +1,0 @@
-2026/05/05-09:08:17.209 32ec Reusing MANIFEST D:\Workspace\pro_affiliate\crawler\shopee\output\chrome_debug_profile\Default\Local Storage\leveldb/MANIFEST-000001
-2026/05/05-09:08:17.217 32ec Recovering log #85
-2026/05/05-09:08:17.223 32ec Level-0 table #88: started
-2026/05/05-09:08:17.238 32ec Level-0 table #88: 18588 bytes OK
-2026/05/05-09:08:17.240 32ec Recovering log #88
-2026/05/05-09:08:17.250 32ec Reusing old log D:\Workspace\pro_affiliate\crawler\shopee\output\chrome_debug_profile\Default\Local Storage\leveldb/000088.log 
-2026/05/05-09:08:17.254 32ec Delete type=0 #85
-2026/05/05-09:08:17.254 32ec Delete type=2 #89

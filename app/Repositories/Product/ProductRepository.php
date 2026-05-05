@@ -174,6 +174,7 @@ class ProductRepository extends BaseRepository
                 'products.sold',
                 'products.link',
                 'products.source',
+                'products.price_discount',
                 'tb2.name',
                 'tb2.description',
                 'tb2.content',

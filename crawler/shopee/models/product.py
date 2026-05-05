@@ -7,6 +7,8 @@ class ShopeeProduct:
     price: float
     price_discount: float
     album: List[str]
+    sold: int = 0
+    link: str = ""
     # catalogue: Optional[Dict[str, Any]] = None
     
 

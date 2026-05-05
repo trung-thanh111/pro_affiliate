@@ -14,6 +14,6 @@
     </div>
 </div>
 
-@include('backend.product.product.component.crawl_modal')
+@include('backend.product.product.component.import_modal')
 
-<script src="{{ asset('vendor/backend/library/product_crawl.js') }}"></script>
+<script src="{{ asset('vendor/backend/library/product_import.js') }}"></script>

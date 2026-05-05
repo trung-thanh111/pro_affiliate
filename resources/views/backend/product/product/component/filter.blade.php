@@ -9,18 +9,20 @@
                         $productCatalogueId = request('product_catalogue_id') ?: old('product_catalogue_id');
                     @endphp
                     <select name="product_catalogue_id" class="form-control setupSelect2 ml10">
-                        @foreach($dropdown as $key => $val)
-                        <option {{ ($productCatalogueId == $key)  ? 'selected' : '' }} value="{{ $key }}">{{ $val }}</option>
+                        @foreach ($dropdown as $key => $val)
+                            <option {{ $productCatalogueId == $key ? 'selected' : '' }} value="{{ $key }}">
+                                {{ $val }}</option>
                         @endforeach
                     </select>
                     @include('backend.dashboard.component.keyword')
-                    <button type="button" id="crawl-data-btn" class="btn btn-primary mr10">
-                        <i class="fa fa-download mr5"></i> Craw data
+                    <input type="file" id="import-json-input" accept=".json" style="display: none;">
+                    <button type="button" id="import-json-btn" class="btn btn-success mr10">
+                        <i class="fa fa-file-code-o mr5"></i> Import data
                     </button>
-                    <a href="{{ route('product.create') }}" class="btn btn-danger"><i class="fa fa-plus mr5"></i>{{ $config['seo']['create']['title'] }}</a>
+                    <a href="{{ route('product.create') }}" class="btn btn-danger"><i
+                            class="fa fa-plus mr5"></i>{{ $config['seo']['create']['title'] }}</a>
                 </div>
             </div>
         </div>
     </div>
 </form>
-

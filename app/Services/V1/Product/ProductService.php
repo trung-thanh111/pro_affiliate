@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
+use App\Classes\Nestedsetbie;
 use Illuminate\Pagination\Paginator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -64,6 +65,16 @@ class ProductService extends BaseService
         $this->attributeRepository = $attributeRepository;
         $this->productCatalogueService = $productCatalogueService;
         $this->controllerName = 'ProductController';
+        $this->initialize();
+    }
+
+    private function initialize()
+    {
+        $this->nestedset = new Nestedsetbie([
+            'table' => 'product_catalogues',
+            'foreignkey' => 'product_catalogue_id',
+            'language_id' =>  1, // Default language, will be updated in analyze
+        ]);
     }
 
     private function whereRaw($request, $languageId, $productCatalogue = null)
@@ -857,9 +868,9 @@ class ProductService extends BaseService
                 'user_id' => Auth::id(),
                 'product_catalogue_id' => 1,
             ];
-            
+
             $product = $this->productRepository->create($productPayload);
-            
+
             if ($product->id > 0) {
                 $languagePayload = [
                     'name' => $data['name'],
@@ -869,9 +880,9 @@ class ProductService extends BaseService
                     'meta_title' => $data['name'],
                     'meta_description' => $data['description'] ?? '',
                 ];
-                
+
                 $request = new \Illuminate\Http\Request($languagePayload);
-                
+
                 $this->updateLanguageForProduct($product, $request, $languageId);
                 $product->product_catalogues()->sync([1]);
                 $this->createRouter($product, $request, $this->controllerName, $languageId);
@@ -885,4 +896,110 @@ class ProductService extends BaseService
         }
     }
 
+    public function analyzeImport($products, $languageId)
+    {
+        // Sử dụng query trực tiếp để đảm bảo lấy được data danh mục
+        $dropdown = DB::table('product_catalogues as tb1')
+            ->join('product_catalogue_language as tb2', 'tb1.id', '=', 'tb2.product_catalogue_id')
+            ->where('tb2.language_id', $languageId)
+            ->whereNull('tb1.deleted_at')
+            ->select('tb1.id', 'tb2.name', 'tb1.level')
+            ->orderBy('tb1.lft', 'asc')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                $prefix = str_repeat('|-----', (($item->level > 0) ? ($item->level - 1) : 0));
+                return [$item->id => $prefix . $item->name];
+            })
+            ->toArray();
+
+        $existingCatalogueIds = array_keys($dropdown);
+
+        $ready = [];
+        $needReview = [];
+
+        foreach ($products as $item) {
+            $item['image'] = $item['album'][0] ?? '';
+
+            $p = is_numeric($item['price'] ?? 0) ? (float)$item['price'] : convert_price($item['price'] ?? 0);
+            $pd = is_numeric($item['price_discount'] ?? 0) ? (float)$item['price_discount'] : convert_price($item['price_discount'] ?? 0);
+
+            $item['price'] = max($p, $pd);
+            $item['price_discount'] = min($p, $pd);
+            if ($item['price'] == $item['price_discount']) {
+                $item['price_discount'] = 0;
+            }
+            $item['sold'] = $item['sold'] ?? 0;
+
+            $cid = $item['catalogue']['id'] ?? null;
+            if ($cid && in_array($cid, $existingCatalogueIds)) {
+                $item['product_catalogue_id'] = $cid;
+                $ready[] = $item;
+            } else {
+                $needReview[] = $item;
+            }
+        }
+
+        return [
+            'status' => empty($needReview) ? 'direct' : 'review',
+            'ready' => $ready,
+            'review' => $needReview,
+            'dropdown' => $dropdown
+        ];
+    }
+
+    public function executeImport($products, $languageId)
+    {
+        DB::beginTransaction();
+        try {
+            foreach ($products as $item) {
+                $p = is_numeric($item['price'] ?? 0) ? (float)$item['price'] : convert_price($item['price'] ?? 0);
+                $pd = is_numeric($item['price_discount'] ?? 0) ? (float)$item['price_discount'] : convert_price($item['price_discount'] ?? 0);
+
+                // Đảm bảo price (Giá gốc) luôn >= price_discount (Giá KM)
+                $price = max($p, $pd);
+                $priceDiscount = min($p, $pd);
+
+                // Nếu 2 giá bằng nhau thì coi như không có khuyến mãi
+                if ($price == $priceDiscount) {
+                    $priceDiscount = 0;
+                }
+
+                $productPayload = [
+                    'publish' => 2,
+                    'source' => 'Shopee',
+                    'code' => time() . rand(10, 99),
+                    'image' => $item['image'] ?? ($item['album'][0] ?? ''),
+                    'price' => $price,
+                    'price_discount' => $priceDiscount,
+                    'user_id' => Auth::id(),
+                    'product_catalogue_id' => $item['product_catalogue_id'],
+                    'sold' => (int)($item['sold'] ?? 0),
+                    'link' => $item['link'] ?? '',
+                ];
+
+                $product = $this->productRepository->create($productPayload);
+
+                if ($product->id > 0) {
+                    $languagePayload = [
+                        'name' => $item['name'],
+                        'description' => $item['description'] ?? '',
+                        'content' => $item['description'] ?? '',
+                        'canonical' => Str::slug($item['name']) . '-' . time() . '-' . Str::random(5),
+                        'meta_title' => $item['name'],
+                        'meta_description' => $item['description'] ?? '',
+                    ];
+
+                    $request = new \Illuminate\Http\Request($languagePayload);
+                    $this->updateLanguageForProduct($product, $request, $languageId);
+                    $product->product_catalogues()->sync([$item['product_catalogue_id']]);
+                    $this->createRouter($product, $request, $this->controllerName, $languageId);
+                }
+            }
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return false;
+        }
+    }
 }

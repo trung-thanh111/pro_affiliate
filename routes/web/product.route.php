@@ -42,6 +42,8 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
 
         Route::post('crawl', [ProductController::class, 'crawl'])->name('product.crawl');
         Route::post('save-crawled', [ProductController::class, 'saveCrawled'])->name('product.saveCrawled');
+        Route::post('analyze-import', [ProductController::class, 'analyzeImport'])->name('product.analyzeImport');
+        Route::post('execute-import', [ProductController::class, 'executeImport'])->name('product.executeImport');
     });
 
     Route::group(['prefix' => 'attribute/catalogue'], function () {

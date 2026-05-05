@@ -66,7 +66,7 @@ class ShopeeApiCrawler:
 
     async def start(self, headless: bool = True, use_remote: bool = False):
         """Khởi động trình duyệt hoặc kết nối vào trình duyệt có sẵn."""
-        if self.page: return
+        if self.page and not self.page.is_closed(): return
         
         self.playwright = await async_playwright().start()
         
@@ -147,18 +147,19 @@ class ShopeeApiCrawler:
         except: pass
 
     async def stop(self):
-        """Đóng trình duyệt và dọn dẹp tài nguyên."""
-        try:
-            if self.page: await self.page.close()
-            if self.browser_context: await self.browser_context.close()
-            if self.browser: await self.browser.close()
-            if self.playwright: await self.playwright.stop()
-        except: pass
-        finally:
-            self.page = None
-            self.browser_context = None
-            self.playwright = None
-            self.browser = None
+        """Đã tắt việc đóng trình duyệt để giữ Chrome luôn mở."""
+        # try:
+        #     if self.page: await self.page.close()
+        #     if self.browser_context: await self.browser_context.close()
+        #     if self.browser: await self.browser.close()
+        #     if self.playwright: await self.playwright.stop()
+        # except: pass
+        # finally:
+        #     self.page = None
+        #     self.browser_context = None
+        #     self.playwright = None
+        #     self.browser = None
+        pass
 
     def _slugify(self, text: str) -> str:
         """Chuyển đổi văn bản thành slug URL."""
@@ -182,7 +183,7 @@ class ShopeeApiCrawler:
         text = re.sub(r'\s+', '-', text).strip('-')
         return text
 
-    def _extract_product_data(self, item: dict) -> ShopeeProduct:
+    def _extract_product_data(self, item: dict, url: str = "") -> ShopeeProduct:
         p_min = item.get("price_min", item.get("price", 0))
         p_max = item.get("price_max", p_min)
         if p_min > 1000000:
@@ -201,7 +202,9 @@ class ShopeeApiCrawler:
             name=item.get("name", ""),
             price=float(p_min),
             price_discount=float(p_max),
+            sold=int(item.get("historical_sold", item.get("sold", 0))),
             album=processed_images,
+            link=url,
             # catalogue={
             #     "name": cat_name,
             #     "canonical": self._slugify(cat_name),
@@ -233,7 +236,7 @@ class ShopeeApiCrawler:
                 # Polling API
                 for _ in range(15):
                     if self.last_api_data:
-                        product = self._extract_product_data(self.last_api_data)
+                        product = self._extract_product_data(self.last_api_data, url)
                         self._successful_requests += 1
                         return product
                     
@@ -243,7 +246,7 @@ class ShopeeApiCrawler:
                             active_data = await self.page.evaluate(f"async () => {{ const r = await fetch('{api_url}'); return await r.json(); }}")
                             if active_data.get("data") and active_data["data"].get("name"):
                                 self.last_api_data = active_data["data"]
-                                product = self._extract_product_data(self.last_api_data)
+                                product = self._extract_product_data(self.last_api_data, url)
                                 self._successful_requests += 1
                                 return product
                         except: pass
@@ -286,11 +289,13 @@ class ShopeeApiCrawler:
                             name=title,
                             price=float(heuristics['price_min']),
                             price_discount=float(heuristics['price_min']),
+                            sold=0,
                             album=[],
-                            catalogue={
-                                "name": cat_name,
-                                "canonical": self._slugify(cat_name),
-                            }
+                            link=url,
+                            # catalogue={
+                            #     "name": cat_name,
+                            #     "canonical": self._slugify(cat_name),
+                            # }
                         )
                 except: pass
 

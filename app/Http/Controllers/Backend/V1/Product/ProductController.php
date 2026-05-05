@@ -218,6 +218,32 @@ class ProductController extends Controller
         return response()->json(['status' => 'error', 'message' => 'Có lỗi xảy ra khi lưu bản ghi']);
     }
 
+    public function analyzeImport(Request $request)
+    {
+        $products = $request->input('products', []);
+        $languageId = $this->language;
+        if (!$languageId) {
+            $language = Language::where('canonical', app()->getLocale())->first();
+            $languageId = $language->id ?? 1;
+        }
+        $result = $this->productService->analyzeImport($products, $languageId);
+        return response()->json($result);
+    }
+
+    public function executeImport(Request $request)
+    {
+        $products = $request->input('products', []);
+        $languageId = $this->language;
+        if (!$languageId) {
+            $language = Language::where('canonical', app()->getLocale())->first();
+            $languageId = $language->id ?? 1;
+        }
+        if ($this->productService->executeImport($products, $languageId)) {
+            return response()->json(['status' => 'success']);
+        }
+        return response()->json(['status' => 'error', 'message' => 'Có lỗi xảy ra khi import']);
+    }
+
     private function configData(){
         return [
             'extendJs' => true,

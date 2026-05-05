@@ -5,3 +5,7 @@
 /public/upload
 /public/image-cacherm public.zip
 .agent/
+/crawler/shopee/output/*
+/crawler/shopee/downloads/*
+**/__pycache__/
+.pytest_cache/
