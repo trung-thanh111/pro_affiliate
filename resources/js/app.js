@@ -31,7 +31,89 @@ import '../vendor/frontend/core/library/compare.js';
 //     host: 'http://laravelversion1.com:6001'
 // });
 
+window.HT = window.HT || {};
+
+HT.productTab = () => {
+    $(document).on('click', '.tab-title', function (e) {
+        e.preventDefault();
+        let _this = $(this);
+        let catalogueId = _this.data('id');
+
+        // Find the closest parent section to locate the grid container
+        let parentSection = _this.closest('section');
+        let gridContainer = parentSection.find('.product-grid-container');
+
+        if (gridContainer.length === 0) return;
+
+        // UI Update
+        parentSection.find('.tab-title').removeClass('active');
+        _this.addClass('active');
+
+        // Ajax Load
+        $.ajax({
+            url: '/ajax/product/getProducts',
+            type: 'GET',
+            data: {
+                catalogue_id: catalogueId
+            },
+            beforeSend: function () {
+                gridContainer.addClass('loading-opacity');
+            },
+            success: function (res) {
+                if (res.code == 10) {
+                    gridContainer.html(res.html);
+                    gridContainer.removeClass('loading-opacity');
+
+                    // Re-trigger wow animations if present
+                    if (typeof WOW !== 'undefined') {
+                        new WOW().init();
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error fetching products:', textStatus);
+                gridContainer.removeClass('loading-opacity');
+            }
+        });
+    });
+}
+
+HT.loadMoreReview = () => {
+    $(document).on('click', '#load-more-review', function () {
+        let _this = $(this);
+        let page = parseInt(_this.attr('data-page')) + 1;
+        let url = 'ajax/post/load-review'; // or use a global config for routes
+
+        _this.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang tải...');
+        _this.prop('disabled', true);
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            data: { page: page },
+            success: function (res) {
+                if (res.html) {
+                    $('#review-list').append(res.html);
+                    _this.attr('data-page', page);
+                    _this.html('Xem thêm');
+                    _this.prop('disabled', false);
+                    if (!res.hasMore) {
+                        _this.parent().hide();
+                    }
+                }
+            },
+            error: function () {
+                _this.html('Xem thêm');
+                _this.prop('disabled', false);
+            }
+        });
+    });
+}
+
 $(document).ready(function () {
+    HT.productTab();
+    HT.loadMoreReview();
+
     let searchTimeout;
 
     function loadHotTopics() {

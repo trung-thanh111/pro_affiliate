@@ -11,6 +11,3 @@
     @include('frontend.component.hot_topic')
     @include('frontend.component.new_review')
 @endsection
-@push('scripts')
-    @vite(['resources/js/post.js', 'resources/js/hot_topic.js'])
-@endpush

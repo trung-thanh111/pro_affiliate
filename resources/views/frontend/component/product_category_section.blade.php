@@ -46,7 +46,4 @@
             </div>
         </section>
     @endforeach
-    @push('scripts')
-        @vite(['resources/js/product_tab.js'])
-    @endpush
 @endif
