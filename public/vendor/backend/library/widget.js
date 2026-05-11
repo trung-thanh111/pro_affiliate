@@ -69,12 +69,15 @@
     }
 
     HT.renderSearchResult = (data) => {
-        let html = ''
+        let html = `<div class="ajax-search-header uk-flex uk-flex-middle uk-flex-space-between" style="padding: 8px 10px; border-bottom: 1px solid #eee; background: #fdfdfd; position: sticky; top: 0; z-index: 10;">
+            <span class="fw-bold text-navy" style="font-size: 12px;">KẾT QUẢ TÌM KIẾM (${data.length})</span>
+            <span class="close-suggestion" style="cursor: pointer; color: #ed5565; font-weight: bold; font-size: 11px; text-transform: uppercase;">[ ĐÓNG ]</span>
+        </div>`
+        html += '<div class="ajax-search-list" style="max-height: 300px; overflow-y: auto;">'
         if(data.length){
             for(let i = 0; i < data.length; i++){
-
                 let flag = ($('.search-model-result #model-'+data[i].id).length) ? 1 : 0;
-                let setChecked = ($('.search-model-result #model-'+data[i].id).length) ? HT.setChecked() : ''
+                let setChecked = HT.setChecked(flag == 1)
                 let languages = data[i].languages || []
                 let lang = languages[0] || { pivot: { name: '', canonical: '' } }
                 let name = lang.pivot.name || ''
@@ -88,10 +91,13 @@
                             data-name="${name}" 
                             data-description="${description}"
                             data-id="${data[i].id}"
-                            style="cursor: pointer;"
+                            style="cursor: pointer; border-bottom: 1px solid #f4f4f4;"
                         >
-                <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                    <span>${name}</span>
+                <div class="uk-flex uk-flex-middle uk-flex-space-between" style="padding: 8px 10px;">
+                    <div class="uk-flex uk-flex-middle">
+                        <span class="image img-cover me-2" style="width: 32px; height: 32px; display: inline-block; border-radius: 4px; overflow: hidden; border: 1px solid #eee;"><img src="${data[i].image}" alt="" style="width: 100%; height: 100%; object-fit: cover;"></span>
+                        <span style="font-size: 13px; color: #333;">${name}</span>
+                    </div>
                     <div class="auto-icon">
                         ${setChecked}
                     </div>
@@ -99,11 +105,12 @@
             </div>`
             }
         }
+        html += '</div>'
         return html
     }
 
-    HT.setChecked = () => {
-        return '<i class="fa fa-check"></i>'
+    HT.setChecked = (isChecked = false) => {
+        return `<input type="checkbox" ${isChecked ? 'checked' : ''} style="width: 16px; height: 16px; cursor: pointer;">`
     }
 
 
@@ -113,6 +120,10 @@
             if(!_target.closest('.search-model-box').length && !_target.closest('.ajax-search-result').length){
                 $('.ajax-search-result').html('').hide()
             }
+        })
+
+        $(document).on('click', '.close-suggestion', function(){
+            $('.ajax-search-result').html('').hide()
         })
     }
 
@@ -127,17 +138,17 @@
             console.log('Item clicked, flag:', flag);
             
             if(flag == 0){
-                _this.find('.auto-icon').html(HT.setChecked())
+                _this.find('.auto-icon').html(HT.setChecked(true))
                 _this.attr('data-flag', 1)
                 let html = HT.modelTemplate(data)
                 console.log('Appending HTML:', html);
                 container.append(html)
             }else{
                 container.find('#model-'+data.id).remove()
-                _this.find('.auto-icon').html('')
+                _this.find('.auto-icon').html(HT.setChecked(false))
                 _this.attr('data-flag', 0)
             }
-            $('.ajax-search-result').html('').hide()
+            // $('.ajax-search-result').html('').hide()
         })
     }
 
