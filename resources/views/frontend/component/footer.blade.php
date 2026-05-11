@@ -9,7 +9,7 @@
             </ul>
         </div>
 
-        <div class="disclaimer-text text-center mt-4">
+        <div class="disclaimer-text text-center">
             <p class="m-0 fw-medium text-dark">Website là công cụ so sánh - Không bán hàng</p>
         </div>
 
