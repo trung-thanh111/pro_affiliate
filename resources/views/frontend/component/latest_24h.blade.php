@@ -1,5 +1,5 @@
 @if (isset($latestPosts) && count($latestPosts))
-    <section class="panel-latest-24h py-5">
+    <section class="panel-latest-24h mt20">
         <div class="uk-container uk-container-center">
             <div class="panel-head d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
                 <div class="head-left">

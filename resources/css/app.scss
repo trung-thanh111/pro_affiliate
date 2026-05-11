@@ -1,14 +1,17 @@
 @use "sass:math";
-// ================
-// IMPORT VENDORS
-// ================
 @use 'variables/variables';
 @use "components/article-overlay-card";
 @use "components/article-left-image-card";
 @use "components/footer";
 @use "components/font";
 @use "components/product-card";
+@use "components/second-home-slider";
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+// ================
+// IMPORT VENDORS
+// ================
 @import "../vendor/backend/css/plugins/toastr/toastr.min.css";
 @import "../vendor/frontend/resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css";
 @import "../vendor/frontend/resources/uikit/css/uikit.modify.css";
@@ -18,16 +21,6 @@
 @import "../vendor/frontend/resources/config.css";
 
 
-// Font Inter removed
-
-// ================
-// IMPORT FONTS
-// ================
-
-// VARIABLES
-// ================
-
-
 :root {
     --primary-color: #ee4d2d;
     --primary-gradient: linear-gradient(-180deg, #f53d2d, #f63);
@@ -35,14 +28,14 @@
     --secondary-gradient: linear-gradient(90deg, #7DDEB1 0%, #43B97F 100%);
     --star-color: #ffcd29;
     --hover-color: #fb5533;
-    --main-font: 'Helvetica Neue';
-    --second-font: 'Helvetica Neue';
-    --third-font: 'Helvetica Neue';
+    --main-font: 'Roboto', sans-serif;
+    --second-font: 'Roboto', sans-serif;
+    --third-font: 'Roboto', sans-serif;
     --shopee-white: #fff;
 }
 
 body {
-    font-family: var(--main-font);
+    font-family: var(--main-font) !important;
     font-weight: normal;
     font-size: 14px;
     min-height: 1000px;
@@ -480,7 +473,7 @@ ol li {
 }
 
 .panel-category-slider {
-    padding: 40px 0;
+    padding: 20px 0;
     background: #fff;
 
     @media (max-width: 767px) {
@@ -4295,7 +4288,7 @@ body.uk-offcanvas-page {
 .compare-search-placeholder {
     text-align: center;
     color: #8c85ad;
-    padding: 40px 0;
+    padding: 20px 0;
     font-size: 14px;
 
     @media (max-width: 768px) {
@@ -5080,7 +5073,7 @@ body.uk-offcanvas-page {
             margin-top: 200px;
 
             @media (max-width: 768px) {
-                padding: 40px 0;
+                padding: 20px 0;
                 margin-top: 150px;
             }
         }
@@ -5610,15 +5603,24 @@ html.wowjs .wow {
     .new-review-featured {
         .featured-img-wrapper {
             width: 100%;
-            height: 550px;
+            height: 420px;
             overflow: hidden;
             margin-bottom: 25px;
+            border-radius: 12px;
 
             img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
                 transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+
+            @media (max-width: 991px) {
+                height: 350px;
+            }
+
+            @media (max-width: 767px) {
+                height: 250px;
             }
 
             &:hover img {
@@ -5666,10 +5668,10 @@ html.wowjs .wow {
     .side-review-item {
         .side-img-wrapper {
             width: 100%;
-            height: 160px;
+            height: 185px;
             overflow: hidden;
             margin-bottom: 12px;
-            border-radius: 8px;
+            border-radius: 10px;
 
             img {
                 width: 100%;
@@ -5677,10 +5679,14 @@ html.wowjs .wow {
                 object-fit: cover;
                 transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             }
+
+            @media (max-width: 991px) {
+                height: 150px;
+            }
         }
 
         .side-title {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
             line-height: 1.45;
             color: #222;
@@ -5698,6 +5704,66 @@ html.wowjs .wow {
 
             .side-title {
                 color: var(--primary-color);
+            }
+        }
+    }
+
+    .horizontal-review-item {
+        .item-img-wrapper {
+            height: 180px;
+            overflow: hidden;
+            border-radius: 10px;
+
+            @media (max-width: 767px) {
+                height: 100px;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+        }
+
+        .item-title {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.35;
+            color: #1a1a1a;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: color 0.3s;
+
+            @media (max-width: 767px) {
+                font-size: 16px;
+            }
+        }
+
+        &:hover {
+            .item-img-wrapper img {
+                transform: scale(1.05);
+            }
+            .item-title {
+                color: var(--primary-color);
+            }
+        }
+    }
+
+    .review-sidebar {
+        position: sticky;
+        top: 100px;
+
+        .ads-banner {
+            img {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                transition: transform 0.3s ease;
+                
+                &:hover {
+                    transform: translateY(-5px);
+                }
             }
         }
     }
@@ -6170,7 +6236,7 @@ html.wowjs .wow {
         }
 
         .news-title-24h {
-            font-size: 20px;
+            font-size: 18px;
             line-height: 1.3;
             color: #1a1a1a;
             font-weight: 600;

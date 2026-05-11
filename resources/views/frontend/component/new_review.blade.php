@@ -15,16 +15,31 @@
             </div>
 
             <div class="panel-body">
-                @include('frontend.component.review_block', ['posts' => $reviewPosts])
-            </div>
-            <div id="review-list" class="mt-5">
-                {{-- AJAX loaded blocks (1+4) will appear here --}}
-            </div>
+                <div class="row g-4">
+                    <div class="col-lg-9">
+                        @include('frontend.component.review_block', ['posts' => $reviewPosts->take(6)])
+                        
+                        <div id="review-list" class="mt-4">
+                            {{-- AJAX loaded blocks will appear here --}}
+                        </div>
 
-            <div class="view-more-footer text-center mt-5">
-                <button type="button" id="load-more-review" data-page="1" class="view-all-standard text-primary px-5 py-2 fw-bold text-uppercase">
-                    Xem thêm <i class="bi bi-chevron-down ms-2"></i>
-                </button>
+                        <div class="view-more-footer text-center mt-5">
+                            <button type="button" id="load-more-review" data-page="1" class="view-all-standard text-primary px-5 py-2 fw-bold text-uppercase">
+                                Xem thêm <i class="bi bi-chevron-down ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="review-sidebar">
+                            <div class="ads-banner mb-4">
+                                <img src="https://placehold.co/300x600?text=Quảng+Cáo" alt="Ads" class="w-100 rounded-3">
+                            </div>
+                            <div class="ads-banner">
+                                <img src="https://placehold.co/300x250?text=Quảng+Cáo" alt="Ads" class="w-100 rounded-3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

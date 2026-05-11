@@ -9,14 +9,18 @@
         $(document).on('keyup', '.search-model', function(e){
             e.preventDefault()
             let _this = $(this)
-            if($('input[type=radio]:checked').length === 0){
-                alert('Bạn chưa chọn Module');
-                _this.val('')
-                return false;
+            let model = _this.data('model')
+            if(!model){
+                if($('input[type=radio]:checked').length === 0){
+                    alert('Bạn chưa chọn Module');
+                    _this.val('')
+                    return false;
+                }
+                model = $('input[type=radio]:checked').val()
             }
             let keyword = _this.val()
             let option = {
-                model: $('input[type=radio]:checked').val(),
+                model: model,
                 keyword : keyword
             }
             HT.sendAjax(option)
@@ -44,7 +48,7 @@
         clearTimeout(typingTimer);
             typingTimer = setTimeout(function(){
                 $.ajax({
-                    url: 'ajax/dashboard/findModelObject', 
+                    url: '/ajax/dashboard/findModelObject', 
                     type: 'GET', 
                     data: option,
                     dataType: 'json', 
@@ -69,61 +73,71 @@
         if(data.length){
             for(let i = 0; i < data.length; i++){
 
-                let flag = ($('#model-'+data[i].id).length) ? 1 : 0;
-                let setChecked = ($('#model-'+data[i].id).length) ? HT.setChecked() : ''
+                let flag = ($('.search-model-result #model-'+data[i].id).length) ? 1 : 0;
+                let setChecked = ($('.search-model-result #model-'+data[i].id).length) ? HT.setChecked() : ''
+                let languages = data[i].languages || []
+                let lang = languages[0] || { pivot: { name: '', canonical: '' } }
+                let name = lang.pivot.name || ''
+                let canonical = lang.pivot.canonical || ''
+                let description = lang.pivot.description || ''
 
-                html += `<button 
+                html += `<div 
                             class="ajax-search-item" 
                             data-flag="${flag}" 
-                            data-canonical="${data[i].languages[0].pivot.canonical}" data-image="${data[i].image}" 
-                            data-name="${data[i].languages[0].pivot.name}" 
+                            data-canonical="${canonical}" data-image="${data[i].image}" 
+                            data-name="${name}" 
+                            data-description="${description}"
                             data-id="${data[i].id}"
+                            style="cursor: pointer;"
                         >
                 <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                    <span>${data[i].languages[0].pivot.name}</span>
+                    <span>${name}</span>
                     <div class="auto-icon">
                         ${setChecked}
                     </div>
                 </div>
-            </button>`
+            </div>`
             }
         }
         return html
     }
 
     HT.setChecked = () => {
-        return '<svg class="svg-next-icon button-selected-combobox svg-next-icon-size-12" width="12" height="12"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><path d="m.3,14c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1v-8.88178e-16c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.4 0.4,1 0,1.4l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.5-0.1-0.7-0.3l-7.8-8.4-.2-.3z"></path></svg></svg>'
+        return '<i class="fa fa-check"></i>'
     }
 
 
     HT.unfocusSearchBox = () => {
-        $(document).on('click', 'html', function(e){
-            if(!$(e.target).hasClass('search-model-result') && !$(e.target).hasClass('search-model')){
-                $('.ajax-search-result').html('')
+        $(document).on('click', function(e){
+            let _target = $(e.target);
+            if(!_target.closest('.search-model-box').length && !_target.closest('.ajax-search-result').length){
+                $('.ajax-search-result').html('').hide()
             }
-        })
-
-        $(document).on('click', '.ajax-search-result', function(e){
-            e.stopPropagation();
         })
     }
 
     HT.addModel = () => {
-        $(document).on('click', '.ajax-search-item' , function(e){
+        $(document).off('click', '.ajax-search-item').on('click', '.ajax-search-item' , function(e){
             e.preventDefault()
             let _this = $(this)
             let data = _this.data()
-            let html = HT.modelTemplate(data)
             let flag = _this.attr('data-flag')
+            let container = _this.closest('.ibox-content').find('.search-model-result')
+            
+            console.log('Item clicked, flag:', flag);
+            
             if(flag == 0){
                 _this.find('.auto-icon').html(HT.setChecked())
                 _this.attr('data-flag', 1)
-                $('.search-model-result').append(HT.modelTemplate(data))
+                let html = HT.modelTemplate(data)
+                console.log('Appending HTML:', html);
+                container.append(html)
             }else{
-                $('#model-'+data.id).remove()
+                container.find('#model-'+data.id).remove()
                 _this.find('.auto-icon').html('')
                 _this.attr('data-flag', 0)
             }
+            $('.ajax-search-result').html('').hide()
         })
     }
 
@@ -138,6 +152,7 @@
                         <input type="text" name="modelItem[id][]" value="${data.id}">
                         <input type="text" name="modelItem[name][]" value="${data.name}">
                         <input type="text" name="modelItem[image][]" value="${data.image}">
+                        <input type="text" name="modelItem[description][]" value="${data.description || ''}">
                     </div>
                 </div>
                 <div class="deleted">

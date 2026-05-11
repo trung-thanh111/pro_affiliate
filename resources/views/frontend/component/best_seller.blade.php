@@ -1,6 +1,6 @@
 @if (isset($bestSellers) && count($bestSellers))
     <div class="uk-container uk-container-center">
-        <section class="panel-best-seller-modern">
+        <section class="panel-best-seller-modern mb20">
             <div class="panel-head">
                 <div class="uk-flex uk-flex-middle uk-flex-space-between header-flex">
                     <div class="head-left">

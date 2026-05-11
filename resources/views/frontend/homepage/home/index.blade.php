@@ -4,6 +4,7 @@
     @include('frontend.component.category_slider')
     @include('frontend.component.best_seller')
     @include('frontend.component.promotion')
+    @include('frontend.component.second_home_slide')
     @include('frontend.component.product_category_section')
     @include('frontend.component.middle_banner')
     @include('frontend.component.latest_24h')

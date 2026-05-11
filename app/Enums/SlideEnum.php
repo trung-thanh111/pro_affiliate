@@ -14,6 +14,7 @@ enum SlideEnum: string
     const SIDE_BANNER = 'side-banner';
 
     const MIDDLEHOME = 'middle-home';
+    const SECONDHOME = 'second-home-slide';
 
     public static function toArray()
     {

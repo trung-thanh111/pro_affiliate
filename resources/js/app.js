@@ -1,10 +1,6 @@
 import Echo from 'laravel-echo';
 import io from 'socket.io-client';
 
-// import '../vendor/frontend/resources/library/js/jquery.js';
-
-// window.jQuery = jQuery;
-// window.$ = jQuery;
 
 // import '../vendor/backend/js/plugins/toastr/toastr.min.js';
 // // import '../vendor/frontend/resources/plugins/wow/dist/wow.min.js';
@@ -23,15 +19,8 @@ import '../vendor/frontend/core/library/compare.js';
 // import 'https://unpkg.com/swiper/swiper-bundle.min.js';
 
 
-
-// window.io = io;
-
-// window.Echo = new Echo({
-//     broadcaster: 'socket.io',
-//     host: 'http://laravelversion1.com:6001'
-// });
-
 window.HT = window.HT || {};
+const HT = window.HT;
 
 HT.productTab = () => {
     $(document).on('click', '.tab-title', function (e) {
@@ -82,7 +71,7 @@ HT.loadMoreReview = () => {
     $(document).on('click', '#load-more-review', function () {
         let _this = $(this);
         let page = parseInt(_this.attr('data-page')) + 1;
-        let url = 'ajax/post/load-review'; // or use a global config for routes
+        let url = '/ajax/post/load-review'; // Added leading slash for absolute path
 
         _this.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang tải...');
         _this.prop('disabled', true);

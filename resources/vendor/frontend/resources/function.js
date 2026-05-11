@@ -162,7 +162,28 @@
                 prevEl: '.category-nav-prev',
             },
         });
-
+    }
+    
+    HT.secondHomeSlider = () => {
+        if ($('.second-home-slider').length) {
+            new Swiper('.second-home-slider', {
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.second-home-slider .swiper-button-next',
+                    prevEl: '.second-home-slider .swiper-button-prev',
+                },
+                slidesPerView: 1,
+                spaceBetween: 10,
+            });
+        }
     }
 
     HT.flashSaleCountdown = () => {
@@ -836,6 +857,7 @@
         HT.product()
         HT.feedback()
         HT.flashSaleCountdown()
+        HT.secondHomeSlider()
 
 
         // $(window).on('load', function() {

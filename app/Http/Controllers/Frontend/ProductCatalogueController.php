@@ -31,6 +31,7 @@ class ProductCatalogueController extends FrontendController
     protected $productRepository;
     protected $lecturerRepository;
     protected $compareService;
+    protected $postRepository;
 
     public function __construct(
         ProductCatalogueRepository $productCatalogueRepository,
@@ -39,6 +40,7 @@ class ProductCatalogueController extends FrontendController
         ProductRepository $productRepository,
         WidgetService $widgetService,
         CompareService $compareService,
+        \App\Repositories\Post\PostRepository $postRepository,
     ) {
         $this->productCatalogueRepository = $productCatalogueRepository;
         $this->productCatalogueService = $productCatalogueService;
@@ -46,6 +48,7 @@ class ProductCatalogueController extends FrontendController
         $this->widgetService = $widgetService;
         $this->productRepository = $productRepository;
         $this->compareService = $compareService;
+        $this->postRepository = $postRepository;
         parent::__construct();
     }
 
@@ -74,6 +77,9 @@ class ProductCatalogueController extends FrontendController
             ['keyword' => 'product-category-highlight', 'object' => true],
             ['keyword' => 'about-us-2'],
         ], $this->language);
+
+        $relatedPosts = $this->postRepository->getRelatedPostsByCategory($id, $this->language);
+
         $config = $this->config();
         $system = $this->system;
         $seo = seo($productCatalogue, $page);
@@ -90,7 +96,8 @@ class ProductCatalogueController extends FrontendController
             'filters',
             'widgets',
             'schema',
-            'productCatalogues'
+            'productCatalogues',
+            'relatedPosts'
         ));
     }
 

@@ -1,5 +1,19 @@
 <div class="ibox slide-setting slide-normal">
     <div class="ibox-title">
+        <h5>Tình trạng</h5>
+    </div>
+    <div class="ibox-content">
+        <select name="publish" class="form-control setupSelect2">
+            @foreach(config('apps.general.publish') as $key => $val)
+            <option {{ 
+                $key == old('publish', (isset($slide->publish)) ? $slide->publish : '') ? 'selected' : '' 
+            }} value="{{ $key }}">{{ $val }}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+<div class="ibox slide-setting slide-normal">
+    <div class="ibox-title">
         <h5>Cài đặt cơ bản</h5>
     </div>
     <div class="ibox-content">

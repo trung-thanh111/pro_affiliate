@@ -25,6 +25,7 @@ class StoreSlideRequest extends FormRequest
             'name' => 'required',
             'keyword' => 'required|unique:slides',
             'slide.image' => 'required',
+            'publish' => 'integer|gt:0',
         ];
     }
 
@@ -33,7 +34,8 @@ class StoreSlideRequest extends FormRequest
         return [
             'name.required' => 'Bạn chưa nhập tên của Slide',
             'keyword.required' => 'Bạn chưa nhập từ khóa của slide',
-            'slide.image.required' => 'Bạn chưa chọn hình ảnh nào cho slide'
+            'slide.image.required' => 'Bạn chưa chọn hình ảnh nào cho slide',
+            'publish.gt' => 'Bạn chưa chọn tình trạng của slide',
         ];
     }
 }

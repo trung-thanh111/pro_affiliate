@@ -1,5 +1,5 @@
 @if(isset($promotionProducts) && count($promotionProducts))
-    <section class="panel-promotion-modern mt50">
+    <section class="panel-promotion-modern">
         <div class="uk-container uk-container-center">
             <div class="panel-head-modern">
                 <div class="header-flex">

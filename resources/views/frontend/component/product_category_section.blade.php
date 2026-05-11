@@ -4,7 +4,7 @@
             $catName = $categoryItem->languages->first()->pivot->name ?? $categoryItem->name;
             $catCanonical = write_url($categoryItem->languages->first()->pivot->canonical ?? '');
         @endphp
-        <section class="panel-category-products-modern mt50">
+        <section class="panel-category-products-modern">
             <div class="uk-container uk-container-center">
                 <div class="panel-head-modern">
                     <div class="header-flex">

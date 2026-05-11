@@ -56,7 +56,7 @@ class PostController extends FrontendController
     public function loadReview(Request $request){
         $page = $request->input('page', 1);
         $perPage = 4;
-        $offset = 4 * ($page - 1); // Skip previous blocks (1 featured + 3 side = 4 total)
+        $offset = 6 + $perPage * ($page - 2); // Initial block shows 6 items. Page 2 skips these 6.
 
         $posts = $this->postRepository->findPosts([
             ['publish', '=', 2],
@@ -65,7 +65,27 @@ class PostController extends FrontendController
 
         $html = '';
         if(count($posts)){
-            $html = view('frontend.component.review_block', compact('posts'))->render();
+            $html = view('frontend.component.review_item_horizontal', compact('posts'))->render();
+        }
+
+        return response()->json([
+            'html' => $html,
+            'hasMore' => (count($posts) == $perPage)
+        ]);
+    }
+
+    public function loadRelated(Request $request)
+    {
+        $page = $request->input('page', 1);
+        $catalogueId = $request->input('catalogueId');
+        $perPage = 3;
+        $offset = 6 + $perPage * ($page - 2);
+
+        $posts = $this->postRepository->getRelatedPostsByCategory($catalogueId, $this->language, $perPage, $offset);
+
+        $html = '';
+        if (count($posts)) {
+            $html = view('frontend.component.review_item_horizontal', compact('posts'))->render();
         }
 
         return response()->json([

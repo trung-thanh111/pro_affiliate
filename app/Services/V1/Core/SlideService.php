@@ -46,7 +46,7 @@ class SlideService extends BaseService
         DB::beginTransaction();
         try{
 
-            $payload = $request->only(['_token', 'name', 'keyword', 'setting', 'short_code']);
+            $payload = $request->only(['_token', 'name', 'keyword', 'setting', 'short_code', 'publish']);
             $payload['item'] = $this->handleSlideItem($request, $languageId);
             $slide = $this->slideRepository->create($payload);
             DB::commit();
@@ -66,7 +66,7 @@ class SlideService extends BaseService
             $slide = $this->slideRepository->findById($id);
             $slideItem = $slide->item;
             unset($slideItem[$languageId]);
-            $payload = $request->only(['_token', 'name', 'keyword', 'setting', 'short_code']);
+            $payload = $request->only(['_token', 'name', 'keyword', 'setting', 'short_code', 'publish']);
             $payload['item'] = $this->handleSlideItem($request, $languageId) + $slideItem;
             $slide = $this->slideRepository->update($id, $payload);
             DB::commit();

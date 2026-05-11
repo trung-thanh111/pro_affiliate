@@ -142,11 +142,31 @@
                     @if (!empty($productCatalogue->content))
                         <div class="catalogue-content mt-5 p-4 bg-white rounded-4 shadow-sm border-0">
                             <div class="content-body small text-muted lh-lg">
+                                {!! $productCatalogue->description !!}
                                 {!! $productCatalogue->content !!}
                             </div>
                         </div>
                     @endif
+
                 </main>
+            </div>
+        </div>
+
+        <div class="uk-container uk-container-center mt-5">
+            <div class="row g-4">
+                <div class="col-lg-9">
+                    @include('frontend.component.related_posts_block')
+                </div>
+                <div class="col-lg-3">
+                    <div class="review-sidebar">
+                        <div class="ads-banner mb-4">
+                            <img src="https://placehold.co/300x600?text=Quảng+Cáo" alt="Ads" class="w-100 rounded-3 shadow-sm">
+                        </div>
+                        <div class="ads-banner sticky-top" style="top: 100px;">
+                            <img src="https://placehold.co/300x250?text=Quảng+Cáo" alt="Ads" class="w-100 rounded-3 shadow-sm">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

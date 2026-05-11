@@ -111,5 +111,23 @@ class PostRepository extends BaseRepository
         ->orderBy('posts.id', 'DESC')
         ->paginate($perPage);
     }
-
+    public function getRelatedPostsByCategory($catalogueId, $languageId, $limit = 6, $offset = 0)
+    {
+        return $this->model->select('posts.*')
+            ->join('product_post', 'product_post.post_id', '=', 'posts.id')
+            ->join('products', 'products.id', '=', 'product_post.product_id')
+            ->where('products.product_catalogue_id', $catalogueId)
+            ->where('posts.publish', 2)
+            ->whereHas('languages', function ($query) use ($languageId) {
+                $query->where('language_id', $languageId);
+            })
+            ->with(['languages' => function ($query) use ($languageId) {
+                $query->where('language_id', $languageId);
+            }])
+            ->distinct()
+            ->orderBy('posts.id', 'DESC')
+            ->skip($offset)
+            ->limit($limit)
+            ->get();
+    }
 }

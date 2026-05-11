@@ -160,6 +160,7 @@ class ProductService extends BaseService
                 if ($request->input('attribute')) {
                     $this->createVariant($product, $request, $languageId);
                 }
+                $this->updateRelatedPosts($product, $request);
                 $this->productCatalogueService->setAttribute($product);
             }
 
@@ -197,6 +198,7 @@ class ProductService extends BaseService
                 if ($request->input('attribute')) {
                     $this->createVariant($product, $request, $languageId);
                 }
+                $this->updateRelatedPosts($product, $request);
 
                 $this->productCatalogueService->setAttribute($product);
             }
@@ -369,6 +371,16 @@ class ProductService extends BaseService
     private function updateCatalogueForProduct($product, $request)
     {
         $product->product_catalogues()->sync($this->catalogue($request));
+    }
+
+    private function updateRelatedPosts($product, $request)
+    {
+        $posts = $request->input('modelItem.id');
+        if (is_array($posts) && count($posts)) {
+            $product->posts()->sync($posts);
+        } else {
+            $product->posts()->detach();
+        }
     }
 
     private function formatLanguagePayload($payload, $productId, $languageId)

@@ -45,7 +45,7 @@ class HomeController extends FrontendController
         $config = $this->config();
 
         $slides = $this->slideService->getSlide(
-            [SlideEnum::MAIN, SlideEnum::TECHSTAFF, SlideEnum::PARTNER, SlideEnum::MIDDLEHOME],
+            [SlideEnum::MAIN, SlideEnum::TECHSTAFF, SlideEnum::PARTNER, SlideEnum::MIDDLEHOME, SlideEnum::SECONDHOME],
             $this->language
         );
 

@@ -114,4 +114,9 @@ class Product extends Model
     {
         return $this->hasMany(PostProduct::class, 'product_id', 'id');
     }
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'product_post', 'product_id', 'post_id');
+    }
 }

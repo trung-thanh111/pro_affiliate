@@ -1,9 +1,9 @@
-@if(isset($slides['middle-home']) && count($slides['middle-home']['item']))
-    <section class="panel-middle-banner mt30 mb30">
+@if (isset($slides['middle-home']) && count($slides['middle-home']['item']))
+    <section class="panel-middle-banner">
         <div class="uk-container uk-container-center">
             <div class="uk-grid uk-grid-medium" data-uk-grid-match="{target:'.banner-item'}">
-                @foreach($slides['middle-home']['item'] as $key => $val)
-                    @if($key < 2)
+                @foreach ($slides['middle-home']['item'] as $key => $val)
+                    @if ($key < 2)
                         <div class="uk-width-large-1-2 mb20">
                             <div class="banner-item" style="height: 260px;">
                                 <a href="{{ $val['canonical'] ?? '#' }}" class="image img-cover"
