@@ -7,6 +7,16 @@
                 <small class="font-bold text-danger">Vui lòng gán danh mục cho các sản phẩm chưa xác định bên dưới.</small>
             </div>
             <div class="modal-body">
+                <div class="row mb20">
+                    <div class="col-lg-6">
+                        <div class="form-group mb0">
+                            <label class="control-label font-bold text-navy">Gán nhanh danh mục cho tất cả:</label>
+                            <select id="select-all-catalogue" class="form-control select2">
+                                <option value="">-- Chọn danh mục --</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover align-middle table-import-review">
                         <thead>

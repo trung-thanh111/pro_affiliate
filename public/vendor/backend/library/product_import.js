@@ -108,14 +108,24 @@
             `;
         }).join('');
         $('#import-review-body').html(html);
+        $('#select-all-catalogue').html(catalogueOptions);
 
         // Khởi tạo select2 cho các select mới thêm vào
         if ($.fn.select2) {
-            $('.select-mapping').select2({
+            $('.select-mapping, #select-all-catalogue').select2({
                 width: '100%',
                 placeholder: '-- Chọn danh mục --'
             });
         }
+    }
+
+    HT.changeAllCatalogue = () => {
+        $(document).on('change', '#select-all-catalogue', function () {
+            let val = $(this).val();
+            if (val !== '') {
+                $('.select-mapping').val(val).trigger('change');
+            }
+        });
     }
 
     HT.formatNumber = (num) => {
@@ -194,6 +204,7 @@
     $(document).ready(function () {
         HT.importJson();
         HT.confirmImport();
+        HT.changeAllCatalogue();
     });
 
 })(jQuery);
