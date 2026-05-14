@@ -66,7 +66,7 @@ class ProductCatalogueController extends FrontendController
             $this->language,
             $productCatalogue,
             $page,
-            ['path' => $productCatalogue->canonical],
+            ['path' => $productCatalogue->canonical . config('apps.general.suffix')],
         );
         $products = $this->combineProductValues($products);
         $productCatalogues = recursive($this->productCatalogueRepository->all(['languages']));

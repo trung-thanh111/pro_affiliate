@@ -58,14 +58,14 @@ class PostCatalogueController extends FrontendController
             [],
             ['order', 'desc']
         );
-        
+
         $breadcrumb = $this->postCatalogueRepository->breadcrumb($postCatalogue, $this->language);
         $posts = $this->postService->paginate(
             $request,
             $this->language,
             $postCatalogue,
             $page,
-            ['path' => $postCatalogue->canonical],
+            ['path' => $postCatalogue->canonical . config('apps.general.suffix')],
             ['posts.recommend', 'desc']
         );
 
@@ -87,9 +87,9 @@ class PostCatalogueController extends FrontendController
         $lastestNews = Post::with(['languages'])->orderBy('order', 'desc')->orderBy('id', 'desc')->where(['publish' => 2])->limit(8)->get();
         // dd($lastestNews);
 
-        if($postCatalogue->canonical === 've-chung-toi'){
+        if ($postCatalogue->canonical === 've-chung-toi') {
             $template = 'frontend.post.catalogue.intro';
-        }else{
+        } else {
             $template = 'frontend.post.catalogue.index';
         }
 
@@ -195,14 +195,14 @@ class PostCatalogueController extends FrontendController
         return $schema;
     }
 
-   
+
 
 
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
         $posts = $this->postRepository->search($keyword, $this->language, 12);
-        
+
         $widgets = $this->widgetService->getWidget([
             ['keyword' => 'featured-products'],
             ['keyword' => 'product-category', 'children' => true],
@@ -211,7 +211,7 @@ class PostCatalogueController extends FrontendController
         ], $this->language);
 
         $lastestNews = Post::with(['languages'])->orderBy('order', 'desc')->orderBy('id', 'desc')->where(['publish' => 2])->limit(8)->get();
-        
+
         $config = $this->config();
         $system = $this->system;
         $seo = [
@@ -221,7 +221,7 @@ class PostCatalogueController extends FrontendController
             'meta_image' => $this->system['seo_meta_images'],
             'canonical' => route('post.catalogue.search'),
         ];
-        
+
         $template = 'frontend.post.catalogue.index';
         $postCatalogue = (object)[
             'languages' => collect([(object)['pivot' => (object)['name' => 'Tìm kiếm bài viết']]]),
@@ -268,5 +268,4 @@ class PostCatalogueController extends FrontendController
             ]
         ];
     }
-
 }

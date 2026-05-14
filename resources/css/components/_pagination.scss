@@ -1,0 +1,109 @@
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    gap: 8px;
+    margin-top: 0; 
+    justify-content: center;
+    font-family: var(--main-font);
+    align-items: center;
+
+    .page-item {
+        .page-link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 36px;
+            height: 36px;
+            padding: 0 10px;
+            color: #4b5563;
+            background-color: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            line-height: 1;
+
+            &:hover {
+                z-index: 2;
+                color: #fff;
+                background: var(--primary-gradient);
+                border-color: transparent;
+                transform: translateY(-3px);
+                box-shadow: 0 10px 15px -3px rgba(238, 77, 45, 0.25), 0 4px 6px -2px rgba(238, 77, 45, 0.1);
+            }
+
+            &:focus {
+                z-index: 3;
+                outline: 0;
+                box-shadow: 0 0 0 4px rgba(238, 77, 45, 0.15);
+            }
+        }
+
+        &.active {
+            .page-link {
+                z-index: 3;
+                color: #fff;
+                background: var(--primary-gradient);
+                border-color: transparent;
+                font-weight: 700;
+                box-shadow: 0 10px 15px -3px rgba(238, 77, 45, 0.3), 0 4px 6px -2px rgba(238, 77, 45, 0.15);
+            }
+        }
+
+        &.disabled {
+            .page-link {
+                color: #9ca3af;
+                pointer-events: none;
+                background-color: #f9fafb;
+                border-color: #f3f4f6;
+                box-shadow: none;
+            }
+        }
+
+        &:first-child, &:last-child {
+            .page-link {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+/* Wrapper for Laravel's default pagination structure */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 40px;
+
+    p {
+        margin-bottom: 0 !important;
+        font-size: 14px;
+        color: #6b7280;
+        line-height: 1.5;
+    }
+}
+
+/* UIkit pagination fallback/support if used */
+.uk-pagination {
+    @extend .pagination;
+    li {
+        @extend .page-item;
+        a, span {
+            @extend .page-link;
+        }
+        &.uk-active {
+            @extend .active;
+        }
+        &.uk-disabled {
+            @extend .disabled;
+        }
+    }
+}

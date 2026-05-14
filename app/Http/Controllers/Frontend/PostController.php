@@ -82,7 +82,7 @@ class PostController extends FrontendController
             $this->language, 
             $postCatalogue, 
             1,
-            ['path' => $postCatalogue->canonical],
+            ['path' => $postCatalogue->canonical . config('apps.general.suffix')],
         );
 
 
