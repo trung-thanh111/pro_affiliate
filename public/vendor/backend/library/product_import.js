@@ -76,10 +76,10 @@
     }
 
     HT.renderReviewTable = (items, dropdown) => {
-        catalogueOptions = '<option value="">-- Chọn danh mục --</option>';
+        let options = '<option value="">-- Chọn danh mục --</option>';
         if (dropdown) {
             Object.entries(dropdown).forEach(([id, name]) => {
-                catalogueOptions += `<option value="${id}">${name}</option>`;
+                options += `<option value="${id}">${name}</option>`;
             });
         }
 
@@ -101,21 +101,34 @@
                     </td>
                     <td>
                         <select class="form-control select-mapping" data-index="${index}">
-                            ${catalogueOptions}
+                            ${options}
                         </select>
                     </td>
                 </tr>
             `;
         }).join('');
+        
         $('#import-review-body').html(html);
-        $('#select-all-catalogue').html(catalogueOptions);
+        
+        // Xử lý riêng cho dropdown Chọn tất cả
+        let $selectAll = $('#select-all-catalogue');
+        if ($selectAll.length) {
+            // Nếu đã có select2 thì destroy trước khi đổ HTML mới
+            if ($.fn.select2 && $selectAll.data('select2')) {
+                $selectAll.select2('destroy');
+            }
+            $selectAll.html(options);
+        }
 
         // Khởi tạo select2 cho các select mới thêm vào
         if ($.fn.select2) {
-            $('.select-mapping, #select-all-catalogue').select2({
-                width: '100%',
-                placeholder: '-- Chọn danh mục --'
-            });
+            setTimeout(() => {
+                $('.select-mapping, #select-all-catalogue').select2({
+                    width: '100%',
+                    placeholder: '-- Chọn danh mục --',
+                    dropdownParent: $('#import-modal') // Đảm bảo hiển thị đúng trên Modal
+                });
+            }, 100);
         }
     }
 
