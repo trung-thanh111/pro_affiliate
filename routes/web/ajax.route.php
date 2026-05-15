@@ -72,8 +72,6 @@ Route::group(['middleware' => ['locale']], function () {
     Route::get('ajax/post/video', [AjaxPostController::class, 'video'])->name('post.video');
     Route::get('ajax/post/load-review', [AjaxPostController::class, 'loadReview'])->name('ajax.post.loadReview');
     Route::get('ajax/post/load-related', [AjaxPostController::class, 'loadRelated'])->name('ajax.post.loadRelated');
-    Route::get('ajax/post/load-breaking-news', [AjaxPostController::class, 'loadBreakingNews'])->name('ajax.post.loadBreakingNews');
-
     Route::post('ajax/product/wishlist', [AjaxProductController::class, 'wishlist'])->name('product.wishlist');
     Route::post('ajax/product/unwishlist', [AjaxProductController::class, 'unWishlist'])->name('product.unwishlist');
     Route::get('ajax/product/compare/search', [AjaxProductController::class, 'compareSearch'])->name('product.compare.search');

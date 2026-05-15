@@ -147,7 +147,8 @@ class ProductController extends FrontendController
         $schema = $this->schema($product, $productCatalogue, $breadcrumb);
 
         if ($request->has('redirect') && !empty($product->link)) {
-            return redirect($product->link);
+            $seo['meta_title'] = 'Đang chuyển hướng: ' . $product->name;
+            return view('frontend.redirect.index', compact('product', 'system', 'config', 'seo'));
         }
 
         $template = 'frontend.product.product.index';

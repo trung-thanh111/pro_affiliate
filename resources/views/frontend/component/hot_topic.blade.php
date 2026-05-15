@@ -25,13 +25,8 @@
                                     $lang = $post->languages->first();
                                     $name = $lang->pivot->name;
                                     $canonical = write_url($lang->pivot->canonical);
-                                    
-                                    $product = $post->product ?? null;
-                                    $affiliateUrl = (!empty($product->link)) 
-                                        ? $product->link 
-                                        : ($fallbackAffiliateUrl ?? '');
                                 @endphp
-                                <div class="mb20 topic-item js-news-item" data-name="{{ strtolower($name) }}" data-affiliate="{{ $affiliateUrl }}" data-href="{{ $canonical }}">
+                                <div class="mb20 topic-item" data-name="{{ strtolower($name) }}">
                                     <a href="{{ $canonical }}" class="topic-tag">
                                         {{ Str::limit($name, 45) }}
                                     </a>

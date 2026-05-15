@@ -13,8 +13,6 @@
 <script src="{{ asset('vendor/frontend/uikit/js/components/accordion.min.js') }}"></script>
 <script src="{{ asset('vendor/frontend/uikit/js/components/lightbox.min.js') }}"></script>
 <script src="{{ asset('frontend/core/library/cart.js') }}"></script>
-<script src="{{ asset('frontend/core/library/post.js') }}"></script>
-
 
 {{-- Swiper từ CDN (hoặc copy về public/vendor/frontend/resources/swiper/js/) --}}
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

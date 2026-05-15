@@ -5,25 +5,17 @@
         $listItems = $posts->slice(3, 3);
 
         $fLang = $featured->languages->first();
-        $fName = $fLang->pivot->name ?? $featured->name ?? '';
-        $fCanonical = write_url($fLang->pivot->canonical ?? '');
-        $fTime = convertDateTime($featured->created_at, 'H:i d/m/Y');
-        $fDesc = strip_tags($fLang->pivot->description ?? '');
+        $fName = $fLang->pivot->name;
+        $fCanonical = write_url($fLang->pivot->canonical);
+        $fTime = date('d/m/Y', strtotime($featured->created_at));
+        $fDesc = strip_tags($fLang->pivot->description);
     @endphp
 
     <div class="review-block-container">
         {{-- Top Part: 1 Big + 2 Small --}}
         <div class="row g-4 mb-4">
             <div class="col-lg-8">
-                @php
-                    $product = $featured->product ?? null;
-                    $fAffiliateUrl = (!empty($product->link)) 
-                        ? $product->link 
-                        : ($fallbackAffiliateUrl ?? '');
-                @endphp
-
-                <div class="new-review-featured js-news-item" data-affiliate="{{ $fAffiliateUrl }}" data-href="{{ $fCanonical }}">
-
+                <div class="new-review-featured">
                     <a href="{{ $fCanonical }}" class="text-decoration-none text-dark">
                         <div class="featured-img-wrapper mb-3">
                             <img src="{{ $featured->image }}" alt="{{ $fName }}" class="rounded-3">
@@ -43,17 +35,10 @@
                     @foreach ($sideItems as $item)
                         @php
                             $lang = $item->languages->first();
-                            $name = $lang->pivot->name ?? $item->name ?? '';
-                            $canonical = write_url($lang->pivot->canonical ?? '');
-
-                            $product = $item->product ?? null;
-                            $affiliateUrl = (!empty($product->link)) 
-                                ? $product->link 
-                                : ($fallbackAffiliateUrl ?? '');
+                            $name = $lang->pivot->name;
+                            $canonical = write_url($lang->pivot->canonical);
                         @endphp
-
-                        <div class="side-review-item mb-4 js-news-item" data-affiliate="{{ $affiliateUrl }}" data-href="{{ $canonical }}">
-
+                        <div class="side-review-item mb-4">
                             <a href="{{ $canonical }}" class="text-decoration-none text-dark">
                                 <div class="side-img-wrapper mb-2">
                                     <img src="{{ $item->image }}" alt="{{ $name }}" class="rounded-3">
