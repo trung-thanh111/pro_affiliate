@@ -1,13 +1,21 @@
 @php
-    $title = $post->languages->first()->pivot->name ?? '';
-    $description = $post->languages->first()->pivot->description ?? '';
+    $lang = $post->languages->first();
+    $title = $lang->pivot->name ?? $post->name ?? '';
+    $description = $lang->pivot->description ?? '';
     $image = $post->image ?? '';
-    $canonical = $post->languages->first()->pivot->canonical ?? '';
+    $canonical = $lang->pivot->canonical ?? '';
     $href = write_url($canonical);
     $date = convertDateTime($post->created_at, 'd/m/Y');
+    
+    $product = $post->product ?? null;
+    $affiliateUrl = (!empty($product->link)) 
+        ? $product->link 
+        : ($fallbackAffiliateUrl ?? '');
 @endphp
 
-<div class="post-card-premium bg-white h-100 transition-up shadow-sm">
+
+<div class="post-card-premium bg-white h-100 transition-up shadow-sm js-news-item" data-affiliate="{{ $affiliateUrl }}" data-href="{{ $href }}">
+
     <div class="card-thumb position-relative overflow-hidden" style="height: 180px;">
         <a href="{{ $href }}">
             <img src="{{ $image }}" alt="{{ $title }}" class="w-100 h-100 object-fit-cover">

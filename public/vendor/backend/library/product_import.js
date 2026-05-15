@@ -112,9 +112,17 @@
 
         // Khởi tạo select2 cho các select mới thêm vào
         if ($.fn.select2) {
+            // Hủy select2 cũ nếu đã tồn tại để tránh lỗi re-init
+            $('.select-mapping, #select-all-catalogue').each(function() {
+                if ($(this).data('select2')) {
+                    $(this).select2('destroy');
+                }
+            });
+
             $('.select-mapping, #select-all-catalogue').select2({
                 width: '100%',
-                placeholder: '-- Chọn danh mục --'
+                placeholder: '-- Chọn danh mục --',
+                dropdownParent: $('#import-modal') // Đảm bảo dropdown hiển thị đúng trên modal
             });
         }
     }

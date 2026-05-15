@@ -15,6 +15,10 @@
                     <div class="divider"></div>
                     <a href="#" class="text-decoration-none">Tải ứng dụng</a>
                     <div class="divider"></div>
+                    <a href="{{ route('post.breakingNews') }}" class="text-decoration-none fw-bold text-white"><i class="bi bi-lightning-fill"></i> Tin Nhanh</a>
+
+                    <div class="divider"></div>
+
                     <span class="d-flex align-items-center gap-2">Kết nối <i class="bi bi-facebook"></i> <i
                             class="bi bi-instagram"></i></span>
                 </div>

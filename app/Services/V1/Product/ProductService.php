@@ -910,19 +910,27 @@ class ProductService extends BaseService
 
     public function analyzeImport($products, $languageId)
     {
-        // Sử dụng query trực tiếp để đảm bảo lấy được data danh mục
-        $dropdown = DB::table('product_catalogues as tb1')
-            ->join('product_catalogue_language as tb2', 'tb1.id', '=', 'tb2.product_catalogue_id')
-            ->where('tb2.language_id', $languageId)
-            ->whereNull('tb1.deleted_at')
-            ->select('tb1.id', 'tb2.name', 'tb1.level')
-            ->orderBy('tb1.lft', 'asc')
-            ->get()
-            ->mapWithKeys(function ($item) {
-                $prefix = str_repeat('|-----', (($item->level > 0) ? ($item->level - 1) : 0));
-                return [$item->id => $prefix . $item->name];
-            })
-            ->toArray();
+        $nestedset = new Nestedsetbie([
+            'table' => 'product_catalogues',
+            'foreignkey' => 'product_catalogue_id',
+            'language_id' => $languageId,
+        ]);
+        $dropdown = $nestedset->Dropdown();
+
+        // Fallback về ngôn ngữ mặc định (1) nếu không có data
+        if (empty($dropdown) || count($dropdown) <= 1) { // 1 because Dropdown adds [Root]
+            $nestedset = new Nestedsetbie([
+                'table' => 'product_catalogues',
+                'foreignkey' => 'product_catalogue_id',
+                'language_id' => 1,
+            ]);
+            $dropdown = $nestedset->Dropdown();
+        }
+
+        // Loại bỏ [Root] nếu cần hoặc giữ nguyên tùy theo UI
+        if (isset($dropdown[0])) {
+            unset($dropdown[0]);
+        }
 
         $existingCatalogueIds = array_keys($dropdown);
 

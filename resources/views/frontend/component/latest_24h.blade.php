@@ -21,9 +21,16 @@
                             $name = $lang->pivot->name;
                             $desc = $lang->pivot->description;
                             $canonical = write_url($lang->pivot->canonical);
+
+                            $product = $post->product ?? null;
+                            $affiliateUrl = (!empty($product->link)) 
+                                ? $product->link 
+                                : ($fallbackAffiliateUrl ?? '');
                         @endphp
+
                         <div class="col-lg-4 col-md-6">
-                            <div class="news-item-24h">
+                            <div class="news-item-24h js-news-item" data-affiliate="{{ $affiliateUrl }}" data-href="{{ $canonical }}">
+
                                 <a href="{{ $canonical }}" class="d-flex gap-3 text-decoration-none">
                                     <div class="news-img-24h flex-shrink-0">
                                         <img src="{{ $post->image }}" alt="{{ $name }}"

@@ -32,7 +32,13 @@
                                             $i = $p->image;
                                             $c = write_url($lang->pivot->canonical);
                                         @endphp
-                                        <div class="handbook-small-item">
+                                        @php
+                                            $product = $p->product ?? null;
+                                            $affiliateUrl = (!empty($product->link)) 
+                                                ? $product->link 
+                                                : ($fallbackAffiliateUrl ?? '');
+                                        @endphp
+                                        <div class="handbook-small-item js-news-item" data-affiliate="{{ $affiliateUrl }}" data-href="{{ $c }}">
                                             <a href="{{ $c }}" class="thumb">
                                                 <img src="{{ $i }}" alt="{{ $n }}">
                                             </a>
@@ -55,7 +61,13 @@
                                         $i1 = $p1->image;
                                         $c1 = write_url($lang1->pivot->canonical);
                                     @endphp
-                                    <div class="handbook-featured">
+                                    @php
+                                        $product = $p1->product ?? null;
+                                        $affiliateUrl1 = (!empty($product->link)) 
+                                            ? $product->link 
+                                            : ($fallbackAffiliateUrl ?? '');
+                                    @endphp
+                                    <div class="handbook-featured js-news-item" data-affiliate="{{ $affiliateUrl1 }}" data-href="{{ $c1 }}">
                                         <a href="{{ $c1 }}" class="featured-img text-decoration-none">
                                             <img src="{{ $i1 }}" alt="{{ $n1 }}">
                                         </a>
@@ -76,7 +88,13 @@
                                             $i = $p->image;
                                             $c = write_url($lang->pivot->canonical);
                                         @endphp
-                                        <div class="handbook-card-item">
+                                        @php
+                                            $product = $p->product ?? null;
+                                            $affiliateUrl = (!empty($product->link)) 
+                                                ? $product->link 
+                                                : ($fallbackAffiliateUrl ?? '');
+                                        @endphp
+                                        <div class="handbook-card-item js-news-item" data-affiliate="{{ $affiliateUrl }}" data-href="{{ $c }}">
                                             <a href="{{ $c }}" class="card-img text-decoration-none">
                                                 <img src="{{ $i }}" alt="{{ $n }}">
                                             </a>

@@ -53,6 +53,9 @@ class PostController extends FrontendController
             'related_posts.languages' => function($query){
                 $query->where('language_id', $this->language);
             },
+            'related_posts.product.languages' => function($query){
+                $query->where('language_id', $this->language);
+            },
             'post_products.product.languages' => function($query) {
                 $query->where('language_id', $this->language);
             },

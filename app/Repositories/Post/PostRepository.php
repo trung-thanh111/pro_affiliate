@@ -68,7 +68,7 @@ class PostRepository extends BaseRepository
         })
         ->with(['languages' => function($query) use ($languageId){
             $query->where('language_id', $languageId);
-        }])
+        }, 'product'])
         ->orderBy($orderBy[0], $orderBy[1]);
 
         if($offset > 0){
@@ -85,10 +85,11 @@ class PostRepository extends BaseRepository
         })
         ->with(['languages' => function($query) use ($languageId){
             $query->where('language_id', $languageId);
-        }])
+        }, 'product'])
         ->orderBy($orderBy[0], $orderBy[1])
         ->paginate($perPage, ['*'], 'page', $page);
     }
+
 
     public function search(?string $keyword = '', int $languageId = 1, int $perPage = 12){
         return $this->model->select([
@@ -108,8 +109,10 @@ class PostRepository extends BaseRepository
                   ->orWhere('tb2.description', 'LIKE', '%'.$keyword.'%')
                   ->orWhere('tb2.content', 'LIKE', '%'.$keyword.'%');
         })
+        ->with('product')
         ->orderBy('posts.id', 'DESC')
         ->paginate($perPage);
+
     }
     public function getRelatedPostsByCategory($catalogueId, $languageId, $limit = 6, $offset = 0)
     {

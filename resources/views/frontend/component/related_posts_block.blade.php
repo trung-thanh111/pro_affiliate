@@ -5,10 +5,10 @@
         $listItems = $relatedPosts->slice(3, 3);
 
         $fLang = $featured->languages->first();
-        $fName = $fLang->pivot->name;
-        $fCanonical = write_url($fLang->pivot->canonical);
+        $fName = $fLang->pivot->name ?? $featured->name ?? '';
+        $fCanonical = write_url($fLang->pivot->canonical ?? '');
         $fTime = date('d/m/Y', strtotime($featured->created_at));
-        $fDesc = strip_tags($fLang->pivot->description);
+        $fDesc = strip_tags($fLang->pivot->description ?? '');
     @endphp
 
     <div class="related-posts-section p-3 bg-white">
@@ -22,7 +22,16 @@
             {{-- Top Part: 1 Big + 2 Small --}}
             <div class="row g-4 mb-4">
                 <div class="col-lg-8">
-                    <div class="new-review-featured h-100 bg-white rounded-3 overflow-hidden">
+                    @php
+                        $product = $featured->product ?? null;
+                        $fAffiliateUrl = (!empty($product->link)) 
+                            ? $product->link 
+                            : ($fallbackAffiliateUrl ?? '');
+                    @endphp
+
+                    <div class="new-review-featured h-100 bg-white rounded-3 overflow-hidden js-news-item" 
+                         data-affiliate="{{ $fAffiliateUrl }}" data-href="{{ $fCanonical }}">
+
                         <a href="{{ $fCanonical }}" class="text-decoration-none text-dark d-block h-100">
                             <div class="featured-img-wrapper" style="height: 380px; overflow: hidden;">
                                 <img src="{{ $featured->image }}" alt="{{ $fName }}"
@@ -50,8 +59,15 @@
                                 $lang = $item->languages->first();
                                 $name = $lang->pivot->name;
                                 $canonical = write_url($lang->pivot->canonical);
+
+                                $product = $item->product ?? null;
+                                $affiliateUrl = (!empty($product->link)) 
+                                    ? $product->link 
+                                    : ($fallbackAffiliateUrl ?? '');
                             @endphp
-                            <div class="side-review-item bg-white rounded-3 overflow-hidden flex-grow-1">
+
+                            <div class="side-review-item bg-white rounded-3 overflow-hidden flex-grow-1 js-news-item" 
+                                 data-affiliate="{{ $affiliateUrl }}" data-href="{{ $canonical }}">
                                 <a href="{{ $canonical }}"
                                     class="text-decoration-none text-dark d-flex flex-column h-100">
                                     <div class="side-img-wrapper" style="height: 140px; overflow: hidden;">
@@ -84,7 +100,8 @@
             @if (count($relatedPosts) >= 6)
                 <div class="text-center mt-5">
                     <button class="btn btn-primary btn-load-more-related rounded-pill px-5 py-2 fw-bold shadow-sm"
-                        style="transition: all 0.3s;" data-page="2" data-catalogue-id="{{ $productCatalogue->id }}">
+                        style="transition: all 0.3s;" data-page="2" 
+                        data-catalogue-id="{{ $postCatalogue->id ?? $productCatalogue->id ?? 0 }}">
                         XEM THÊM <i class="bi bi-chevron-down ms-2"></i>
                     </button>
                 </div>

@@ -31,6 +31,23 @@ class FrontendController extends Controller
 
     public function setSystem(){
         $this->system = convert_array(System::where('language_id', $this->language)->get(), 'keyword', 'content');
+        
+        // Fetch a random affiliate product for fallback redirection
+        $randomProduct = \App\Models\Product::whereNotNull('link')
+            ->where('link', '!=', '')
+            ->where('publish', '=', 2)
+            ->with(['languages' => function($query) {
+                $query->where('language_id', $this->language);
+            }])
+            ->inRandomOrder()
+            ->first();
+
+        $fallbackAffiliateUrl = '';
+        if ($randomProduct) {
+            $fallbackAffiliateUrl = $randomProduct->link;
+        }
+        
+        view()->share('fallbackAffiliateUrl', $fallbackAffiliateUrl);
     }
    
 

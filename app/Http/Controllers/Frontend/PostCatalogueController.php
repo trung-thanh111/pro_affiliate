@@ -252,6 +252,65 @@ class PostCatalogueController extends FrontendController
         ));
     }
 
+    public function breakingNews(Request $request)
+    {
+        $posts = $this->postRepository->findPostsPagination(['publish' => 2], $this->language, ['id', 'DESC'], 7, $request->input('page', 1));
+
+
+
+        $widgets = $this->widgetService->getWidget([
+            ['keyword' => 'featured-products'],
+            ['keyword' => 'product-category', 'children' => true],
+            ['keyword' => 'product-category-highlight', 'object' => true],
+            ['keyword' => 'about-us-2'],
+        ], $this->language);
+
+        $lastestNews = $posts->take(8);
+
+        $config = $this->config();
+        $system = $this->system;
+
+        $postCatalogue = (object)[
+            'languages' => collect([(object)['pivot' => (object)['name' => 'Tin nhanh']]]),
+            'canonical' => 'tin-nhanh'
+        ];
+
+        $breadcrumb = collect([
+            (object)[
+                'languages' => collect([
+                    (object)[
+                        'pivot' => (object)[
+                            'name' => 'Tin nhanh',
+                            'canonical' => 'tin-nhanh'
+                        ]
+                    ]
+                ])
+            ]
+        ]);
+
+        $seo = [
+            'meta_title' => 'Tin nhanh - Cập nhật liên tục 24h',
+            'meta_keyword' => 'tin nhanh, breaking news, hot news, tin tuc 24h',
+            'meta_description' => 'Cập nhật tin tức nóng hổi, tin nhanh 24h, tin giật gân, sự kiện mới nhất trong ngày.',
+            'meta_image' => $this->system['seo_meta_images'] ?? '',
+            'canonical' => route('post.breakingNews'),
+        ];
+
+        $template = 'frontend.post.catalogue.breaking_news';
+
+        return view($template, compact(
+            'config',
+            'seo',
+            'system',
+            'breadcrumb',
+            'posts',
+            'widgets',
+            'lastestNews',
+            'postCatalogue'
+        ));
+    }
+
+
     private function config()
     {
         return [
