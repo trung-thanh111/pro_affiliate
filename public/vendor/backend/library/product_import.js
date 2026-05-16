@@ -37,11 +37,14 @@
     HT.analyzeImport = (jsonData) => {
         $('#import-loading').show();
         $.ajax({
-            url: 'product/analyze-import', // Giữ nguyên theo style của product_crawl.js
+            url: 'product/analyze-import',
             type: 'POST',
-            data: {
-                products: jsonData,
-                _token: _token
+            data: JSON.stringify({
+                products: jsonData
+            }),
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': _token
             },
             dataType: 'json',
             success: function (res) {
@@ -107,9 +110,9 @@
                 </tr>
             `;
         }).join('');
-        
+
         $('#import-review-body').html(html);
-        
+
         // Xử lý riêng cho dropdown Chọn tất cả
         let $selectAll = $('#select-all-catalogue');
         if ($selectAll.length) {
@@ -155,9 +158,12 @@
         $.ajax({
             url: 'product/execute-import',
             type: 'POST',
-            data: {
-                products: products,
-                _token: _token
+            data: JSON.stringify({
+                products: products
+            }),
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': _token
             },
             dataType: 'json',
             success: function (res) {

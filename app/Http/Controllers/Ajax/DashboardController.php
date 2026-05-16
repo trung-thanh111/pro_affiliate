@@ -47,11 +47,24 @@ class DashboardController extends Controller
         $post = $request->input();
         $version = $post['version'] ?? 'V1';
         $namespace = Str::words(Str::headline($post['model']), 1, '');
-        $serviceInterfaceNamespace = '\App\Services\\' . $namespace . '\\' . $version . '\\' . ucfirst($post['model']) . 'Service';
+        $serviceInterfaceNamespace = '\App\Services\\' . $version . '\\' . $namespace . '\\'  . ucfirst($post['model']) . 'Service';
         if (class_exists($serviceInterfaceNamespace)) {
             $serviceInstance = app($serviceInterfaceNamespace);
         }
         $flag = $serviceInstance->updateStatusAll($post);
+        return response()->json(['flag' => $flag]); 
+
+    }
+
+    public function deleteAll(Request $request){
+        $post = $request->input();
+        $version = $post['version'] ?? 'V1';
+        $namespace = Str::words(Str::headline($post['model']), 1, '');
+        $serviceInterfaceNamespace = '\App\Services\\' . $version . '\\' . $namespace . '\\'  . ucfirst($post['model']) . 'Service';
+        if (class_exists($serviceInterfaceNamespace)) {
+            $serviceInstance = app($serviceInterfaceNamespace);
+        }
+        $flag = $serviceInstance->deleteAll($post);
         return response()->json(['flag' => $flag]); 
 
     }

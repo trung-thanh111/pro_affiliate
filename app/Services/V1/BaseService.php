@@ -121,5 +121,20 @@ class BaseService
         }
     }
 
+    public function deleteAll($post){
+        DB::beginTransaction();
+        try{
+            $model = lcfirst($post['model']).'Repository';
+            $flag = $this->{$model}->deleteByWhereIn('id', $post['id']);
+            DB::commit();
+            return true;
+        }catch(\Exception $e ){
+            DB::rollBack();
+            // Log::error($e->getMessage());
+            echo $e->getMessage();die();
+            return false;
+        }
+    }
+
 
 }

@@ -10,6 +10,8 @@
         </li>
         <li><a href="#" class="changeStatusAll" data-value="1" data-field="publish" data-model="{{  $config['model']  }}">Bỏ xuất bản</a>
         </li>
+        <li><a href="#" class="deleteAll" data-model="{{  $config['model']  }}">Xóa tất cả</a>
+        </li>
     </ul>
     <a class="close-link">
         <i class="fa fa-times"></i>

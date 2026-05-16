@@ -16,13 +16,13 @@ class BaseRepository
 
     public function __construct(
         Model $model
-    ){
+    ) {
         $this->model = $model;
     }
 
     public function pagination(
-        array $column = ['*'], 
-        array $condition = [], 
+        array $column = ['*'],
+        array $condition = [],
         int $perPage = 1,
         array $extend = [],
         array $orderBy = ['id', 'DESC'],
@@ -30,100 +30,119 @@ class BaseRepository
         array $relations = [],
         array $rawQuery = [],
         // int $currentPage = 1,
-        
-    ){
+
+    ) {
         $query = $this->model->select($column);
-        return $query  
-                ->keyword($condition['keyword'] ?? null)
-                ->publish($condition['publish'] ?? null)
-                ->relationCount($relations ?? null)
-                ->CustomWhere($condition['where'] ?? null)
-                ->customWhereRaw($rawQuery['whereRaw'] ?? null)
-                ->customJoin($join ?? null)
-                ->customGroupBy($extend['groupBy'] ?? null)
-                ->customOrderBy($orderBy ?? null)
-                // ->toSql();
-                ->paginate($perPage)
-                ->withQueryString()->withPath(env('APP_URL').$extend['path']);
+        return $query
+            ->keyword($condition['keyword'] ?? null)
+            ->publish($condition['publish'] ?? null)
+            ->relationCount($relations ?? null)
+            ->CustomWhere($condition['where'] ?? null)
+            ->customWhereRaw($rawQuery['whereRaw'] ?? null)
+            ->customJoin($join ?? null)
+            ->customGroupBy($extend['groupBy'] ?? null)
+            ->customOrderBy($orderBy ?? null)
+            // ->toSql();
+            ->paginate($perPage)
+            ->withQueryString()->withPath(env('APP_URL') . $extend['path']);
     }
 
-    public function create(array $payload = []){
+    public function create(array $payload = [])
+    {
         $model = $this->model->create($payload);
         return $model->fresh();
     }
 
-    public function createBatch(array $payload = []){
+    public function createBatch(array $payload = [])
+    {
         return $this->model->insert($payload);
     }
 
-    public function update(int $id = 0, array $payload = []){
-       $model = $this->findById($id);
-       $model->fill($payload);
-       $model->save();
-       return $model;
+    public function update(int $id = 0, array $payload = [])
+    {
+        $model = $this->findById($id);
+        $model->fill($payload);
+        $model->save();
+        return $model;
     }
 
-    public function updateOrInsert(array $payload = [], array $condition = []){
+    public function updateOrInsert(array $payload = [], array $condition = [])
+    {
         return $this->model->updateOrInsert($condition, $payload);
     }
 
-    public function updateByWhereIn(string $whereInField = '', array $whereIn = [], array $payload = []){
+    public function updateByWhereIn(string $whereInField = '', array $whereIn = [], array $payload = [])
+    {
         return $this->model->whereIn($whereInField, $whereIn)->update($payload);
     }
- 
-    public function updateByWhere($condition = [], array $payload = []){
+
+    public function deleteByWhereIn(string $whereInField = '', array $whereIn = [])
+    {
+        return $this->model->whereIn($whereInField, $whereIn)->delete();
+    }
+
+    public function updateByWhere($condition = [], array $payload = [])
+    {
         $query = $this->model->newQuery();
-        foreach($condition as $key => $val){
-            $query->where($val[0], $val[1] , $val[2]);
+        foreach ($condition as $key => $val) {
+            $query->where($val[0], $val[1], $val[2]);
         }
         return $query->update($payload);
     }
-   
-    public function delete(int $id = 0){
+
+    public function delete(int $id = 0)
+    {
         return $this->findById($id)->delete();
     }
 
-    public function forceDelete(int $id = 0){
+    public function forceDelete(int $id = 0)
+    {
         return $this->findById($id)->forceDelete();
     }
 
-    public function forceDeleteByCondition(array $condition = []){
+    public function forceDeleteByCondition(array $condition = [])
+    {
         $query = $this->model->newQuery();
-        foreach($condition as $key => $val){
-            $query->where($val[0], $val[1] , $val[2]);
+        foreach ($condition as $key => $val) {
+            $query->where($val[0], $val[1], $val[2]);
         }
         return $query->forceDelete();
     }
 
-    public function all(array $relation = [], string $selectRaw = ''){
+    public function all(array $relation = [], string $selectRaw = '')
+    {
         $query = $this->model->newQuery();
         $query->select('*');
-        if(!empty($selectRaw)){
+        if (!empty($selectRaw)) {
             $query->selectRaw($selectRaw);
         }
         $query->with($relation);
         return $query->get();
     }
 
+    public function count()
+    {
+        return $this->model->count();
+    }
+
     public function findById(
         $modelId,
         array $column = ['*'],
         array $relation = [],
-    ){
+    ) {
         return $this->model->select($column)->with($relation)->findOrFail($modelId);
     }
 
     protected static $queryCache = [];
 
     public function findByCondition(
-        $condition = [] , 
-        $flag = false, 
-        $relation = [], 
+        $condition = [],
+        $flag = false,
+        $relation = [],
         array $orderBy = ['id', 'desc'],
         array $param = [],
         array $withCount = [],
-    )
-    {
+    ) {
         // Safe serialization for cache key (handles closures)
         $args = func_get_args();
         array_walk_recursive($args, function (&$item) {
@@ -133,28 +152,29 @@ class BaseRepository
         });
 
         $cacheKey = md5(get_class($this->model) . serialize($args));
-        
+
         if (isset(static::$queryCache[$cacheKey])) {
             return static::$queryCache[$cacheKey];
         }
 
         $query = $this->model->newQuery();
-        foreach($condition as $key => $val){
-            $query->where($val[0], $val[1] , $val[2]);
+        foreach ($condition as $key => $val) {
+            $query->where($val[0], $val[1], $val[2]);
         }
-        if(isset($param['whereIn'])){
+        if (isset($param['whereIn'])) {
             $query->whereIn($param['whereInField'], $param['whereIn']);
         }
-        
+
         $query->with($relation);
         $query->withCount($withCount);
         $query->orderBy($orderBy[0], $orderBy[1]);
-        
+
         $result = ($flag == false) ? $query->first() : $query->get();
         return static::$queryCache[$cacheKey] = $result;
     }
 
-    public function findByWhereHas(array $condition = [], string $relation = '', string $alias = ''){
+    public function findByWhereHas(array $condition = [], string $relation = '', string $alias = '')
+    {
         return $this->model->with('languages')->whereHas($relation, function ($query) use ($condition, $alias) {
             foreach ($condition as $key => $val) {
                 $query->where($alias . '.' . $key, $val);
@@ -162,24 +182,26 @@ class BaseRepository
         })->first();
     }
 
-    public function createPivot($model, array $payload = [], string $relation = ''){
+    public function createPivot($model, array $payload = [], string $relation = '')
+    {
         return $model->{$relation}()->attach($model->id, $payload);
     }
 
 
-    public function findWidgetItem(array $condition = [],int $language_id = 1, string $alias = ''){
+    public function findWidgetItem(array $condition = [], int $language_id = 1, string $alias = '')
+    {
         // dd($condition);
         $result = $this->model->with([
-            'languages' => function($query) use ($language_id){
+            'languages' => function ($query) use ($language_id) {
                 $query->where('language_id', $language_id);
             }
         ])
-        ->whereHas('languages', function ($query) use ($condition, $alias) {
-            foreach ($condition as $key => $val) {
-                $query->where($alias . '.' . $val[0], $val[1], $val[2]);
-            }
-        })
-        ->get(); 
+            ->whereHas('languages', function ($query) use ($condition, $alias) {
+                foreach ($condition as $key => $val) {
+                    $query->where($alias . '.' . $val[0], $val[1], $val[2]);
+                }
+            })
+            ->get();
         // dd($result);
         return $result;
     }
@@ -203,17 +225,18 @@ class BaseRepository
     //     return $results;
     // }
 
-    public function recursiveCategory(string $parameter = '', $table = ''){
-        $table = $table.'_catalogues';
+    public function recursiveCategory(string $parameter = '', $table = '')
+    {
+        $table = $table . '_catalogues';
         $results = [];
-        
+
         // Hàm đệ quy để lấy tất cả parent
-        $getParents = function($id) use (&$getParents, &$results, $table) {
+        $getParents = function ($id) use (&$getParents, &$results, $table) {
             $category = DB::table($table)
                 ->where('id', $id)
                 ->whereNull('deleted_at')
                 ->first();
-                
+
             if ($category) {
                 $results[] = $category->id;
                 if ($category->parent_id) {
@@ -221,62 +244,64 @@ class BaseRepository
                 }
             }
         };
-    
+
         // Xử lý parameter có thể là nhiều ID (separated by comma)
         $ids = explode(',', $parameter);
-        foreach($ids as $id) {
+        foreach ($ids as $id) {
             $getParents((int)$id);
         }
-    
+
         // Convert kết quả về format giống với query cũ
-        return array_map(function($id) {
+        return array_map(function ($id) {
             return (object)['id' => $id];
         }, array_unique($results));
     }
 
 
-    public function findObjectByCategoryIds($catIds, $model, $language){
+    public function findObjectByCategoryIds($catIds, $model, $language)
+    {
         $query = $this->model->newQuery();
         $this->model->select(
-                $model.'s.*',
-            )
+            $model . 's.*',
+        )
             ->where(
                 [config('apps.general.defaultPublish')]
             )
-            ->with('languages', function($query) use ($language){
+            ->with('languages', function ($query) use ($language) {
                 $query->where('language_id', $language);
             })
-            ->with($model.'_catalogues', function($query) use ($language){
-                $query->with('languages', function($query) use ($language){
+            ->with($model . '_catalogues', function ($query) use ($language) {
+                $query->with('languages', function ($query) use ($language) {
                     $query->where('language_id', $language);
                 });
             });
 
-            if($model === 'product'){
-                $query->with('product_variants');
-            }
+        if ($model === 'product') {
+            $query->with('product_variants');
+        }
 
-            return $query->join($model.'_catalogue_'.$model.' as tb2', 'tb2.'.$model.'_id', '=', $model.'s.id')
-            ->whereIn('tb2.'.$model.'_catalogue_id', $catIds)
-            ->orderBy($model.'s.'.$model.'_catalogue_id', 'desc')
+        return $query->join($model . '_catalogue_' . $model . ' as tb2', 'tb2.' . $model . '_id', '=', $model . 's.id')
+            ->whereIn('tb2.' . $model . '_catalogue_id', $catIds)
+            ->orderBy($model . 's.' . $model . '_catalogue_id', 'desc')
             ->limit(10)
             ->get();
     }
 
-    public function breadcrumb($model, $language){
+    public function breadcrumb($model, $language)
+    {
         return $this->findByCondition([
             ['lft', '<=', $model->lft],
             ['rgt', '>=', $model->rgt],
             config('apps.general.defaultPublish')
         ], true, [
-            'languages' => function($query) use ($language){
+            'languages' => function ($query) use ($language) {
                 $query->where('language_id', $language);
             }
         ], ['lft', 'asc']);
     }
 
     public function searchInformation(array $conditions = [])
-    { 
+    {
         $query = $this->model->newQuery();
         foreach ($conditions as $condition) {
             $query->{$condition[3] ?? 'where'}($condition[0], $condition[1], $condition[2]);
@@ -285,35 +310,36 @@ class BaseRepository
     }
 
 
-    public function getFillable(){
+    public function getFillable()
+    {
         return $this->model->getFillable();
     }
 
-    public function getRelation(){
+    public function getRelation()
+    {
         return $this->model->getRelationable() ?? [];
     }
 
-    public function customPagination(array $specs = []){
+    public function customPagination(array $specs = [])
+    {
         return $this->model
-        ->keyword($specs['filter']['keyword'])
-        ->simpleFilter($specs['filter']['simple'])
-        ->dateFilter($specs['filter']['date'] ?? [])
-        ->complexFilter($specs['filter']['complex'] ?? [])
-        ->catalogueFilter($specs['filter']['relation'] ?? [])
-        ->with($specs['with'])
-        ->take($specs['take'])
-        ->orderBy($specs['sort'][0], $specs['sort'][1])
-        ->when(
-            $specs['type'],
-            fn($q) => $q->get(),
-            fn($q) => isset($specs['path'])
-            ? $q->paginate($specs['perpage'])
-                ->withQueryString()
-                ->withPath(env('APP_URL').$specs['path'])
-            : $q->paginate($specs['perpage'])
-            // fn($q) => $q->toSql()
-        );
+            ->keyword($specs['filter']['keyword'])
+            ->simpleFilter($specs['filter']['simple'])
+            ->dateFilter($specs['filter']['date'] ?? [])
+            ->complexFilter($specs['filter']['complex'] ?? [])
+            ->catalogueFilter($specs['filter']['relation'] ?? [])
+            ->with($specs['with'])
+            ->take($specs['take'])
+            ->orderBy($specs['sort'][0], $specs['sort'][1])
+            ->when(
+                $specs['type'],
+                fn($q) => $q->get(),
+                fn($q) => isset($specs['path'])
+                    ? $q->paginate($specs['perpage'])
+                    ->withQueryString()
+                    ->withPath(env('APP_URL') . $specs['path'])
+                    : $q->paginate($specs['perpage'])
+                // fn($q) => $q->toSql()
+            );
     }
-
 }
-

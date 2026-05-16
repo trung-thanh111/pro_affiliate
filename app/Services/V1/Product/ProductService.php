@@ -1014,4 +1014,27 @@ class ProductService extends BaseService
             return false;
         }
     }
+
+    public function statistic($languageId = 1)
+    {
+        $totalProducts = $this->productRepository->count();
+        $catalogues = $this->productCatalogueRepository->all(['languages' => function($query) use ($languageId) {
+            $query->where('language_id', $languageId);
+        }], 'id');
+
+        $catalogueStatistic = [];
+        if($catalogues->count()){
+            foreach($catalogues as $key => $val){
+                $catalogueStatistic[] = [
+                    'name' => $val->languages->first()->pivot->name ?? 'N/A',
+                    'count' => DB::table('product_catalogue_product')->where('product_catalogue_id', $val->id)->count()
+                ];
+            }
+        }
+
+        return [
+            'totalProducts' => $totalProducts ?? 0,
+            'catalogueStatistic' => $catalogueStatistic
+        ];
+    }
 }
