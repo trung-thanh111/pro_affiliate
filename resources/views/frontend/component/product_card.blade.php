@@ -14,8 +14,16 @@
 
 <a href="{{ $canonical }}?redirect=1" target="_blank" title="{{ $name }}" class="modern-product-card-link text-decoration-none d-block">
     <div class="modern-product-card">
-        <div class="image-box">
-            <img src="{{ $image }}" alt="{{ $name }}">
+        <div class="image-box skeleton-loading">
+            <img src="{{ $image }}" alt="{{ $name }}" class="fade-in-img" onload="this.classList.add('loaded'); this.parentElement.classList.remove('skeleton-loading');" onerror="this.parentElement.classList.remove('skeleton-loading');">
+            <script>
+                (function(img){
+                    if (img && img.complete) {
+                        img.classList.add('loaded');
+                        img.parentElement.classList.remove('skeleton-loading');
+                    }
+                })(document.currentScript ? document.currentScript.previousElementSibling : null);
+            </script>
             @if($price['percent'] > 0)
                 <div class="badge-discount">-{{ $price['percent'] }}%</div>
             @endif

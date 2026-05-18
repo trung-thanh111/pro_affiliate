@@ -869,7 +869,6 @@ class WidgetService extends BaseService
      */
     public function getPromotionProducts(int $language = 1, int $limit = 8)
     {
-        // 1. Tìm khuyến mãi chính (is_primary = 1)
         $primaryPromotion = \App\Models\Promotion::where('is_primary', 1)
             ->where('publish', 2)
             ->where('startDate', '<=', now())
@@ -944,10 +943,15 @@ class WidgetService extends BaseService
             ->get()
             ->groupBy('parent_id');
 
-        // Fetch products for each category
         foreach ($categories as $category) {
-            // Get all descendant IDs for this category using lft/rgt
-            $descendantIds = $this->getRecursiveCategoryIds($category->id, 'ProductCatalogue');
+            $category->children = $allChildren->get($category->id, collect());
+
+            $activeCategoryId = $category->id;
+            if ($category->children->isNotEmpty()) {
+                $activeCategoryId = $category->children->first()->id;
+            }
+
+            $descendantIds = $this->getRecursiveCategoryIds($activeCategoryId, 'ProductCatalogue');
 
             $products = \App\Models\Product::with(['languages' => function ($query) use ($language) {
                 $query->where('language_id', $language);
@@ -960,7 +964,6 @@ class WidgetService extends BaseService
                 ->get();
 
             $category->products = $this->applyPromotions($products, 'Product');
-            $category->children = $allChildren->get($category->id, collect());
         }
 
         return static::$widgetCache[$cacheKey] = $categories;
