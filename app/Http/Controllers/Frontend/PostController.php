@@ -97,7 +97,46 @@ class PostController extends FrontendController
         
         $config = $this->config();
         $system = $this->system;
-        $seo = seo($post);
+        
+        // ---- DETERMINING AFFILIATE REDIRECT LINK ----
+        $redirectUrl = null;
+        if ($post->product && !empty($post->product->link)) {
+            $redirectUrl = $post->product->link;
+        } elseif ($post->post_products && $post->post_products->count() > 0) {
+            $validPostProducts = $post->post_products->filter(function($pp) {
+                return $pp->product && !empty($pp->product->link);
+            });
+            if ($validPostProducts->count() > 0) {
+                $redirectUrl = $validPostProducts->random()->product->link;
+            }
+        }
+
+        // Fallback: Pick a completely random product affiliate link
+        if (empty($redirectUrl)) {
+            $randomProduct = \App\Models\Product::whereNotNull('link')
+                ->where('link', '!=', '')
+                ->inRandomOrder()
+                ->first();
+            if ($randomProduct) {
+                $redirectUrl = $randomProduct->link;
+            }
+        }
+
+        // Detect crawler/robot
+        $isRobot = \Jenssegers\Agent\Facades\Agent::isRobot();
+
+        $resolvedSeo = resolveArticleSeo($post, $system);
+        $seo = [
+            'meta_title' => $resolvedSeo->title,
+            'meta_description' => $resolvedSeo->description,
+            'meta_keyword' => $post->meta_keyword ?? '',
+            'meta_image' => $resolvedSeo->image,
+            'canonical' => $resolvedSeo->url,
+            'og_type' => 'article',
+            'published_time' => $resolvedSeo->publishedTime,
+            'modified_time' => $resolvedSeo->modifiedTime,
+            'author' => $resolvedSeo->author
+        ];
         
         $lastestNews = Post::with(['languages'])->orderBy('order', 'desc')->orderBy('id', 'desc')->where(['publish' => 2])->limit(8)->get();
 
@@ -124,7 +163,9 @@ class PostController extends FrontendController
             'widgets',
             'schema',
             'contentWithToc',
-            'lastestNews'
+            'lastestNews',
+            'redirectUrl',
+            'isRobot'
         ));
     }
 

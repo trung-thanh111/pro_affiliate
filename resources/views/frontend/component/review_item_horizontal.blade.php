@@ -5,9 +5,10 @@
         $desc = strip_tags($lang->pivot->description);
         $canonical = write_url($lang->pivot->canonical);
         $time = date('d/m/Y', strtotime($item->created_at));
+        $redirectUrl = get_post_affiliate_url($item);
     @endphp
     <div class="horizontal-review-item py-4 border-top">
-        <a href="{{ $canonical }}" class="row g-4 text-decoration-none text-dark">
+        <a href="{{ $canonical }}" class="row g-4 text-decoration-none text-dark post-link-redirect" data-redirect="{{ $redirectUrl }}">
             <div class="col-md-4 col-4">
                 <div class="item-img-wrapper">
                     <img src="{{ $item->image }}" alt="{{ $name }}" class="rounded-3 w-100 object-fit-cover" style="height: 180px;">

@@ -83,5 +83,49 @@ class Post extends Model
         return $this->hasMany(ComparisonSection::class, 'post_id', 'id')->orderBy('sort_order');
     }
 
+    /**
+     * Get the dynamically resolved affiliate redirect link for the post.
+     *
+     * @return string|null
+     */
+    public function getAffiliateUrlAttribute()
+    {
+        // 1. Direct Product
+        if ($this->relationLoaded('product') && $this->product && !empty($this->product->link)) {
+            return $this->product->link;
+        }
+        
+        $product = $this->product;
+        if ($product && !empty($product->link)) {
+            return $product->link;
+        }
+
+        // 2. Comparison Products
+        if ($this->relationLoaded('post_products') && $this->post_products->count() > 0) {
+            $validPostProducts = $this->post_products->filter(function($pp) {
+                return $pp->product && !empty($pp->product->link);
+            });
+            if ($validPostProducts->count() > 0) {
+                return $validPostProducts->random()->product->link;
+            }
+        } else {
+            $validPostProduct = $this->post_products()->whereHas('product', function($query) {
+                $query->whereNotNull('link')->where('link', '!=', '');
+            })->with('product')->get();
+            if ($validPostProduct->count() > 0) {
+                return $validPostProduct->random()->product->link;
+            }
+        }
+
+        // 3. Fallback: Cached random product link from the DB
+        return cache()->remember('fallback_affiliate_url_' . $this->id, 60, function() {
+            $randomProduct = \App\Models\Product::whereNotNull('link')
+                ->where('link', '!=', '')
+                ->inRandomOrder()
+                ->first();
+            return $randomProduct ? $randomProduct->link : null;
+        });
+    }
+
 
 }

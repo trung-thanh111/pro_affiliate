@@ -21,10 +21,11 @@
                             $name = $lang->pivot->name;
                             $desc = $lang->pivot->description;
                             $canonical = write_url($lang->pivot->canonical);
+                            $redirectUrl = get_post_affiliate_url($post);
                         @endphp
                         <div class="col-lg-4 col-md-6">
                             <div class="news-item-24h">
-                                <a href="{{ $canonical }}" class="d-flex gap-3 text-decoration-none">
+                                <a href="{{ $canonical }}" class="d-flex gap-3 text-decoration-none post-link-redirect" data-redirect="{{ $redirectUrl }}">
                                     <div class="news-img-24h flex-shrink-0">
                                         <img src="{{ $post->image }}" alt="{{ $name }}"
                                             class="rounded-3 object-fit-cover">

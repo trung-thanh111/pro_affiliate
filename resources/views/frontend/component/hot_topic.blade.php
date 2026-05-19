@@ -25,9 +25,10 @@
                                     $lang = $post->languages->first();
                                     $name = $lang->pivot->name;
                                     $canonical = write_url($lang->pivot->canonical);
+                                    $redirectUrl = get_post_affiliate_url($post);
                                 @endphp
                                 <div class="mb20 topic-item" data-name="{{ strtolower($name) }}">
-                                    <a href="{{ $canonical }}" class="topic-tag">
+                                    <a href="{{ $canonical }}" class="topic-tag post-link-redirect" data-redirect="{{ $redirectUrl }}">
                                         {{ Str::limit($name, 45) }}
                                     </a>
                                 </div>

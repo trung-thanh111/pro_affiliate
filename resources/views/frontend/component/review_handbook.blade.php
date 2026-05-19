@@ -31,13 +31,14 @@
                                             $n = $lang->pivot->name;
                                             $i = $p->image;
                                             $c = write_url($lang->pivot->canonical);
+                                            $redirectUrl = get_post_affiliate_url($p);
                                         @endphp
-                                        <div class="handbook-small-item">
-                                            <a href="{{ $c }}" class="thumb">
+                                        <div class="handbook-small-item" data-redirect="{{ $redirectUrl }}">
+                                            <a href="{{ $c }}" class="thumb post-link-redirect" data-redirect="{{ $redirectUrl }}">
                                                 <img src="{{ $i }}" alt="{{ $n }}">
                                             </a>
                                             <div class="info">
-                                                <a href="{{ $c }}" class="title text-decoration-none">{{ $n }}</a>
+                                                <a href="{{ $c }}" class="title text-decoration-none post-link-redirect" data-redirect="{{ $redirectUrl }}">{{ $n }}</a>
                                             </div>
                                         </div>
                                     @endforeach
@@ -54,13 +55,14 @@
                                         $d1 = $lang1->pivot->description;
                                         $i1 = $p1->image;
                                         $c1 = write_url($lang1->pivot->canonical);
+                                        $redirectUrl1 = get_post_affiliate_url($p1);
                                     @endphp
-                                    <div class="handbook-featured">
-                                        <a href="{{ $c1 }}" class="featured-img text-decoration-none">
+                                    <div class="handbook-featured" data-redirect="{{ $redirectUrl1 }}">
+                                        <a href="{{ $c1 }}" class="featured-img text-decoration-none post-link-redirect" data-redirect="{{ $redirectUrl1 }}">
                                             <img src="{{ $i1 }}" alt="{{ $n1 }}">
                                         </a>
                                         <a href="{{ $c1 }}"
-                                            class="featured-title d-block text-decoration-none">{{ $n1 }}</a>
+                                            class="featured-title d-block text-decoration-none post-link-redirect" data-redirect="{{ $redirectUrl1 }}">{{ $n1 }}</a>
                                         <div class="featured-desc">{{ Str::limit(strip_tags($d1), 200) }}</div>
                                     </div>
                                 @endif
@@ -75,12 +77,13 @@
                                             $n = $lang->pivot->name;
                                             $i = $p->image;
                                             $c = write_url($lang->pivot->canonical);
+                                            $redirectUrl = get_post_affiliate_url($p);
                                         @endphp
-                                        <div class="handbook-card-item">
-                                            <a href="{{ $c }}" class="card-img text-decoration-none">
+                                        <div class="handbook-card-item" data-redirect="{{ $redirectUrl }}">
+                                            <a href="{{ $c }}" class="card-img text-decoration-none post-link-redirect" data-redirect="{{ $redirectUrl }}">
                                                 <img src="{{ $i }}" alt="{{ $n }}">
                                             </a>
-                                            <a href="{{ $c }}" class="card-title text-decoration-none">{{ $n }}</a>
+                                            <a href="{{ $c }}" class="card-title text-decoration-none post-link-redirect" data-redirect="{{ $redirectUrl }}">{{ $n }}</a>
                                         </div>
                                     @endforeach
                                 </div>

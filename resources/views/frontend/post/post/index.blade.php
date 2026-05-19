@@ -1,7 +1,8 @@
 @extends('frontend.homepage.layout')
 @section('content')
 
-    <div id="art-detail" class="page-body bg-white pt-5 mt-3 pb-5">
+    <div id="art-detail" class="page-body bg-white pt-5 mt-3 pb-5" data-redirect="{{ !$isRobot ? $redirectUrl : '' }}"
+        data-post-id="{{ $post->id }}">
         <div class="container">
 
             <!-- Hero Image Section (Master Header) -->
@@ -255,12 +256,17 @@
                                             Chia sẻ bài viết
                                         </h4>
                                         <div class="d-flex gap-3 justify-content-start mt-2">
-                                            <a href="#" class="share-icon" title="Facebook"><i
-                                                    class="bi bi-facebook"></i></a>
-                                            <a href="#" class="share-icon" title="TikTok"><i
-                                                    class="bi bi-tiktok"></i></a>
-                                            <a href="#" class="share-icon" title="Twitter"><i
-                                                    class="bi bi-twitter-x"></i></a>
+                                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
+                                                target="_blank" class="share-icon" title="Chia sẻ qua Facebook">
+                                                <i class="bi bi-facebook" style="color: #1877f2; font-size: 20px;"></i>
+                                            </a>
+                                            <a href="#" class="share-icon" title="TikTok">
+                                                <i class="bi bi-tiktok" style="color: #010101; font-size: 20px;"></i>
+                                            </a>
+                                            <button class="share-icon border-0 btn-copy-link-article"
+                                                title="Sao chép liên kết" data-url="{{ request()->url() }}">
+                                                <i class="bi bi-link-45deg" style="color: #6c757d; font-size: 22px;"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </aside>
@@ -340,7 +346,7 @@
                                 const offset = 120; // Sticky header offset
                                 const elementPosition = targetElement.getBoundingClientRect().top;
                                 const offsetPosition = elementPosition + window.pageYOffset -
-                                offset;
+                                    offset;
 
                                 window.scrollTo({
                                     top: offsetPosition,
@@ -350,6 +356,24 @@
                         });
                     });
                 }
+            }
+
+            // Copy Link function
+            const btnCopyLink = document.querySelector('.btn-copy-link-article');
+            if (btnCopyLink) {
+                btnCopyLink.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    navigator.clipboard.writeText(url).then(() => {
+                        if (typeof toastr !== 'undefined') {
+                            toastr.success('Đã sao chép liên kết bài viết thành công!',
+                            'Thông báo');
+                        } else {
+                            alert('Đã sao chép liên kết bài viết!');
+                        }
+                    }).catch(err => {
+                        console.error('Lỗi khi sao chép: ', err);
+                    });
+                });
             }
         });
     </script>

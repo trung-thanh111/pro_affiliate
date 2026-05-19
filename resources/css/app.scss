@@ -7226,14 +7226,17 @@ html.wowjs .wow {
         background: #f0f2f5;
         color: #65676b;
         transition: all 0.2s;
+        text-decoration: none !important;
 
         i {
             font-size: 18px;
         }
 
         &:hover {
-            background: var(--primary-color);
-            color: #fff;
+            opacity: 0.8;
+            transform: scale(1.08);
+            color: #65676b !important;
+            text-decoration: none !important;
         }
     }
 

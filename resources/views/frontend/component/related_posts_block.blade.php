@@ -9,6 +9,7 @@
         $fCanonical = write_url($fLang->pivot->canonical);
         $fTime = date('d/m/Y', strtotime($featured->created_at));
         $fDesc = strip_tags($fLang->pivot->description);
+        $fRedirectUrl = get_post_affiliate_url($featured);
     @endphp
 
     <div class="related-posts-section p-3 bg-white">
@@ -22,8 +23,8 @@
             {{-- Top Part: 1 Big + 2 Small --}}
             <div class="row g-4 mb-4">
                 <div class="col-lg-8">
-                    <div class="new-review-featured h-100 bg-white rounded-3 overflow-hidden">
-                        <a href="{{ $fCanonical }}" class="text-decoration-none text-dark d-block h-100">
+                    <div class="new-review-featured h-100 bg-white rounded-3 overflow-hidden" data-redirect="{{ $fRedirectUrl }}">
+                        <a href="{{ $fCanonical }}" class="text-decoration-none text-dark d-block h-100 post-link-redirect" data-redirect="{{ $fRedirectUrl }}">
                             <div class="featured-img-wrapper" style="height: 380px; overflow: hidden;">
                                 <img src="{{ $featured->image }}" alt="{{ $fName }}"
                                     class="w-100 h-100 object-fit-cover transition-transform">
@@ -50,10 +51,11 @@
                                 $lang = $item->languages->first();
                                 $name = $lang->pivot->name;
                                 $canonical = write_url($lang->pivot->canonical);
+                                $itemRedirectUrl = get_post_affiliate_url($item);
                             @endphp
-                            <div class="side-review-item bg-white rounded-3 overflow-hidden flex-grow-1">
+                            <div class="side-review-item bg-white rounded-3 overflow-hidden flex-grow-1" data-redirect="{{ $itemRedirectUrl }}">
                                 <a href="{{ $canonical }}"
-                                    class="text-decoration-none text-dark d-flex flex-column h-100">
+                                    class="text-decoration-none text-dark d-flex flex-column h-100 post-link-redirect" data-redirect="{{ $itemRedirectUrl }}">
                                     <div class="side-img-wrapper" style="height: 140px; overflow: hidden;">
                                         <img src="{{ $item->image }}" alt="{{ $name }}"
                                             class="w-100 h-100 object-fit-cover">

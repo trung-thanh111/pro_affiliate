@@ -13,15 +13,21 @@
 <meta name="keyword" content="{{ $seo['meta_keyword'] ?? ($system['seo_meta_keyword'] ?? '') }}" />
 <link rel="canonical" href="{{ $seo['canonical'] ?? url()->current() }}" />
 <meta property="og:locale" content="vi_VN" />
-<!-- for Facebook -->
+<!-- for Facebook & Zalo -->
 <meta property="og:title" content="{{ $seo['meta_title'] ?? ($system['seo_meta_title'] ?? '') }}" />
-<meta property="og:type" content="website" />
+<meta property="og:type" content="{{ $seo['og_type'] ?? 'website' }}" />
 <meta property="og:image" content="{{ $seo['meta_image'] ?? ($system['seo_meta_image'] ?? '') }}" />
 <meta property="og:url" content="{{ $seo['canonical'] ?? url()->current() }}" />
 <meta property="og:description" content="{{ $seo['meta_description'] ?? ($system['seo_meta_description'] ?? '') }}" />
-<meta property="og:site_name" content="" />
-<meta property="fb:admins" content="" />
-<meta property="fb:app_id" content="" />
+<meta property="og:site_name" content="{{ $system['homepage_company'] ?? '' }}" />
+@if(isset($seo['og_type']) && $seo['og_type'] === 'article')
+<meta property="article:published_time" content="{{ $seo['published_time'] ?? '' }}" />
+<meta property="article:modified_time" content="{{ $seo['modified_time'] ?? '' }}" />
+<meta property="article:author" content="{{ $seo['author'] ?? '' }}" />
+@endif
+<meta itemprop="name" content="{{ $seo['meta_title'] ?? ($system['seo_meta_title'] ?? '') }}">
+<meta itemprop="description" content="{{ $seo['meta_description'] ?? ($system['seo_meta_description'] ?? '') }}">
+<meta itemprop="image" content="{{ $seo['meta_image'] ?? ($system['seo_meta_image'] ?? '') }}">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{{ $seo['meta_title'] ?? ($system['seo_meta_title'] ?? '') }}" />
 <meta name="twitter:description" content="{{ $seo['meta_description'] ?? ($system['seo_meta_description'] ?? '') }}" />

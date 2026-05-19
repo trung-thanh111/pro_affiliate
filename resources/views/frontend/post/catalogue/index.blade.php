@@ -24,16 +24,17 @@
                             $image = $val->image;
                             $href = write_url($val->languages->first()->pivot->canonical ?? '');
                             $description = cutnchar(strip_tags($val->languages->first()->pivot->description ?? ''), 450);
+                            $redirectUrl = get_post_affiliate_url($val);
                         @endphp
 
-                        <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-1-3 uk-width-large-1-4 mb25">
+                        <div class="uk-width-1-1 uk-width-small-1-1 uk-width-medium-1-3 uk-width-large-1-4 mb25" data-redirect="{{ $redirectUrl }}">
                             <div class="news-item wow fadeInUp" data-wow-delay="{{ ($key % 4) * 0.1 }}s">
-                                <a href="{{ $href }}" class="image img-cover" title="{{ $title }}">
+                                <a href="{{ $href }}" class="image img-cover post-link-redirect" title="{{ $title }}" data-redirect="{{ $redirectUrl }}">
                                     <img src="{{ $image }}" alt="{{ $title }}">
                                 </a>
                                 <div class="info">
                                     <h3 class="title">
-                                        <a href="{{ $href }}" title="{{ $title }}">{{ $title }}</a>
+                                        <a href="{{ $href }}" title="{{ $title }}" class="post-link-redirect" data-redirect="{{ $redirectUrl }}">{{ $title }}</a>
                                     </h3>
                                     <div class="description">
                                         {!! $description !!}

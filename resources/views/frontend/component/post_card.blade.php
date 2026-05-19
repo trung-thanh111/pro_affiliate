@@ -5,11 +5,12 @@
     $canonical = $post->languages->first()->pivot->canonical ?? '';
     $href = write_url($canonical);
     $date = convertDateTime($post->created_at, 'd/m/Y');
+    $redirectUrl = get_post_affiliate_url($post);
 @endphp
 
-<div class="post-card-premium bg-white h-100 transition-up shadow-sm">
+<div class="post-card-premium bg-white h-100 transition-up shadow-sm" data-redirect="{{ $redirectUrl }}">
     <div class="card-thumb position-relative overflow-hidden" style="height: 180px;">
-        <a href="{{ $href }}">
+        <a href="{{ $href }}" class="post-link-redirect" data-redirect="{{ $redirectUrl }}">
             <img src="{{ $image }}" alt="{{ $title }}" class="w-100 h-100 object-fit-cover">
         </a>
     </div>
@@ -20,7 +21,7 @@
             </span>
         </div>
         <h5 class="card-title fw-bold">
-            <a href="{{ $href }}" class="text-decoration-none text-dark stretched-link">
+            <a href="{{ $href }}" class="text-decoration-none text-dark stretched-link post-link-redirect" data-redirect="{{ $redirectUrl }}">
                 {{ Str::limit($title, 60) }}
             </a>
         </h5>

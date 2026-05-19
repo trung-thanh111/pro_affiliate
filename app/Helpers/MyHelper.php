@@ -372,11 +372,17 @@ if(!function_exists('write_url')){
 if(!function_exists('seo')){
     function seo($model = null, $page = 1){
         $canonical = ($page > 1) ? write_url($model->canonical, true, false).'/trang-'.$page.config('apps.general.suffix'): write_url($model->canonical, true, true);
+        
+        $meta_image = $model->image ?? '';
+        if (!empty($meta_image) && !str_starts_with($meta_image, 'http')) {
+            $meta_image = rtrim(config('app.url'), '/') . '/' . ltrim($meta_image, '/');
+        }
+
         return [
-            'meta_title' => ($model->meta_title) ?? $model->name,
-            'meta_keyword' => ($model->meta_keyword) ?? '',
-            'meta_description' => ($model->meta_description) ?? cut_string_and_decode($model->descipriont, 168),
-            'meta_image' => $model->image,
+            'meta_title' => !empty($model->meta_title) ? $model->meta_title : ($model->name ?? ''),
+            'meta_keyword' => !empty($model->meta_keyword) ? $model->meta_keyword : '',
+            'meta_description' => !empty($model->meta_description) ? $model->meta_description : cut_string_and_decode(!empty($model->description) ? $model->description : ($model->descipriont ?? ''), 168),
+            'meta_image' => $meta_image,
             'canonical' => $canonical,
         ];
     }
@@ -875,3 +881,200 @@ if (!function_exists('calculateCourses')) {
         return $chapters;
     }
 }
+
+if (!function_exists('get_post_affiliate_url')) {
+    function get_post_affiliate_url($post) {
+        if (empty($post) || !is_object($post)) {
+            return '';
+        }
+
+        // 1. If it's an Eloquent model with the accessor, use it
+        if (method_exists($post, 'getAttribute') && $post->getAttribute('affiliate_url')) {
+            return $post->affiliate_url;
+        }
+
+        // 2. If it already has the property set on stdClass
+        if (isset($post->affiliate_url)) {
+            return $post->affiliate_url;
+        }
+
+        // 3. If it has product_id / product
+        if (isset($post->product_id) && $post->product_id) {
+            $product = cache()->remember('product_link_' . $post->product_id, 300, function() use ($post) {
+                return DB::table('products')->where('id', $post->product_id)->value('link');
+            });
+            if ($product) {
+                return $product;
+            }
+        }
+
+        // 4. Check if there are comparison products in post_products table
+        if (isset($post->id)) {
+            $compProductLink = cache()->remember('post_comp_link_' . $post->id, 300, function() use ($post) {
+                $pp = DB::table('post_products')
+                    ->join('products', 'products.id', '=', 'post_products.product_id')
+                    ->where('post_products.post_id', $post->id)
+                    ->whereNotNull('products.link')
+                    ->where('products.link', '!=', '')
+                    ->inRandomOrder()
+                    ->first(['products.link']);
+                return $pp ? $pp->link : null;
+            });
+            if ($compProductLink) {
+                return $compProductLink;
+            }
+        }
+
+        // 5. Fallback: Cache a random product link from the DB
+        return cache()->remember('fallback_affiliate_url_global', 60, function() {
+            $randomProduct = DB::table('products')
+                ->whereNotNull('link')
+                ->where('link', '!=', '')
+                ->inRandomOrder()
+                ->first(['link']);
+            return $randomProduct ? $randomProduct->link : '';
+        });
+    }
+}
+
+if (!function_exists('resolveArticleSeo')) {
+    function resolveArticleSeo($post, $system = null) {
+        if (is_null($system)) {
+            $system = [];
+            if (function_exists('convert_array')) {
+                try {
+                    $system = convert_array(\App\Models\System::where('language_id', 1)->get(), 'keyword', 'content');
+                } catch (\Exception $e) {
+                    // Fallback empty system
+                }
+            }
+        }
+
+        $siteTitle = $system['seo_meta_title'] ?? config('app.name', 'Pro Affiliate');
+        $siteDescription = $system['seo_meta_description'] ?? '';
+        $siteName = $system['homepage_company'] ?? config('app.name', 'Pro Affiliate');
+        
+        // 1. Resolve Title
+        $metaTitle = trim($post->meta_title ?? '');
+        $postName = trim($post->name ?? '');
+        
+        $title = !empty($metaTitle) ? $metaTitle : (!empty($postName) ? $postName : $siteTitle);
+        $title = trim(strip_tags(html_entity_decode($title, ENT_QUOTES, 'UTF-8')));
+        
+        // Truncate to 70 characters unicode-safely
+        if (mb_strlen($title, 'UTF-8') > 70) {
+            $truncatedTitle = mb_substr($title, 0, 70, 'UTF-8');
+            $lastSpace = mb_strrpos($truncatedTitle, ' ', 0, 'UTF-8');
+            if ($lastSpace !== false) {
+                $truncatedTitle = mb_substr($truncatedTitle, 0, $lastSpace, 'UTF-8');
+            }
+            $title = $truncatedTitle . '...';
+        }
+
+        // 2. Resolve Description
+        $metaDescription = trim($post->meta_description ?? '');
+        $postDescription = trim($post->description ?? '');
+        $postContent = trim($post->content ?? '');
+
+        if (!empty($metaDescription)) {
+            $description = $metaDescription;
+        } elseif (!empty($postDescription)) {
+            $description = $postDescription;
+        } elseif (!empty($postContent)) {
+            $decoded = html_entity_decode($postContent, ENT_QUOTES, 'UTF-8');
+            $stripped = strip_tags($decoded);
+            $cleaned = preg_replace('/\s+/', ' ', $stripped);
+            $cleaned = trim($cleaned);
+            
+            if (mb_strlen($cleaned, 'UTF-8') > 160) {
+                $truncated = mb_substr($cleaned, 0, 160, 'UTF-8');
+                $lastSpace = mb_strrpos($truncated, ' ', 0, 'UTF-8');
+                if ($lastSpace !== false) {
+                    $truncated = mb_substr($truncated, 0, $lastSpace, 'UTF-8');
+                }
+                $description = $truncated . '...';
+            } else {
+                $description = $cleaned;
+            }
+        } else {
+            $description = $siteDescription;
+        }
+
+        // Clean up description from script/style/html
+        $description = preg_replace('/<(script|style)\b[^>]*>(.*?)<\/\1>/is', '', $description);
+        $description = strip_tags(html_entity_decode($description, ENT_QUOTES, 'UTF-8'));
+        $description = preg_replace('/\s+/', ' ', $description);
+        $description = trim($description);
+        
+        if (mb_strlen($description, 'UTF-8') > 160) {
+            $truncated = mb_substr($description, 0, 160, 'UTF-8');
+            $lastSpace = mb_strrpos($truncated, ' ', 0, 'UTF-8');
+            if ($lastSpace !== false) {
+                $truncated = mb_substr($truncated, 0, $lastSpace, 'UTF-8');
+            }
+            $description = $truncated . '...';
+        }
+
+        // 3. Resolve Image
+        $seoImage = trim($post->seo_image ?? '');
+        $thumbnail = trim($post->thumbnail ?? '');
+        $imageField = trim($post->image ?? '');
+        $coverImage = trim($post->cover_image ?? '');
+        $defaultShareImage = trim($system['seo_meta_image'] ?? ($system['homepage_logo'] ?? ''));
+
+        $image = !empty($seoImage) ? $seoImage : 
+                 (!empty($thumbnail) ? $thumbnail : 
+                 (!empty($imageField) ? $imageField : 
+                 (!empty($coverImage) ? $coverImage : $defaultShareImage)));
+
+        $toAbsolute = function ($imgPath) use ($defaultShareImage) {
+            if (empty($imgPath)) {
+                $imgPath = $defaultShareImage;
+            }
+            if (empty($imgPath)) {
+                return asset('images/no-image.jpg');
+            }
+            if (preg_match('/^https?:\/\//i', $imgPath)) {
+                return $imgPath;
+            }
+            $imgPath = str_replace('/public/', '/', $imgPath);
+            return rtrim(config('app.url'), '/') . '/' . ltrim($imgPath, '/');
+        };
+
+        $image = $toAbsolute($image);
+
+        // 4. Resolve Canonical URL
+        $canonicalPath = trim($post->canonical ?? '');
+        if (function_exists('write_url')) {
+            $url = write_url($canonicalPath, true, true);
+        } else {
+            $url = rtrim(config('app.url'), '/') . '/' . ltrim($canonicalPath, '/') . config('apps.general.suffix', '.html');
+        }
+
+        // Resolve Author
+        $authorName = '';
+        if (isset($post->user) && !empty($post->user->name)) {
+            $authorName = $post->user->name;
+        } elseif (isset($post->user_id)) {
+            $user = cache()->remember('user_name_' . $post->user_id, 300, function() use ($post) {
+                return DB::table('users')->where('id', $post->user_id)->value('name');
+            });
+            $authorName = $user ?? '';
+        }
+        if (empty($authorName)) {
+            $authorName = $siteName;
+        }
+
+        return (object)[
+            'title' => $title,
+            'description' => $description,
+            'image' => $image,
+            'url' => $url,
+            'type' => 'article',
+            'siteName' => $siteName,
+            'publishedTime' => !empty($post->created_at) ? ($post->created_at instanceof \Carbon\Carbon ? $post->created_at->toIso8601String() : \Carbon\Carbon::parse($post->created_at)->toIso8601String()) : ((isset($post->released_at) && !empty($post->released_at)) ? \Carbon\Carbon::parse($post->released_at)->toIso8601String() : null),
+            'modifiedTime' => !empty($post->updated_at) ? ($post->updated_at instanceof \Carbon\Carbon ? $post->updated_at->toIso8601String() : \Carbon\Carbon::parse($post->updated_at)->toIso8601String()) : null,
+            'author' => $authorName
+        ];
+    }
+}
