@@ -62,8 +62,7 @@ class HomeController extends FrontendController
 
 
         $bestSellers = $this->widgetService->getBestSellers($this->language, 6);
-        $promotionProducts = $this->widgetService->getPromotionProducts($this->language, 12);
-        $categoryWithProducts = $this->widgetService->getCategoryWithProducts($this->language, 12, 1); // Lấy 1 danh mục tiêu biểu
+        $homeSections = $this->widgetService->getHomeSections($this->language);
         $categories = $widgets['category'] ?? null;
 
         $system = $this->system;
@@ -108,9 +107,8 @@ class HomeController extends FrontendController
             'schema',
             'widgets',
             'bestSellers',
-            'promotionProducts',
+            'homeSections',
             'categories',
-            'categoryWithProducts',
             'latestPosts',
             'reviewPosts',
             'featuredReviews',

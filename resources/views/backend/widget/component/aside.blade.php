@@ -45,9 +45,14 @@
 
 <div class="ibox short-code">
     <div class="ibox-title">
-        <h5>Ghi chú</h5>
+        <h5>Ghi chú / Config</h5>
     </div>
     <div class="ibox-content">
         <textarea name="note" class="textarea form-control" style="height: 100px;">{{ old('note', ($widget->note) ?? null) }}</textarea>
+        <small class="text-muted d-block mt5">
+            <strong>Home Section Widget (keyword: section-1...section-6):</strong><br>
+            Nhập JSON config, ví dụ: <code>{"limit": 12}</code><br>
+            <code>limit</code>: số sản phẩm hiển thị (mặc định 12)
+        </small>
     </div>
 </div>

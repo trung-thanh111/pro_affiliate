@@ -968,4 +968,170 @@ class WidgetService extends BaseService
 
         return static::$widgetCache[$cacheKey] = $categories;
     }
+
+    /**
+     * Get 6 Home Section Widgets - driven by admin widget config
+     * Mỗi widget keyword: section-1 ... section-6
+     * model = ProductCatalogue, model_id = danh mục cha cần hiển thị
+     * note = json config: {"limit": 12, "tabs": true}
+     */
+    public function getHomeSections(int $language = 1): array
+    {
+        $cacheKey = "home_sections_{$language}";
+        if (isset(static::$widgetCache[$cacheKey])) {
+            return static::$widgetCache[$cacheKey];
+        }
+
+        // Load 6 section keywords
+        $keywords = ['section-1', 'section-2', 'section-3', 'section-4', 'section-5', 'section-6'];
+        $keywordList = "'" . implode("','", $keywords) . "'";
+
+        $widgets = collect(DB::select("
+            SELECT id, name, keyword, model, model_id, note
+            FROM widgets
+            WHERE keyword IN ({$keywordList})
+            AND publish = 2
+            AND deleted_at IS NULL
+            ORDER BY FIELD(keyword, {$keywordList})
+        "))->map(function ($w) {
+            $w->model_id = is_string($w->model_id) ? json_decode($w->model_id, true) ?? [] : ($w->model_id ?? []);
+            $config = json_decode($w->note ?? '{}', true) ?? [];
+            $w->limit = (int) ($config['limit'] ?? 12);
+            return $w;
+        });
+
+        if ($widgets->isEmpty()) {
+            return static::$widgetCache[$cacheKey] = [];
+        }
+
+        $sections = [];
+
+        foreach ($widgets as $widget) {
+            $catIds = array_filter(array_map('intval', (array) $widget->model_id));
+            if (empty($catIds)) continue;
+
+            $primaryId = $catIds[0];
+
+            // Lấy thông tin danh mục cha
+            $parentCat = DB::table('product_catalogues as c')
+                ->join('product_catalogue_language as cl', function ($j) use ($language) {
+                    $j->on('c.id', '=', 'cl.product_catalogue_id')
+                      ->where('cl.language_id', '=', $language);
+                })
+                ->where('c.id', $primaryId)
+                ->where('c.publish', 2)
+                ->whereNull('c.deleted_at')
+                ->select('c.id', 'cl.name', 'cl.canonical')
+                ->first();
+
+            if (!$parentCat) continue;
+
+            // Lấy danh mục con (tabs)
+            $children = DB::table('product_catalogues as c')
+                ->join('product_catalogue_language as cl', function ($j) use ($language) {
+                    $j->on('c.id', '=', 'cl.product_catalogue_id')
+                      ->where('cl.language_id', '=', $language);
+                })
+                ->where('c.parent_id', $primaryId)
+                ->where('c.publish', 2)
+                ->whereNull('c.deleted_at')
+                ->orderBy('c.order', 'ASC')
+                ->select('c.id', 'cl.name', 'cl.canonical')
+                ->limit(10)
+                ->get();
+
+            // Lấy products từ danh mục cha + tất cả con (recursive)
+            $allCatIds = $this->getRecursiveCategoryIds($primaryId, 'ProductCatalogue');
+            $catIdList = implode(',', array_map('intval', $allCatIds));
+
+            $products = collect([]);
+            if (!empty($catIdList)) {
+                $sql = "
+                    SELECT DISTINCT
+                        p.id, p.image, p.price, p.price_discount, p.publish, p.sold, p.source,
+                        pl.name as language_name, pl.canonical,
+                        COALESCE(AVG(r.score), 0) as review_average,
+                        COUNT(DISTINCT r.id) as review_count
+                    FROM products p
+                    INNER JOIN product_catalogue_product pcp ON p.id = pcp.product_id
+                    LEFT JOIN product_language pl ON p.id = pl.product_id AND pl.language_id = ?
+                    LEFT JOIN reviews r ON p.id = r.reviewable_id AND r.reviewable_type = 'App\\\\Models\\\\Product'
+                    WHERE pcp.product_catalogue_id IN ({$catIdList})
+                    AND p.publish = 2
+                    AND p.deleted_at IS NULL
+                    GROUP BY p.id, p.image, p.price, p.price_discount, p.publish, p.sold, p.source, pl.name, pl.canonical
+                    ORDER BY p.order DESC, p.id DESC
+                    LIMIT {$widget->limit}
+                ";
+
+                $rows = collect(DB::select($sql, [$language]));
+                $productIds = $rows->pluck('id')->toArray();
+                $products = $this->applyPromotions($rows->map(function ($row) {
+                    $row->languages = collect([(object)[
+                        'pivot' => (object)[
+                            'name'      => $row->language_name,
+                            'canonical' => $row->canonical,
+                        ],
+                        'name'      => $row->language_name,
+                        'canonical' => $row->canonical,
+                    ]]);
+                    $row->review_average = round((float) $row->review_average, 1);
+                    $row->review_count   = (int) $row->review_count;
+                    return $row;
+                }), 'Product');
+            }
+
+            // Tab products map (theo từng tab con)
+            $tabProductsMap = [];
+            foreach ($children as $child) {
+                $childIds = $this->getRecursiveCategoryIds($child->id, 'ProductCatalogue');
+                $childIdList = implode(',', array_map('intval', $childIds));
+                if (!$childIdList) continue;
+
+                $childSql = "
+                    SELECT DISTINCT
+                        p.id, p.image, p.price, p.price_discount, p.publish, p.sold, p.source,
+                        pl.name as language_name, pl.canonical,
+                        COALESCE(AVG(r.score), 0) as review_average,
+                        COUNT(DISTINCT r.id) as review_count
+                    FROM products p
+                    INNER JOIN product_catalogue_product pcp ON p.id = pcp.product_id
+                    LEFT JOIN product_language pl ON p.id = pl.product_id AND pl.language_id = ?
+                    LEFT JOIN reviews r ON p.id = r.reviewable_id AND r.reviewable_type = 'App\\\\Models\\\\Product'
+                    WHERE pcp.product_catalogue_id IN ({$childIdList})
+                    AND p.publish = 2
+                    AND p.deleted_at IS NULL
+                    GROUP BY p.id, p.image, p.price, p.price_discount, p.publish, p.sold, p.source, pl.name, pl.canonical
+                    ORDER BY p.order DESC, p.id DESC
+                    LIMIT {$widget->limit}
+                ";
+
+                $tabRows = collect(DB::select($childSql, [$language]));
+                $tabProductsMap[$child->id] = $this->applyPromotions($tabRows->map(function ($row) {
+                    $row->languages = collect([(object)[
+                        'pivot' => (object)[
+                            'name'      => $row->language_name,
+                            'canonical' => $row->canonical,
+                        ],
+                        'name'      => $row->language_name,
+                        'canonical' => $row->canonical,
+                    ]]);
+                    $row->review_average = round((float) $row->review_average, 1);
+                    $row->review_count   = (int) $row->review_count;
+                    return $row;
+                }), 'Product');
+            }
+
+            $sections[$widget->keyword] = (object)[
+                'widget'         => $widget,
+                'title'          => $widget->name,
+                'category'       => $parentCat,
+                'children'       => $children,
+                'products'       => $products,
+                'tabProductsMap' => $tabProductsMap,
+            ];
+        }
+
+        return static::$widgetCache[$cacheKey] = $sections;
+    }
 }
