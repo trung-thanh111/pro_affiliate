@@ -71,16 +71,21 @@
 
                 let flag = ($('#model-'+data[i].id).length) ? 1 : 0;
                 let setChecked = ($('#model-'+data[i].id).length) ? HT.setChecked() : ''
+                let soldText = '';
+                if (data[i].sold !== undefined && data[i].sold !== null) {
+                    soldText = ` <span style="color: #ed5565; font-weight: bold; font-size: 11px; margin-left: 5px;">(Đã bán: ${data[i].sold})</span>`;
+                }
 
                 html += `<button 
                             class="ajax-search-item" 
                             data-flag="${flag}" 
                             data-canonical="${data[i].languages[0].pivot.canonical}" data-image="${data[i].image}" 
                             data-name="${data[i].languages[0].pivot.name}" 
+                            data-sold="${data[i].sold !== undefined && data[i].sold !== null ? data[i].sold : ''}"
                             data-id="${data[i].id}"
                         >
                 <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                    <span>${data[i].languages[0].pivot.name}</span>
+                    <span>${data[i].languages[0].pivot.name}${soldText}</span>
                     <div class="auto-icon">
                         ${setChecked}
                     </div>
@@ -129,11 +134,15 @@
 
 
     HT.modelTemplate = (data) => {
+        let soldText = '';
+        if (data.sold !== undefined && data.sold !== null && data.sold !== '') {
+            soldText = ` <span style="color: #ed5565; font-weight: bold; font-size: 11px; margin-left: 5px;">(Đã bán: ${data.sold})</span>`;
+        }
         let html = `<div class="search-result-item" id="model-${data.id}" data-modelid="${data.id}">
             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                 <div class="uk-flex uk-flex-middle">
                     <span class="image img-cover"><img src="${data.image}" alt=""></span>
-                    <span class="name">${data.name}</span>
+                    <span class="name">${data.name}${soldText}</span>
                     <div class="hidden">
                         <input type="text" name="modelItem[id][]" value="${data.id}">
                         <input type="text" name="modelItem[name][]" value="${data.name}">

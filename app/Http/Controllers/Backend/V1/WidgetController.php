@@ -104,7 +104,7 @@ class WidgetController extends Controller
         if($widget->model_id != null){
             $widgetItem = convertArrayByKey($modelClass->findByCondition(
                 ...array_values($this->menuItemAgrument($widget->model_id))
-            ), ['id','name.languages', 'image']);
+            ), ['id','name.languages', 'image', 'sold']);
         }
 
         

@@ -19,8 +19,7 @@
                 <div class="panel-head-modern">
                     <div class="header-flex">
                         <h2 class="heading-modern">
-                            <a href="{{ $catUrl }}" title="{{ $section->title }}">{{ $section->title }} bán
-                                chạy</a>
+                            <a href="{{ $catUrl }}" title="{{ $section->title }}">{{ $section->title }}</a>
                         </h2>
                         @if ($section->children->isNotEmpty())
                             <div class="tab-scroller">

@@ -83,6 +83,10 @@
                 let name = lang.pivot.name || ''
                 let canonical = lang.pivot.canonical || ''
                 let description = lang.pivot.description || ''
+                let soldText = '';
+                if (data[i].sold !== undefined && data[i].sold !== null) {
+                    soldText = ` <span style="color: #ed5565; font-weight: bold; font-size: 11px; margin-left: 5px;">(Đã bán: ${data[i].sold})</span>`;
+                }
 
                 html += `<div 
                             class="ajax-search-item" 
@@ -90,13 +94,14 @@
                             data-canonical="${canonical}" data-image="${data[i].image}" 
                             data-name="${name}" 
                             data-description="${description}"
+                            data-sold="${data[i].sold !== undefined && data[i].sold !== null ? data[i].sold : ''}"
                             data-id="${data[i].id}"
                             style="cursor: pointer; border-bottom: 1px solid #f4f4f4;"
                         >
                 <div class="uk-flex uk-flex-middle uk-flex-space-between" style="padding: 8px 10px;">
                     <div class="uk-flex uk-flex-middle">
                         <span class="image img-cover me-2" style="width: 32px; height: 32px; display: inline-block; border-radius: 4px; overflow: hidden; border: 1px solid #eee;"><img src="${data[i].image}" alt="" style="width: 100%; height: 100%; object-fit: cover;"></span>
-                        <span style="font-size: 13px; color: #333;">${name}</span>
+                        <span style="font-size: 13px; color: #333;">${name}${soldText}</span>
                     </div>
                     <div class="auto-icon">
                         ${setChecked}
@@ -154,11 +159,15 @@
 
 
     HT.modelTemplate = (data) => {
+        let soldText = '';
+        if (data.sold !== undefined && data.sold !== null && data.sold !== '') {
+            soldText = ` <span style="color: #ed5565; font-weight: bold; font-size: 11px; margin-left: 5px;">(Đã bán: ${data.sold})</span>`;
+        }
         let html = `<div class="search-result-item" id="model-${data.id}" data-modelid="${data.id}">
             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                 <div class="uk-flex uk-flex-middle">
                     <span class="image img-cover"><img src="${data.image}" alt=""></span>
-                    <span class="name">${data.name}</span>
+                    <span class="name">${data.name}${soldText}</span>
                     <div class="hidden">
                         <input type="text" name="modelItem[id][]" value="${data.id}">
                         <input type="text" name="modelItem[name][]" value="${data.name}">

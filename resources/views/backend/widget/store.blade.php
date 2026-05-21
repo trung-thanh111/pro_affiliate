@@ -55,11 +55,19 @@
                                     <div class="uk-flex uk-flex-middle uk-flex-space-between">
                                         <div class="uk-flex uk-flex-middle">
                                             <span class="image img-cover"><img src="{{ $modelItem['image'][$key] }}" alt=""></span>
-                                            <span class="name">{{ $modelItem['name'][$key] }}</span>
+                                            <span class="name">
+                                                {{ $modelItem['name'][$key] }}
+                                                @if(isset($modelItem['sold'][$key]) && $modelItem['sold'][$key] !== null)
+                                                    <span style="color: #ed5565; font-weight: bold; font-size: 11px; margin-left: 5px;">(Đã bán: {{ $modelItem['sold'][$key] }})</span>
+                                                @endif
+                                            </span>
                                             <div class="hidden">
                                                 <input type="text" name="modelItem[id][]" value="{{ $val }}">
                                                 <input type="text" name="modelItem[name][]" value="{{ $modelItem['name'][$key] }}">
                                                 <input type="text" name="modelItem[image][]" value="{{ $modelItem['image'][$key] }}">
+                                                @if(isset($modelItem['sold'][$key]))
+                                                    <input type="text" class="model-sold" data-id="{{ $val }}" value="{{ $modelItem['sold'][$key] }}">
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="deleted">

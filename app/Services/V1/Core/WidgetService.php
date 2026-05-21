@@ -549,8 +549,13 @@ class WidgetService extends BaseService
             AND o.publish = 2 
             AND o.deleted_at IS NULL
             GROUP BY o.id, p.{$catalogueIdField}
-            ORDER BY o.order DESC, o.id DESC
         ";
+
+        if ($objectModel === 'product') {
+            $sql .= " ORDER BY o.sold DESC, o.id DESC ";
+        } else {
+            $sql .= " ORDER BY o.order DESC, o.id DESC ";
+        }
 
         // Query DB
         $rows = collect(DB::select($sql, [$language, $language]));
@@ -710,8 +715,13 @@ class WidgetService extends BaseService
             AND o.publish = 2 
             AND o.deleted_at IS NULL
             GROUP BY o.id
-            ORDER BY o.order DESC
         ";
+
+        if ($model === 'Product') {
+            $sql .= " ORDER BY o.sold DESC, o.id DESC ";
+        } else {
+            $sql .= " ORDER BY o.order DESC ";
+        }
 
         return collect(DB::select($sql, [$language, $language]))->map(function ($item) use ($model) {
             // Process similar to getObjectsBatch
@@ -960,6 +970,7 @@ class WidgetService extends BaseService
                     $q->whereIn('product_catalogues.id', $descendantIds);
                 })
                 ->where('publish', 2)
+                ->orderBy('sold', 'DESC')
                 ->limit($limit)
                 ->get();
 
@@ -1060,7 +1071,7 @@ class WidgetService extends BaseService
                     AND p.publish = 2
                     AND p.deleted_at IS NULL
                     GROUP BY p.id, p.image, p.price, p.price_discount, p.publish, p.sold, p.source, pl.name, pl.canonical
-                    ORDER BY p.order DESC, p.id DESC
+                    ORDER BY p.sold DESC, p.id DESC
                     LIMIT {$widget->limit}
                 ";
 
@@ -1102,7 +1113,7 @@ class WidgetService extends BaseService
                     AND p.publish = 2
                     AND p.deleted_at IS NULL
                     GROUP BY p.id, p.image, p.price, p.price_discount, p.publish, p.sold, p.source, pl.name, pl.canonical
-                    ORDER BY p.order DESC, p.id DESC
+                    ORDER BY p.sold DESC, p.id DESC
                     LIMIT {$widget->limit}
                 ";
 
