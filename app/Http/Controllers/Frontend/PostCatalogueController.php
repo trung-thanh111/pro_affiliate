@@ -218,7 +218,7 @@ class PostCatalogueController extends FrontendController
             'meta_title' => 'Kết quả tìm kiếm cho: ' . $keyword,
             'meta_keyword' => 'tìm kiếm bài viết, ' . $keyword,
             'meta_description' => 'Kết quả tìm kiếm bài viết cho từ khóa: ' . $keyword,
-            'meta_image' => $this->system['seo_meta_images'],
+            'meta_image' => $this->system['seo_meta_images'] ?? '',
             'canonical' => route('post.catalogue.search'),
         ];
 

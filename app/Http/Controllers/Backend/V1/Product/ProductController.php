@@ -36,8 +36,7 @@ class ProductController extends Controller
     ){
         $this->middleware(function($request, $next){
             $locale = app()->getLocale(); // vn en cn
-            $language = Language::where('canonical', $locale)->first();
-            $this->language = $language->id;
+            $this->language = current_language_id($locale);
             $this->initialize();
             return $next($request);
         });
@@ -223,8 +222,7 @@ class ProductController extends Controller
         $products = $request->input('products', []);
         $languageId = $this->language;
         if (!$languageId) {
-            $language = Language::where('canonical', app()->getLocale())->first();
-            $languageId = $language->id ?? 1;
+            $languageId = current_language_id();
         }
         $result = $this->productService->analyzeImport($products, $languageId);
         return response()->json($result);
@@ -235,8 +233,7 @@ class ProductController extends Controller
         $products = $request->input('products', []);
         $languageId = $this->language;
         if (!$languageId) {
-            $language = Language::where('canonical', app()->getLocale())->first();
-            $languageId = $language->id ?? 1;
+            $languageId = current_language_id();
         }
         if ($this->productService->executeImport($products, $languageId)) {
             return response()->json(['status' => 'success']);

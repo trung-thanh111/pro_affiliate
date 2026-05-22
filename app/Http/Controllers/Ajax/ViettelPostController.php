@@ -32,8 +32,8 @@ class ViettelPostController extends FrontendController
         $get = $request->input();
         $provinceId = $get['city_id'];
         $viettelPost = new ViettelPost(
-            $this->system['homepage_viettelpost_email'],
-            $this->system['homepage_viettelpost_password']
+            $this->system['homepage_viettelpost_email'] ?? '',
+            $this->system['homepage_viettelpost_password'] ?? ''
         );
         $token = $viettelPost->getToken();
         $districts = $viettelPost->getDistricts($token, $provinceId); 
@@ -50,8 +50,8 @@ class ViettelPostController extends FrontendController
         $districtId = $get['district_id'];
 
         $viettelPost = new ViettelPost(
-            $this->system['homepage_viettelpost_email'],
-            $this->system['homepage_viettelpost_password']
+            $this->system['homepage_viettelpost_email'] ?? '',
+            $this->system['homepage_viettelpost_password'] ?? ''
         );
         $token = $viettelPost->getToken();
         $wards = $viettelPost->getWards($token, $districtId); 

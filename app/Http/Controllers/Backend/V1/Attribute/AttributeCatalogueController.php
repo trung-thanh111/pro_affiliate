@@ -30,8 +30,7 @@ class AttributeCatalogueController extends Controller
     ){
         $this->middleware(function($request, $next){
             $locale = app()->getLocale();
-            $language = Language::where('canonical', $locale)->first();
-            $this->language = $language->id;
+            $this->language = current_language_id($locale);
             $this->initialize();
             return $next($request);
         });

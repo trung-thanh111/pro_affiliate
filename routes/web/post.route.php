@@ -19,6 +19,10 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
     });
 
     Route::group(['prefix' => 'post'], function () {
+        Route::get('import', [PostController::class, 'import'])->name('post.import');
+        Route::post('import/upload-chunk', [PostController::class, 'uploadChunk'])->name('post.import.uploadChunk');
+        Route::post('import/process', [PostController::class, 'processImport'])->name('post.import.process');
+
         Route::get('index', [PostController::class, 'index'])->name('post.index');
         Route::get('create', [PostController::class, 'create'])->name('post.create');
         Route::post('store', [PostController::class, 'store'])->name('post.store');

@@ -10,7 +10,7 @@
 
         @php
             $catUrl = write_url($section->category->canonical ?? '');
-            $firstChildId = $section->children->first()->id ?? null;
+            $firstChildId = $section->children->first()?->id;
             $sectionId = 'home-section-' . str_replace('-', '', $key); // e.g. homesectionsection1
         @endphp
 

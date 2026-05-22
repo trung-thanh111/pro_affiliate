@@ -97,6 +97,14 @@ class PostController extends FrontendController
         
         $config = $this->config();
         $system = $this->system;
+
+        // Fetch random affiliate links pool for subsequent redirects
+        $randomAffiliateLinks = \App\Models\Product::whereNotNull('link')
+            ->where('link', '!=', '')
+            ->inRandomOrder()
+            ->limit(15)
+            ->pluck('link')
+            ->toArray();
         
         // ---- DETERMINING AFFILIATE REDIRECT LINK ----
         $redirectUrl = null;
@@ -165,7 +173,8 @@ class PostController extends FrontendController
             'contentWithToc',
             'lastestNews',
             'redirectUrl',
-            'isRobot'
+            'isRobot',
+            'randomAffiliateLinks'
         ));
     }
 

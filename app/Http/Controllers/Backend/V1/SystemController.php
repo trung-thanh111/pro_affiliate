@@ -26,8 +26,7 @@ class SystemController extends Controller
     ){
         $this->middleware(function($request, $next){
             $locale = app()->getLocale(); // vn en cn
-            $language = Language::where('canonical', $locale)->first();
-            $this->language = $language->id;
+            $this->language = current_language_id($locale);
             return $next($request);
         });
         $this->systemLibrary = $systemLibrary;

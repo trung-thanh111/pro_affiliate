@@ -2,6 +2,22 @@
 
 use App\Enums\PromotionEnum;
 
+if(!function_exists('current_language_id')){
+    function current_language_id(?string $locale = null): int{
+        $locale = $locale ?: app()->getLocale();
+
+        try {
+            return (int) (
+                \App\Models\Language::where('canonical', $locale)->value('id')
+                ?? \App\Models\Language::query()->value('id')
+                ?? 1
+            );
+        } catch (\Throwable $e) {
+            return 1;
+        }
+    }
+}
+
 if(!function_exists('convertRevenueChartData')){
     function convertRevenueChartData($chartData, $data = 'monthly_revenue', $label = 'month' , $text = 'Tháng'){
         $newArray = [];
@@ -1077,4 +1093,4 @@ if (!function_exists('resolveArticleSeo')) {
             'author' => $authorName
         ];
     }
-}
+}

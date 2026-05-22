@@ -23,7 +23,7 @@ class SetLocale
         App::setLocale($locale);
 
         $languageId = cache()->rememberForever('language_id_' . $locale, function () use ($locale) {
-            return Language::where('canonical', $locale)->value('id') ?? 1;
+            return current_language_id($locale);
         });
 
         Config::set('app.language_id', $languageId);

@@ -27,8 +27,7 @@ class DashboardController extends Controller
     ){
         $this->middleware(function($request, $next){
             $locale = app()->getLocale(); // vn en cn
-            $language = \App\Models\Language::where('canonical', $locale)->first();
-            $this->language = $language->id;
+            $this->language = current_language_id($locale);
             return $next($request);
         });
 

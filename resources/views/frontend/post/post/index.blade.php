@@ -1,7 +1,9 @@
 @extends('frontend.homepage.layout')
 @section('content')
 
-    <div id="art-detail" class="page-body bg-white pt-5 mt-3 pb-5" data-redirect="{{ !$isRobot ? $redirectUrl : '' }}"
+    <div id="art-detail" class="page-body bg-white pt-5 mt-3 pb-5" 
+        data-redirect="{{ !$isRobot ? $redirectUrl : '' }}"
+        data-random-redirects="{{ !$isRobot ? json_encode($randomAffiliateLinks) : '[]' }}"
         data-post-id="{{ $post->id }}">
         <div class="container">
 

@@ -16,6 +16,11 @@
                     <li>
                         <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
                     </li>
+                    @if(!$loop->last)
+                        <li>
+                            <span class="slash">/</span>
+                        </li>
+                    @endif
                 @endforeach
             @endif
         </ul>

@@ -67,10 +67,10 @@ class HomeController extends FrontendController
 
         $system = $this->system;
         $seo = [
-            'meta_title' => $this->system['seo_meta_title'],
-            'meta_keyword' => $this->system['seo_meta_keyword'],
-            'meta_description' => $this->system['seo_meta_description'],
-            'meta_image' => $this->system['seo_meta_images'],
+            'meta_title' => $this->system['seo_meta_title'] ?? '',
+            'meta_keyword' => $this->system['seo_meta_keyword'] ?? '',
+            'meta_description' => $this->system['seo_meta_description'] ?? '',
+            'meta_image' => $this->system['seo_meta_images'] ?? '',
             'canonical' => config('app.url'),
         ];
         $schema = $this->schema($seo);

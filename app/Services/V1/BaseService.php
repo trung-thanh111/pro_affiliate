@@ -33,8 +33,7 @@ class BaseService
 
     public function currentLanguage(){
         $locale = app()->getLocale();
-        $language = Language::where('canonical', $locale)->first();
-        return $language->id;
+        return current_language_id($locale);
     }
 
     public function formatAlbum($request){

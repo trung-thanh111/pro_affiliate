@@ -31,7 +31,7 @@ class AuthController extends FrontendController
     public function index(){
         $system = $this->system;
         $seo = [
-            'meta_title' => 'Trang đăng nhập - Hệ thống website '.$this->system['homepage_company'],
+            'meta_title' => 'Trang đăng nhập - Hệ thống website '.($this->system['homepage_company'] ?? ''),
             'meta_keyword' => '',
             'meta_description' => '',
             'meta_image' => '',
@@ -45,7 +45,7 @@ class AuthController extends FrontendController
   
     public function register(){
         $seo = [
-            'meta_title' => 'Trang đăng ký - Hệ thống website '. $this->system['homepage_company'],
+            'meta_title' => 'Trang đăng ký - Hệ thống website '. ($this->system['homepage_company'] ?? ''),
             'meta_keyword' => '',
             'meta_description' => '',
             'meta_image' => '',

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('major_catalogue_id');
             $table->foreign('major_catalogue_id')->references('id')->on('major_catalogues')->onDelete('cascade'); 
             $table->unsignedBigInteger('train_id'); 
-            $table->foreign('train_id')->references('id')->on('trains')->onDelete('cascade'); 
+            $table->foreign('train_id')->references('id')->on('scholar_trains')->onDelete('cascade'); 
             $table->text('album')->nullable();
             $table->string('image')->nullable();
             $table->enum('publish', [1,2])->default(1);

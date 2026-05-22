@@ -14,7 +14,8 @@
                         @endforeach
                     </select>
                     @include('backend.dashboard.component.keyword')
-                    <a href="{{ route('post.create') }}" class="btn btn-danger"><i class="fa fa-plus mr5"></i>{{ __('messages.post.create.title') }}</a>
+                    <a href="{{ route('post.import') }}" class="btn btn-success ml10"><i class="fa fa-upload mr5"></i> Import JSON</a>
+                    <a href="{{ route('post.create') }}" class="btn btn-danger ml10"><i class="fa fa-plus mr5"></i>{{ __('messages.post.create.title') }}</a>
                 </div>
             </div>
         </div>

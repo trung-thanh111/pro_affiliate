@@ -55,9 +55,12 @@ class AppServiceProvider extends ServiceProvider
             error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
         }
 
-        
-        $locale = app()->getLocale(); // vn en cn
-        $language = Language::where('canonical', $locale)->first();
+        $languageId = null;
+        if (Schema::hasTable('languages')) {
+            $locale = app()->getLocale(); // vn en cn
+            $languageId = Language::where('canonical', $locale)->value('id')
+                ?? Language::query()->value('id');
+        }
 
         Validator::extend('custom_date_format', function($attribute, $value, $parameters, $validator){
             return Datetime::createFromFormat('d/m/Y H:i', $value) !== false;
@@ -70,24 +73,25 @@ class AppServiceProvider extends ServiceProvider
             return $endDate->greaterThan($startDate) !== false;
         });
 
+        if ($languageId) {
+            view()->composer(['frontend.*', 'mobile.*'], function($view) use ($languageId){
+                $composerClasses = [
+                    MenuComposer::class,
+                    CartComposer::class,
+                    \App\Http\ViewComposers\HeaderComposer::class,
+                ];
 
-        view()->composer(['frontend.*', 'mobile.*'], function($view) use ($language){
-            $composerClasses = [
-                MenuComposer::class,
-                CartComposer::class,
-                \App\Http\ViewComposers\HeaderComposer::class,
-            ];
+                foreach($composerClasses as $key => $val){
+                    $composer = app()->make($val, ['language' => $languageId]);
+                    $composer->compose($view);
+                }
+            });
 
-            foreach($composerClasses as $key => $val){
-                $composer = app()->make($val, ['language' => $language->id]);
+            view()->composer('frontend.component.category_slider', function($view) use ($languageId){
+                $composer = app()->make(\App\Http\ViewComposers\CategorySliderComposer::class, ['language' => $languageId]);
                 $composer->compose($view);
-            }
-        });
-
-        view()->composer('frontend.component.category_slider', function($view) use ($language){
-            $composer = app()->make(\App\Http\ViewComposers\CategorySliderComposer::class, ['language' => $language->id]);
-            $composer->compose($view);
-        });
+            });
+        }
 
       
 
